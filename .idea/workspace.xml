@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a2c90813-1398-4e61-b421-36ee3c09ba6a" name="Default Changelist" comment="init" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf />
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>.ftl</find>
+      <find>shopxx</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>.html</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$</dir>
+      <dir>$PROJECT_DIR$/src/com/igomall</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/com/igomall/plugin/alipayDualPayment/setting.html" />
+        <option value="$PROJECT_DIR$/src/com/igomall/plugin/alipayDirectPayment/setting.html" />
+        <option value="$PROJECT_DIR$/src/com/igomall/plugin/alipayBankPayment/setting.html" />
+        <option value="$PROJECT_DIR$/src/com/igomall/plugin/alipayEscowPayment/setting.html" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="29" />
+    <option name="y" value="23" />
+    <option name="width" value="1440" />
+    <option name="height" value="808" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Demo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mall1" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Demo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mall1" type="462c0819:PsiDirectoryNode" />
+              <item name="WebContent" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Demo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mall1" type="462c0819:PsiDirectoryNode" />
+              <item name="WebContent" type="462c0819:PsiDirectoryNode" />
+              <item name="upload" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1569152615108" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a2c90813-1398-4e61-b421-36ee3c09ba6a" name="Default Changelist" comment="" />
+      <created>1569135804269</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1569135804269</updated>
+      <workItem from="1569135806752" duration="2009000" />
+      <workItem from="1569139953816" duration="439000" />
+      <workItem from="1569146890244" duration="98000" />
+      <workItem from="1569149523455" duration="3344000" />
+    </task>
+    <task id="LOCAL-00001" summary="init">
+      <created>1569152031299</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1569152031299</updated>
+    </task>
+    <task id="LOCAL-00002" summary="init">
+      <created>1569152061778</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1569152061778</updated>
+    </task>
+    <task id="LOCAL-00003" summary="init">
+      <created>1569152091214</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1569152091214</updated>
+    </task>
+    <task id="LOCAL-00004" summary="init">
+      <created>1569152151786</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1569152151786</updated>
+    </task>
+    <task id="LOCAL-00005" summary="init">
+      <created>1569152603535</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1569152603535</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="5890000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="29" y="23" width="1440" height="808" extended-state="0" />
+    <layout>
+      <window_info id="Web" order="0" side_tool="true" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.28826895" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="Image Layers" order="7" />
+      <window_info anchor="bottom" id="Application Servers" order="0" weight="0.328125" />
+      <window_info anchor="bottom" id="Spring" order="1" weight="0.3296875" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.49959776" visible="true" weight="0.30843374" />
+      <window_info anchor="bottom" id="Inspection Results" order="4" weight="0.3296875" />
+      <window_info anchor="bottom" id="Messages" order="5" weight="0.36875" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Java Enterprise" order="7" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.3296875" />
+      <window_info anchor="bottom" id="Find" order="9" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.33100557" />
+      <window_info anchor="bottom" id="Database Changes" order="11" />
+      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.5004023" side_tool="true" weight="0.4" />
+      <window_info anchor="bottom" id="Docker" order="13" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Message" order="14" />
+      <window_info anchor="bottom" id="Cvs" order="15" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="16" weight="0.4" />
+      <window_info anchor="right" id="Bean Validation" order="0" />
+      <window_info anchor="right" id="Theme Preview" order="1" />
+      <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
+      <window_info anchor="right" id="Capture Analysis" order="3" />
+      <window_info anchor="right" id="Palette&#9;" order="4" />
+      <window_info anchor="right" id="Maven" order="5" weight="0.32984716" />
+      <window_info anchor="right" id="Database" order="6" />
+      <window_info anchor="right" id="Palette" order="7" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="8" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="9" weight="0.25" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="Web" order="0" side_tool="true" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.28881738" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="Image Layers" order="7" />
+      <window_info anchor="bottom" id="Application Servers" order="0" weight="0.328125" />
+      <window_info anchor="bottom" id="Spring" order="1" weight="0.3296875" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.49959776" visible="true" weight="0.30843374" />
+      <window_info anchor="bottom" id="Inspection Results" order="4" weight="0.3296875" />
+      <window_info anchor="bottom" id="Messages" order="5" weight="0.36875" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Java Enterprise" order="7" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.3296875" />
+      <window_info anchor="bottom" id="Find" order="9" />
+      <window_info anchor="bottom" id="Terminal" order="10" />
+      <window_info anchor="bottom" id="Database Changes" order="11" />
+      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.5004023" side_tool="true" weight="0.4" />
+      <window_info anchor="bottom" id="Docker" order="13" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Message" order="14" />
+      <window_info anchor="bottom" id="Cvs" order="15" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="16" weight="0.4" />
+      <window_info anchor="right" id="Bean Validation" order="0" />
+      <window_info anchor="right" id="Theme Preview" order="1" />
+      <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
+      <window_info anchor="right" id="Capture Analysis" order="3" />
+      <window_info anchor="right" id="Palette&#9;" order="4" />
+      <window_info anchor="right" id="Maven" order="5" weight="0.32984716" />
+      <window_info anchor="right" id="Database" order="6" />
+      <window_info anchor="right" id="Palette" order="7" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="8" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="9" weight="0.25" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
+    <MESSAGE value="init" />
+    <option name="LAST_COMMIT_MESSAGE" value="init" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/oltu/oauth2/org.apache.oltu.oauth2.client/1.0.2/org.apache.oltu.oauth2.client-1.0.2-sources.jar!/org/apache/oltu/oauth2/client/request/OAuthClientRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="174" column="24" selection-start-line="174" selection-start-column="24" selection-end-line="174" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/oltu/oauth2/org.apache.oltu.oauth2.client/1.0.2/org.apache.oltu.oauth2.client-1.0.2-sources.jar!/org/apache/oltu/oauth2/client/OAuthClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="73" column="40" selection-start-line="73" selection-start-column="40" selection-end-line="73" selection-end-column="40" />
+          <folding>
+            <element signature="e#1654#1655#0" expanded="true" />
+            <element signature="e#1699#1700#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/igomall/plugin/weixinLogin/WeixinLoginPlugin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="131" column="53" selection-start-line="131" selection-start-column="41" selection-end-line="131" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/igomall/ExcelView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="54" column="13" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>12</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
