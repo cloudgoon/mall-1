@@ -1,0 +1,206 @@
+
+package com.igomall.service.impl;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Set;
+import java.util.regex.Pattern;
+
+import javax.inject.Inject;
+import javax.persistence.LockModeType;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
+
+import com.igomall.dao.BusinessDao;
+import com.igomall.dao.BusinessDepositLogDao;
+import com.igomall.entity.Business;
+import com.igomall.entity.BusinessDepositLog;
+import com.igomall.entity.Store;
+import com.igomall.entity.User;
+import com.igomall.service.BusinessService;
+import com.igomall.service.MailService;
+import com.igomall.service.SmsService;
+
+/**
+ * Service - 商家
+ * 
+ * @author IGOMALL  Team
+ * @version 1.0
+ */
+@Service
+public class BusinessServiceImpl extends BaseServiceImpl<Business, Long> implements BusinessService {
+
+	/**
+	 * E-mail身份配比
+	 */
+	private static final Pattern EMAIL_PRINCIPAL_PATTERN = Pattern.compile(".*@.*");
+
+	/**
+	 * 手机身份配比
+	 */
+	private static final Pattern MOBILE_PRINCIPAL_PATTERN = Pattern.compile("\\d+");
+
+	@Inject
+	private BusinessDao businessDao;
+	@Inject
+	private BusinessDepositLogDao businessDepositLogDao;
+	@Inject
+	private MailService mailService;
+	@Inject
+	private SmsService smsService;
+
+	@Transactional(readOnly = true)
+	@Override
+	public Business getUser(Object principal) {
+		Assert.notNull(principal,"");
+		Assert.isInstanceOf(String.class, principal);
+
+		String value = (String) principal;
+		if (EMAIL_PRINCIPAL_PATTERN.matcher(value).matches()) {
+			return findByEmail(value);
+		} else if (MOBILE_PRINCIPAL_PATTERN.matcher(value).matches()) {
+			return findByMobile(value);
+		} else {
+			return findByUsername(value);
+		}
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public Set<String> getPermissions(User user) {
+		Assert.notNull(user,"");
+		Assert.isInstanceOf(Business.class, user);
+
+		Business business = (Business) user;
+		Business pBusiness = businessDao.find(business.getId());
+		Store store = pBusiness.getStore();
+		return store != null && store.isActive() ? Business.NORMAL_BUSINESS_PERMISSIONS : Business.RESTRICT_BUSINESS_PERMISSIONS;
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public boolean supports(Class<?> userClass) {
+		return userClass != null && Business.class.isAssignableFrom(userClass);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public boolean usernameExists(String username) {
+		return businessDao.exists("username", StringUtils.lowerCase(username));
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public Business findByUsername(String username) {
+		return businessDao.find("username", StringUtils.lowerCase(username));
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public boolean emailExists(String email) {
+		return businessDao.exists("email", StringUtils.lowerCase(email));
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public boolean emailUnique(Long id, String email) {
+		return businessDao.unique(id, "email", StringUtils.lowerCase(email));
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public Business findByEmail(String email) {
+		return businessDao.find("email", StringUtils.lowerCase(email));
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public boolean mobileExists(String mobile) {
+		return businessDao.exists("mobile", StringUtils.lowerCase(mobile));
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public boolean mobileUnique(Long id, String mobile) {
+		return businessDao.unique(id, "mobile", StringUtils.lowerCase(mobile));
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public Business findByMobile(String mobile) {
+		return businessDao.find("mobile", StringUtils.lowerCase(mobile));
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<Business> search(String keyword, Integer count) {
+		return businessDao.search(keyword, count);
+	}
+
+	@Transactional
+	@Override
+	public Business save(Business business) {
+		Assert.notNull(business,"");
+
+		Business pBusiness = super.save(business);
+		mailService.sendRegisterBusinessMail(pBusiness);
+		smsService.sendRegisterBusinessSms(pBusiness);
+		return super.save(business);
+	}
+
+	@Override
+	public void addBalance(Business business, BigDecimal amount, BusinessDepositLog.Type type, String memo) {
+		Assert.notNull(business,"");
+		Assert.notNull(amount,"");
+		Assert.notNull(type,"");
+
+		if (amount.compareTo(BigDecimal.ZERO) == 0) {
+			return;
+		}
+
+		if (!LockModeType.PESSIMISTIC_WRITE.equals(businessDao.getLockMode(business))) {
+			businessDao.flush();
+			businessDao.refresh(business, LockModeType.PESSIMISTIC_WRITE);
+		}
+
+		Assert.notNull(business.getBalance(),"");
+		Assert.state(business.getBalance().add(amount).compareTo(BigDecimal.ZERO) >= 0,"");
+
+		business.setBalance(business.getBalance().add(amount));
+		businessDao.flush();
+
+		BusinessDepositLog businessDepositLog = new BusinessDepositLog();
+		businessDepositLog.setType(type);
+		businessDepositLog.setCredit(amount.compareTo(BigDecimal.ZERO) > 0 ? amount : BigDecimal.ZERO);
+		businessDepositLog.setDebit(amount.compareTo(BigDecimal.ZERO) < 0 ? amount.abs() : BigDecimal.ZERO);
+		businessDepositLog.setBalance(business.getBalance());
+		businessDepositLog.setMemo(memo);
+		businessDepositLog.setBusiness(business);
+		businessDepositLogDao.persist(businessDepositLog);
+	}
+
+	@Override
+	public void addFrozenFund(Business business, BigDecimal amount) {
+		Assert.notNull(business,"");
+		Assert.notNull(amount,"");
+
+		if (amount.compareTo(BigDecimal.ZERO) == 0) {
+			return;
+		}
+
+		if (!LockModeType.PESSIMISTIC_WRITE.equals(businessDao.getLockMode(business))) {
+			businessDao.flush();
+			businessDao.refresh(business, LockModeType.PESSIMISTIC_WRITE);
+		}
+
+		Assert.notNull(business.getFrozenFund(),"");
+		Assert.state(business.getFrozenFund().add(amount).compareTo(BigDecimal.ZERO) >= 0,"");
+
+		business.setFrozenFund(business.getFrozenFund().add(amount));
+		businessDao.flush();
+	}
+
+}
