@@ -1,0 +1,251 @@
+.nc-login {
+    background-color: #fff;
+    border: 1px solid #e6e6e6;
+    border-radius: 5px;
+    padding: 19px 19px 29px;
+    width: 400px;
+    /*margin:200px auto;*/
+}
+.nc-regist{
+    color: #aaa;
+
+    font-size: 14px;
+    height: 40px;
+    line-height: 20px;
+    margin-top: 12px; margin-left:18px;
+}
+.nc-regist span {
+    display: inline-block;
+    vertical-align: top;
+}
+.nc-regist .avatar {
+    border-radius: 100%;
+    height: 40px;
+    margin-right: 6px;
+    width: 40px;
+}
+.nc-regist .avatar img {
+    border-radius: 100%;
+    height: 40px;
+    width: 40px;
+}
+.nc-regist a {
+    font-weight: 600;
+    margin-left: 4px;
+}
+
+.nc-regist a{ color:#006dd9;  }
+.nc-login-content{
+    margin-top: 20px;
+    padding: 0 20px 20px;
+}
+.nc-login-form-new dl {
+    background-color: #fff;
+    border: 1px solid #e6e6e6;
+    height: 52px;
+    margin-top: -1px;
+    position: relative;
+    width: 358px;
+    z-index: 1;
+    float: left;
+}
+.nc-login-form-new dl dt {
+    color: #666;
+    float: left;
+    font-size: 14px;
+    line-height: 22px;
+    padding: 16px 0 16px 20px;
+    width:70px;
+}
+.nc-login-form-new .code-div {
+    height: 54px;
+    width: 360px;float: left;
+}
+
+.nc-login-form-new .code-div label.error {
+    background:none;
+    left: auto;
+    min-width: auto;
+    padding: 0;
+    right: 10px;
+    top: 15px;
+}
+.nc-login-form-new .code-div02 label.error { left:240px;
+
+}
+.nc-login-form-new dl dd {
+    float: left;
+    height: 28px;
+    padding: 12px 0;
+}
+
+.nc-login-form-new dl dd .text {
+    width: 240px;
+}
+.nc-login-form-new dl dd .text {
+    border: 0 none;
+    font-family: "microsoft yahei";
+    font-size: 14px;
+    height: 28px;
+    line-height: 28px;
+    padding: 0;
+    width: 250px;  color: #333;
+}
+input[type="text"]:focus, input[type="password"]:focus, input.text:focus, input.password:focus, textarea:focus {
+    border-color: #ccd0d9;
+    color: #333;
+    outline: 0 none;
+}
+
+.register .vol {
+    font-family: Verdana,Geneva,sans-serif;
+    font-size: 12px;
+    font-style: oblique;
+    font-weight: 600;
+}
+.register .vol .b {
+    color: #006dd9;
+}
+.register .vol .o {
+    color: #ff6d3b;
+}
+.register .vol em {
+    color: #000;
+    font-family: Georgia,Arial;
+    font-style: italic;
+    font-weight: 600;
+    margin-left: 2px;
+}
+.nc-login-content .handle-div {
+    line-height: 20px;
+    margin-top: 15px;
+    overflow: hidden; width:360px; float:left;
+}
+.nc-login-content .handle-div .auto {
+    color: #999;
+    float: left;
+}
+.nc-login-content .handle-div .auto .checkbox {
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+.nc-login-content .handle-div .auto em {
+    color: #ff3238;
+    display: inline-block;
+    line-height: 20px;
+    margin-left: 6px;
+    vertical-align: top;
+}
+.nc-login-content .handle-div .forget {
+    float: right;
+}
+.nc-login-content .handle-div a.forget { color:#006dd9;}
+.nc-login-content .handle-div a.forget:hover { color:#c81623;}
+.nc-login-content .submit-div {
+    margin-top: 15px;
+}
+.nc-login-content .submit-div .submit {
+    background-color: #006dd9;
+    border: 1px solid #006dd9;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    font-family: "microsoft yahei";
+    font-size: 16px;
+    font-weight: 600;
+    height: 42px;
+    width: 360px; margin-top:10px;
+}
+.nc-login-content .submit-div .submit:hover{ background-color:#0561bc;  }
+
+
+
+
+.nc-login-form-new .code-div dl {
+    width: 237px;
+}
+.nc-login-form-new .code-div span {
+    border: 1px solid #e6e6e6;
+    float: left;
+    height: 52px;
+    margin: -1px 0 0 -1px;
+    position: relative;
+    width: 120px;
+    z-index: 1;
+}
+.nc-login-form-new .code-div span img {
+    height: 52px;
+    width: 120px;
+}
+.nc-login-form-new .code-div span a {
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    display: none;
+    font-size: 14px;
+    height: 52px;
+    left: 0;
+    line-height: 52px;
+    position: absolute;
+    text-align: center;
+    text-decoration: none;
+    top: 0;
+    width: 120px;
+    z-index: 1;
+}
+.nc-login-form-new .code-div span:hover a {
+    display: block;
+}
+.nc-login-form-new dl.error02 {
+    border-color: #f32613;
+    z-index: 2;
+}
+.nc-login-form-new label.error02 i {
+    color: #f32613;
+    font-size: 24px;
+    margin-right: 12px;
+    vertical-align: middle;
+}
+.nc-login-form-new label.error {
+    background: #fff5d9;
+    color: #000;
+    height: 24px;
+    left:227px;
+    line-height: 24px;
+    padding: 8px 10px;
+    position: absolute;
+    text-align: left;
+    top: 5px;
+    white-space: nowrap;
+    z-index: 2; float:right;
+}
+.nc-login-form-new label.error i {
+    color: #ff500b;
+    font-size: 20px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+.nc-login-form-new label.error03 {
+    background: #fff5d9;
+    color: #000;
+    height: 24px;
+    left:239px;
+    line-height: 24px;
+    padding: 8px 10px;
+    position: absolute;
+    text-align: left;
+    top: 5px;
+    white-space: nowrap;
+    z-index: 2; float:right;
+}
+.nc-login-form-new label.error03 i {
+    color: #ff500b;
+    font-size: 20px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.nc-login-form-new dl.error {
+    border-color: #f32613;
+    z-index: 2;
+}

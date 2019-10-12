@@ -1,0 +1,419 @@
+.nc-toolbar-wrap { position: fixed; _position: absolute; top: 0; right: 0; z-index: 9990; width: 0; height: 100%;}
+.nc-toolbar { position: absolute; right: 0; top: 0; width: 0; height: 100%; border-right: 6px solid #7a6e6e; -webkit-transition: right .3s ease-in-out 0s; -moz-transition: right .3s ease-in-out 0s; transition: right .3s ease-in-out 0s }
+.nc-toolbar-panels { position: absolute; left: 6px; _left: 6px; top: 0; width: 270px; height: 100%; z-index: 2; background: #eceaea; _display: none;}
+
+.nc-toolbar-header { position: absolute; top: 0; right: -6px }
+.nc-toolbar-tabs { position: absolute; top: 50%; left: -29px; width: 35px; margin-top: -61px }
+.nc-toolbar-tabs .tabs-tip { position: absolute; top: 0; right: 35px; height: 35px; line-height: 35px; white-space: nowrap; border-radius: 5px; background: #C81623; color: #fff; padding: 0 10px; padding-left: 30px }
+.nc-toolbar-tabs .tabs-tip .ico { width: 15px; height: 12px; background-position: -50px -310px; position: absolute; top: 13px; left: 10px }
+
+.nc-toolbar-tab { position: relative; width: 35px; height: 35px; margin-bottom: 1px; cursor: pointer; background-color: #7a6e6e; -webkit-border-radius: 3px 0 0 3px; -moz-border-radius: 3px 0 0 3px; border-radius: 3px 0 0 3px; }
+.nc-toolbar-tab .tab-ico { width: 34px; height: 35px; margin-left: 1px; position: relative; z-index: 2; background-color: #7a6e6e; _display: block }
+.nc-toolbar-tab .tab-text { width: 62px; height: 35px; line-height: 35px; color: #fff; text-align: center; font-family: "宋体"; position: absolute; z-index: 1; left: 35px; top: 0; background-color: #7a6e6e; -webkit-border-radius: 3px 0 0 3px; -moz-border-radius: 3px 0 0 3px; border-radius: 3px 0 0 3px; -webkit-transition: left .3s ease-in-out .1s; -moz-transition: left .3s ease-in-out .1s; transition: left .3s ease-in-out .1s; _display: none }
+.nc-toolbar-tab .tab-sub { position: absolute; z-index: 3; right: 2px; top: -5px; height: 11px; padding: 1px 2px; overflow: hidden; color: #fff; font: 11px/11px verdana; text-align: center; min-width: 11px; _width: 20px; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; border-radius: 0\9; background-color: #C81623;}
+.nc-toolbar-tab .tab-tip { position: absolute; top: 8px; right: 10px; width: 6px; height: 6px; background-position: -100px 0; z-index: 999 }
+
+.nc-toolbar-tab .tab-ico,
+.nc-toolbar-tab .tab-tip,
+.nc-tbar-panel-header i,
+.nc-tbar-panel-header .close-panel { display: inline-block; background-image: url(../img/toolbar_bg.png); background-repeat: no-repeat }
+
+.nc-tbar-tab-user .tab-ico { background-position: 0 0 }
+.nc-tbar-tab-cart .tab-ico { background-position: 0 -50px }
+.nc-tbar-tab-follow .tab-ico { background-position: 0 -100px }
+.nc-tbar-tab-history .tab-ico { background-position: 0 -150px }
+
+
+.z-nc-tbar-tab-hover, .z-nc-tbar-tab-hover .tab-ico { background-color: #C81623 }
+.z-nc-tbar-tab-hover .tab-text { left: -60px; background-color: #C81623; _display: block }
+.z-nc-tbar-tab-hover .tab-sub { color: #C81623; background-color: #fff; -webkit-box-shadow: 1px 1px 3px rgba(0,0,0,.3); -moz-box-shadow: 1px 1px 3px rgba(0,0,0,.3); box-shadow: 1px 1px 3px rgba(0,0,0,.3); text-shadow: 1px 0 1px rgba(0,0,0,.3) }
+.z-nc-tbar-tab-hover .tab-tip { display: none }
+.z-nc-tbar-tab-selected, .z-nc-tbar-tab-selected .tab-ico { background-color: #C81623 }
+.z-nc-tbar-tab-selected .tab-text { display: none }
+.z-nc-tbar-tab-selected .tab-sub { color: #C81623; background-color: #fff; background-image: -moz-linear-gradient(top, #fff, #fff); background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #fff)); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ffffff', GradientType='0');
+-ms-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ffffff');
+background-image: linear-gradient(to bottom, #fff 0, #fff 100%); -webkit-box-shadow: 1px 1px 3px rgba(0,0,0,.3); -moz-box-shadow: 1px 1px 3px rgba(0,0,0,.3); box-shadow: 1px 1px 3px rgba(0,0,0,.3); text-shadow: 1px 0 1px rgba(0,0,0,.3) }
+.z-nc-tbar-tab-selected .tab-tip { display: none }
+
+
+
+.nc-tbar-tab-message .tab-ico { background-position: 0 -200px }
+.nc-tbar-tab-top .tab-ico { background-position: 0 -250px }
+.nc-tbar-tab-qrCode .tab-ico { background-position: 0 -300px }
+.nc-tbar-tab-coupon .tab-ico { background-position: 0 -350px }
+@-webkit-keyframes toolbar-scaleIn {
+ from {
+opacity:.7;
+-webkit-transform:translateX(270px);
+-moz-transform:translateX(270px);
+transform:translateX(270px)
+}
+ to {
+-webkit-transform:translateX(0px);
+-moz-transform:translateX(0px);
+transform:translateX(0px)
+}
+}
+@-ms-keyframes toolbar-scaleIn {
+ from {
+opacity:.7;
+-webkit-transform:translateX(270px);
+-moz-transform:translateX(270px);
+transform:translateX(270px)
+}
+ to {
+-webkit-transform:translateX(0px);
+-moz-transform:translateX(0px);
+transform:translateX(0px)
+}
+}
+@-moz-keyframes toolbar-scaleIn {
+ from {
+opacity:.7;
+-webkit-transform:translateX(270px);
+-moz-transform:translateX(270px);
+transform:translateX(270px)
+}
+ to {
+-webkit-transform:translateX(0px);
+-moz-transform:translateX(0px);
+transform:translateX(0px)
+}
+}
+@keyframes toolbar-scaleIn {
+ from {
+opacity:.7;
+-webkit-transform:translateX(270px);
+-moz-transform:translateX(270px);
+transform:translateX(270px)
+}
+ to {
+-webkit-transform:translateX(0px);
+-moz-transform:translateX(0px);
+transform:translateX(0px)
+}
+}
+@-webkit-keyframes toolbar-scaleOut {
+ to {
+opacity:.5;
+-webkit-transform:scale(0.7) translateX(270px);
+-moz-transform:scale(0.7) translateX(270px);
+transform:scale(0.7) translateX(270px)
+}
+}
+@-ms-keyframes toolbar-scaleOut {
+ to {
+opacity:.5;
+-webkit-transform:scale(0.7) translateX(270px);
+-moz-transform:scale(0.7) translateX(270px);
+transform:scale(0.7) translateX(270px)
+}
+}
+@-moz-keyframes toolbar-scaleOut {
+ to {
+opacity:.5;
+-webkit-transform:scale(0.7) translateX(270px);
+-moz-transform:scale(0.7) translateX(270px);
+transform:scale(0.7) translateX(270px)
+}
+}
+@keyframes toolbar-scaleOut {
+ to {
+opacity:.5;
+-webkit-transform:scale(0.7) translateX(270px);
+-moz-transform:scale(0.7) translateX(270px);
+transform:scale(0.7) translateX(270px)
+}
+}
+.toolbar-animate-in { -webkit-animation: toolbar-scaleIn .35s ease-in-out; -moz-animation: toolbar-scaleIn .35s ease-in-out; animation: toolbar-scaleIn .35s ease-in-out }
+.toolbar-animate-out { -webkit-animation: toolbar-scaleOut .35s ease-in; -moz-animation: toolbar-scaleOut .35s ease-in; animation: toolbar-scaleOut .35s ease-in }
+.nc-tbar-panel-ad .nc-tbar-panel-content { overflow: hidden }
+
+
+
+.nc-tbar-panel-follow .follow-head-tip .close-tip, 
+.nc-tbar-panel-follow .follow-product-list .fpl-item .fpl-remove, 
+.nc-tbar-panel-follow .follow-shop-list .fsl-item .shop-logo a { display: inline-block; background-image: url(../img/toolbar_bg.png); background-repeat: no-repeat }
+/*Copyright: 天津网城商动科技有限责任公司*/
+.nc-toolbar-tabs .tabs-tip .ico { display: inline-block; background-image: url(../img/toolbar_bg.png); background-repeat: no-repeat }
+
+.i-face-fd, .i-face-jk { display: inline-block; background-image: url(../img/toolbar_bg.png); _background-image: url(../img/toolbar_bg.png); background-repeat: no-repeat }
+.i-loading { display: inline-block; width: 32px; height: 32px; background-image: url(../img/loading.gif); background-repeat: no-repeat }
+.i-face-fd { width: 67px; height: 80px; margin-bottom: 10px; background-position: -150px 0 }
+.i-face-jk { width: 113px; height: 35px; background-position: 0 -50px }
+.nc-tbar-tipbox .tip-inner { padding: 6px 5px; border: 1px solid #edd28b; background: #fffdee; text-align: center }
+.nc-tbar-tipbox .tip-text { display: inline-block; line-height: 20px; vertical-align: middle; color: #333 }
+.nc-tbar-tipbox .tip-btn { display: inline-block; height: 20px; line-height: 20px; padding: 0 5px; margin-left: 5px; color: #fff; vertical-align: middle; background: #C81623 }
+.nc-tbar-login { display: none }
+.nc-tbar-tipbox2 { text-align: center }
+.nc-tbar-tipbox2 .tip-text { line-height: 20px; overflow: hidden}
+.nc-tbar-tipbox2 .tip-text a { color: #C81623 }
+
+.nc-toolbar-wrap a { text-decoration: none }
+
+.z-nc-toolbar-open .nc-toolbar { right: 270px }
+.z-nc-toolbar-open .nc-toolbar-panels { _display: block }
+
+.nc-toolbar-panel { width: 270px; height: 100%; position: absolute; background: #F0F0F0; visible: hidden }
+.nc-tbar-panel-header { position: relative; width: 270px; height: 40px; line-height: 40px; background: #F0F0F0; border-bottom: solid 1px #EEE; }
+.nc-tbar-panel-header i { margin-right: 4px; margin-left: 10px; vertical-align: top }
+.nc-tbar-panel-header .title { display: inline-block; height: 40px; color: #5e5050; font: 16px/40px "微软雅黑" }
+.nc-tbar-panel-header .title em { display: inline-block; vertical-align: top }
+.nc-tbar-panel-header .close-panel { width: 10px; height: 10px; padding: 5px; background-position: -95px -45px; position: absolute; right: 4px; top: 11px; cursor: pointer; filter:alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity:0.5; opacity: 0.5 }
+.nc-tbar-panel-header .close-panel:hover { filter:alpha(opacity=100); -moz-opacity:1; -khtml-opacity:1; opacity: 1 }
+.nc-tbar-panel-main { position: relative }
+.nc-tbar-panel-content { width: 270px; overflow-y: auto; overflow-x: hidden; position: relative }
+.nc-tbar-panel-content .nc-tbar-tipbox2 { width: 270px; position: absolute; left: 0; top: 50%; margin-top: -60px }
+.nc-tbar-panel-content::-webkit-scrollbar { width:5px}
+.nc-tbar-panel-content::-webkit-scrollbar-track { -webkit-border-radius:6px; border-radius:6px; background-color:transparent}
+.nc-tbar-panel-content::-webkit-scrollbar-thumb { -webkit-border-radius:6px; border-radius:6px; background:#7b6f6f }
+
+
+.nc-toolbar-tabs .tabs-tip b { width: 0; height: 0; line-height: 0; font-size: 0; border: transparent 6px dashed; border-left: 6px solid #C81623; position: absolute; right: -12px; top: 12px; z-index: 20 }
+.nc-toolbar-footer { position: absolute; bottom: -1px; width: 100%; left: -29px }
+.nc-toolbar-footer .nc-toolbar-tab .tab-text { width: 50px }
+.nc-toolbar-footer .z-nc-tbar-tab-hover .tab-text { left: -48px }
+
+
+/*会员中心*/
+.nc-tbar-panel-jdvip .nc-tbar-panel-header i { width: 20px; height: 20px; margin-top: 10px; background-position: -50px 0 }
+.grid-layout .column-3 { float: left; width: 33.33% }
+.nc-tbar-member .preson-block { padding: 10px; background-color: #FFF; margin-bottom: 10px; }
+.nc-tbar-member .preson-block .preson-info { position: relative; height: 72px; overflow: hidden }
+.nc-tbar-member .preson-block .preson-info .avatar { position: absolute; left: 0; top: 0; width: 65px; height: 65px; overflow: hidden; -moz-border-radius: 50% 50% 50% 50%; -webkit-border-radius: 50% 50% 50% 50%; border-radius: 50% 50% 50% 50% }
+.nc-tbar-member .preson-block .preson-info .avatar img { width: 100%; height: 100% }
+.nc-tbar-member .preson-block .preson-info .user-rank sub {  display: inline-block; vertical-align: middle; height: 16px; padding: 1px 5px; border-radius: 2px; background-color: #555; background-image: linear-gradient(180deg, #6A6A69, #4A4948); color: #FFF8B5; font-size: 11px; line-height: 15px; font-weight: 600; text-shadow: 1px 1px 0 rgba(0,0,0,0.5);}
+.nc-tbar-member .preson-block .preson-info .info { margin-left: 75px; margin-top: 10px; line-height: 20px }
+.nc-tbar-member .preson-block .preson-info .info .name { font-size: 14px }
+.nc-tbar-member .preson-block .preson-info .info .user-rank { margin-top: 3px; cursor: pointer }
+.nc-tbar-member .preson-block .preson-info .info .user-rank .user-marker-item { display: inline-block; margin-right: 2px; vertical-align: middle }
+.nc-tbar-member .preson-block .preson-info .info .user-rank .user-marker-item.last { margin-right: 0 }
+.nc-tbar-member .preson-block .preson-info .info .user-rank .icon-rank { margin-right: 2px }
+.nc-tbar-member .preson-block .preson-info .info .user-rank span { vertical-align: middle }
+.nc-tbar-member .preson-block .get-dou-group { padding: 3px 0 10px; overflow: hidden }
+.nc-tbar-member .preson-block .get-dou-group .link-marker { float: left; margin-right: 5px }
+.nc-tbar-member .preson-block .account-info { overflow: hidden; text-align: center }
+.nc-tbar-member .preson-block .account-info .account-info-item { float: left; overflow: hidden; position: relative }
+.nc-tbar-member .preson-block .account-info .account-info-item .info-value { font-size: 14px }
+.nc-tbar-member .preson-block .account-info .account-info-item .info-name { color: #999; padding-top: 5px }
+.nc-tbar-member .preson-block .account-info .account-info-item .border { width: 1px; height: 100%; font-size: 0; position: absolute; display: inline-block; top: 0 }
+.nc-tbar-member .preson-block .account-info .account-info-item .border.b-l { border-left: 1px dotted #ddd; left: 0 }
+.nc-tbar-member .preson-block .account-info .account-info-item .border.b-r { border-right: 1px dotted #ddd; right: 0 }
+/*会员中心的店铺券*/
+.nc-tbar-ticket { background-color: #FFF; padding: 0 10px; margin-bottom: 10px; text-align: center; }
+.nc-tbar-ticket .title-block { font-size: 15px; text-align: center; padding: 15px 0 7px; position: relative; }
+.nc-tbar-ticket .title-block .text { position: relative; padding: 0 10px; display: inline-block; background-color: #FFF; z-index: 2; font-family: "微软雅黑", "Microsoft Yahei", arial, sans-serif; color: #000; }
+.nc-tbar-ticket .title-block .line { position: absolute; border-top: 1px dotted #ddd; width: 90%; left: 5%; top: 60%; }
+.nc-tbar-ticket .more { display: inline-block; padding: 0 10px; margin: 10px auto 15px auto; border: solid 1px #EEE; border-radius:  13px; line-height: 24px; color: #999;}
+/* 店铺券列表 */
+.nctb-ticket-list { width: 100%;}
+.nctb-ticket-list li { display: inline-block; position: relative; z-index: 1; width: 247px; height: 90px; margin: 15px auto 0 auto; background: url(../img/toolbar_bg.png) no-repeat; }
+.nctb-ticket-list .ticket-value { position: absolute; z-index: 1; top: 8px; left: 8px; font-family: Verdana; font-size: 16px; line-height: 30px;}
+.nctb-ticket-list .ticket-value em { font-family: Tahoma; font-size: 28px;}
+.nctb-ticket-list .ticket-value em .pointer,.nctb-ticket-list .ticket-value em .decimal{display: none;}
+.nctb-ticket-list .ticket-value em .pointer .yuan{margin-right: 0.2rem}
+
+.nctb-ticket-list .ticket-condition { position: absolute; z-index: 1; top: 12px; right: 5px;}
+.nctb-ticket-list .ticket-store { position: absolute; z-index: 1; bottom: 23px; left: 8px;  width: 93%; height:20px; line-height: 20px; overflow: hidden;white-space: nowrap; text-overflow: ellipsis; word-break: break-all; word-wrap: break-word; text-align: left;}
+.nctb-ticket-list .ticket-date { position: absolute; z-index: 1; bottom: 6px; left: 8px;}
+.nctb-ticket-list.voucher li { background-position: -150px -100px;}
+.nctb-ticket-list.voucher .ticket-value { color: #FE524A; }
+.nctb-ticket-list.voucher .ticket-condition { color: #EB9D9D;}
+.nctb-ticket-list.voucher .ticket-store,
+.nctb-ticket-list.voucher .ticket-date { color: #FBEDED;}
+.nctb-ticket-list.voucher .ticket-store a,
+.nctb-ticket-list.voucher .ticket-date time { color: #FFF;} 
+.nctb-ticket-list.redpackage li { background-position: -150px -200px;}
+
+.nctb-ticket-list.redpackage { color: #FFF;}
+.nctb-ticket-list.redpackage .ticket-condition { color: #41a8ab;}
+.nctb-ticket-list.redpackage .ticket-value{color: #41a8ab}
+
+/*二维码*/
+.nc-tbar-panel-qrcode .nc-tbar-panel-header i { width: 20px; height: 20px; background-position: -98px -102px; margin-top: 11px }
+.nc-qrcode-container{ width: 100%; }
+.nc-tbar-qrcode-item{ width: 80%; margin:0 auto 10px; background: #fff; padding:0 15px; height: 230px }
+.nc-tbar-qrcode-item img{display: block; width: 120px; height: 120px; overflow: hidden; margin:0 auto; padding-top:25px; padding-bottom: 15px}
+.nc-tbar-qrcode-item .nc-app-download{width:100%; height: 20px; line-height: 20px; text-align: center; color: orange}
+
+
+
+/*购物车*/
+.nc-tbar-panel-cart .nc-tbar-panel-header i { width: 20px; height: 20px; background-position: -50px -50px; margin-top: 11px }
+.nc-tbar-panel-cart .nc-tbar-panel-footer { height: 50px; background-color: #eceaea }
+.nc-tbar-cart-list { width: 100% }
+.nc-tbar-cart-item { padding: 0 5px; margin-bottom: 10px; background: #fff }
+.jtc-item-promo { padding: 12px 0 12px 57px; border-bottom: 1px dashed #e1e1e1 }
+.jtc-item-promo .promo-tag { position: relative; float: left; *display:inline;
+width: 40px; height: 20px; margin-top: -1px; margin-left: -57px; margin-right: 17px; text-align: center; font: 12px/20px "宋体"; color: #fff; background-color: #f58813 }
+.jtc-item-promo .promo-tag .arrow { position: absolute; left: 0; bottom: -6px; width: 0; height: 0; overflow: hidden; border-width: 3px; border-style: solid dashed dashed solid; border-color: #f58813 transparent transparent #f58813 }
+.jtc-item-promo .promo-text { height: 18px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font: 12px/18px verdana }
+.jtc-item-promo .p-name { width: 100%; height: 18px; line-height: 18px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis }
+.jtc-item-promo .p-name a { font-size: 12px; color: #333 }
+.jtc-item-promo .p-price { height: 18px; line-height: 18px; color: #666; font-family: verdana }
+.jtc-item-promo .p-price strong { color: #C81623; font-weight: 400 }
+
+.nctb-item-goods { padding: 10px 0; position: relative; overflow: hidden; *padding-right:12px
+}
+.nctb-item-goods .goods-pic { float: left; width: 50px; height: 50px; border: 1px solid #F5F5F5; padding: 0; margin-right: 5px }
+.nctb-item-goods .goods-pic img { max-width: 100%; max-height: 100% }
+.nctb-item-goods .goods-name { float: left; height: 32px; line-height: 16px; margin-bottom: 4px;}
+.nctb-item-goods .goods-name a { display: block;}
+.nctb-item-goods .goods-name dt,
+.nctb-item-goods .goods-name dd { height: 16px; width: 198px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
+.nctb-item-goods .goods-name a dt { color: #333;}
+.nctb-item-goods .goods-name a dd { color: #999;}
+.nctb-item-goods .goods-price { float: left; height: 16px; padding-right: 65px; overflow: hidden; font: 12px/16px verdana; color: #666 }
+.nctb-item-goods .goods-price strong { color: #C81623; font-weight: 400 }
+.nctb-item-goods .cart-del { position: absolute; right: 5px; *right:10px; _right: 13px; top: 46px; width: 40px; height: 16px; line-height: 16px; color: #999; display: none }
+.nctb-item-goods .cart-del:hover { color: #C81623;}
+.nctb-item-goods:hover .cart-del { display: block; }
+/*Copyright: 天津网城商动科技有限责任公司*/
+.nc-tbar-checkout { height: 40px; padding: 5px 110px 5px 5px; position: relative }
+.nc-tbar-checkout .jtc-number { line-height: 20px }
+.nc-tbar-checkout .jtc-number strong { font-family: verdana; color: #C81623 }
+.nc-tbar-checkout .jtc-sum { line-height: 20px }
+.nc-tbar-checkout .jtc-sum strong { font-family: verdana; color: #C81623 }
+.nc-tbar-checkout .jtc-btn { position: absolute; right: 5px; top: 7px; width: 110px; height: 35px; font: 16px/35px "微软雅黑"; text-align: center; background: #C81623; color: #fff }
+.nc-tbar-checkout .jtc-btn:hover { text-decoration: none }
+
+/*收藏*/
+.nc-tbar-panel-follow .nc-tbar-panel-header i { width: 20px; height: 20px; background-position: -50px -100px; margin-top: 11px }
+.nc-tbar-panel-follow .follow-tabnav { width: 270px; position: absolute; z-index: 2; -webkit-backface-visibility: hidden }
+.nc-tbar-panel-follow .follow-tabnav ul { overflow: hidden; *zoom:1
+}
+.nc-tbar-panel-follow .follow-tabnav li { cursor: pointer; float: left; *display:inline;
+position: relative; width: 135px; text-align: center; height: 37px; line-height: 40px; background: #fff; border-bottom: solid 3px #fff }
+.nc-tbar-panel-follow .follow-tabnav li a { font: 16px "微软雅黑"; text-decoration: none }
+.nc-tbar-panel-follow .follow-tabnav li span { font-size: 0; border-right: dashed 1px #ccc; display: block; position: absolute; right: 0; height: 17px; top: 12px; overflow: hidden }
+.nc-tbar-panel-follow .follow-tabnav .curr { border-bottom: solid 3px #C81623; color: #C81623 }
+.nc-tbar-panel-follow .follow-tabnav .curr a { color: #C81623 }
+.nc-tbar-panel-follow .follow-tabcontents { margin-top: 50px }
+.nc-tbar-panel-follow .follow-tabcontents .follow-tab-content { width: 270px; overflow: hidden; position: relative; float: left; }
+.nc-tbar-panel-follow .follow-tabcontents .follow-tab-content-slected { display: block }
+.nc-tbar-panel-follow .follow-head-tip { color: #333; background: #fffdee; border: solid 1px #edd28b; text-align: center; height: 34px; line-height: 34px; margin-bottom: 10px; position: relative }
+.nc-tbar-panel-follow .follow-head-tip .close-tip { width: 12px; height: 12px; background-position: 0 -250px; position: absolute; right: 20px; top: 12px; cursor: pointer; -webkit-transition: transform .2s ease-out 0s; -moz-transition: transform .2s ease-out 0s; transition: transform .2s ease-out 0s }
+.nc-tbar-panel-follow .follow-head-tip .close-tip:hover { -webkit-transform: rotate(180deg); -moz-transform: rotate(180deg); transform: rotate(180deg) }
+.nc-tbar-panel-follow .follow-bottom-more { display: block; text-align: center; height: 40px; line-height: 40px; font-family: "\5b8b\4f53"; clear: both; }
+.nc-tbar-panel-follow .follow-product-list ul { overflow: hidden; *zoom:1;
+margin-right: -15px; margin-left: 17px }
+.nc-tbar-panel-follow .follow-product-list .fpl-item { float: left; *display:inline;
+position: relative; text-align: center; width: 100px; height: 120px; background: #fff; margin-bottom: 15px; margin-right: 15px; padding: 5px }
+.nc-tbar-panel-follow .follow-product-list .fpl-item .img-wrap { display: block; width: 100px; height: 100px; text-align: center; margin-bottom: 5px }
+.nc-tbar-panel-follow .follow-product-list .fpl-item .price { color: #C81623; text-decoration: none ;font: 12px/16px verdana;}
+.nc-tbar-panel-follow .follow-product-list .fpl-item .cut-price { color: #fff; background: #7bbc52; margin-left: 5px; padding: 1px }
+.nc-tbar-panel-follow .follow-product-list .fpl-item .add-cart-button { height: 20px; line-height: 20px; overflow: hidden; text-align: center; display: none; position: absolute; width: 100px; bottom: 25px; left: 5px; z-index: 3; color: #fff; filter:progid:DXImageTransform.Microsoft.gradient(enabled='true', startColorstr='#CC1C191C', endColorstr='#CC1C191C');
+background: rgba(28,25,28,.8) }
+.nc-tbar-panel-follow .follow-product-list .fpl-item .add-cart-button:hover { filter: none; background: #C81623 }
+.nc-tbar-panel-follow .follow-product-list .fpl-item .fpl-remove { background-position: -50px -240px; position: absolute; right: 5px; top: 5px; width: 15px; height: 17px; display: none }
+.nc-tbar-panel-follow .follow-product-list .fpl-item .fpl-remove:hover { background-position: -50px -2770px }
+.nc-tbar-panel-follow .follow-product-list .fpl-item-hover .add-cart-button, .nc-tbar-panel-follow .follow-product-list .fpl-item-hover .fpl-remove, .nc-tbar-panel-follow .follow-product-list .fpl-item-hover .product-name { display: block }
+.nc-tbar-panel-follow .follow-shop-list ul { overflow: hidden; *zoom:1;
+margin-left: 18px }
+.nc-tbar-panel-follow .follow-shop-list .fsl-item { margin-bottom: 10px; width: 230px; height: 135px; border-bottom: solid 1px #dfdfdf }
+.nc-tbar-panel-follow .follow-shop-list .fsl-item .shop-logo { background: #fff; width: 230px; height: 75px; text-align: center; position: relative }
+.nc-tbar-panel-follow .follow-shop-list .fsl-item .shop-logo a { display: block; position: absolute; background-position: -150px -300px; overflow: hidden; left: 0; width: 230px; height: 75px }
+.nc-tbar-panel-follow .follow-shop-list .fsl-item .shop-logo img { height: 48px; margin-top: 12px }
+.nc-tbar-panel-follow .follow-shop-list .fsl-item .shop-info { background: #fff; width: 230px; height: 59px }
+.nc-tbar-panel-follow .follow-shop-list .fsl-item .si-name { margin: 0 auto; height: 18px; color: #333; text-align: center; padding-top: 8px; padding-bottom: 6px }
+.nc-tbar-panel-follow .follow-shop-list .fsl-item .si-button { display: block; width: 95px; height: 18px; background: #7a6e6e; text-align: center; line-height: 18px; color: #fff; margin: 0 auto; text-decoration: none; font-family: "宋体" }
+.nc-tbar-panel-follow .follow-shop-list .fsl-item .si-button:hover { background: #C81623 }
+.nc-tbar-panel-follow .follow-act-list ul { overflow: hidden; *zoom:1;
+margin-right: -10px; margin-left: 10px }
+.nc-tbar-panel-follow .follow-act-list .fal-item { float: left; *display:inline;
+width: 120px; height: 144px; margin-right: 10px; margin-bottom: 10px; background-color: #fff; border-bottom: solid 1px #dfdfdf; text-align: center }
+
+.nc-tbar-panel-follow .jtf-tab-content { display: none }
+.nc-tbar-panel-follow .follow-product-list .fpl-item-hover .fpl-remove { display: block; }
+/* 足迹 */
+.nc-tbar-panel-history .jth-remove { background-image:url(../img/toolbar_bg.png); background-repeat: no-repeat }
+.nc-tbar-panel-history .nc-tbar-panel-header i { width: 20px; height: 20px; margin-top: 11px; background-position: -50px -150px }
+.nc-tbar-panel-history .jt-history-wrap { width: 235px; margin: 0 auto }
+.nc-tbar-panel-history ul { overflow: hidden; *zoom:1;
+margin-right: -15px }
+.nc-tbar-panel-history .jth-item { float: left; *display:inline;
+position: relative; text-align: center; width: 100px; height: 120px; margin-right: 15px; background: #fff; margin-bottom: 15px; padding: 5px }
+.nc-tbar-panel-history .jth-item .img-wrap { display: block; width: 100px; height: 100px; text-align: center; margin-bottom: 5px }
+/*bycj for cj 添加一个字体让价格符号显示2横 */
+.nc-tbar-panel-history .jth-item .price { color: #C81623;font: 12px/16px verdana; }
+.nc-tbar-panel-history .jth-item .add-cart-button { height: 20px; line-height: 20px; overflow: hidden; text-align: center; text-decoration: none; display: none; position: absolute; width: 100px; bottom: 25px; left: 5px; z-index: 3; color: #fff; filter:progid:DXImageTransform.Microsoft.gradient(enabled='true', startColorstr='#CC1C191C', endColorstr='#CC1C191C');
+background: rgba(28,25,28,.8) }
+.nc-tbar-panel-history .jth-item .add-cart-button:hover { filter: none; background: #C81623 }
+.nc-tbar-panel-history .jth-remove { background-position: -50px -240px; position: absolute; right: 5px; top: 5px; width: 15px; height: 17px; display: none }
+.nc-tbar-panel-history .jth-remove:hover { background-position: -50px -270px }
+.nc-tbar-panel-history .jth-item-hover .add-cart-button, .nc-tbar-panel-history .jth-item-hover .jth-remove { display: block }
+.nc-tbar-panel-history .history-bottom-more { display: block; text-align: center; height: 40px; line-height: 40px; font-family: "\5b8b\4f53" }
+/*返回顶部按钮*/
+
+
+#tbarCouponActivityList {
+    width: 100%;
+    border: 0px solid blue;
+    overflow: auto;
+    position: relative;
+  }
+/*商品详情页优惠券*/
+.nc-tbar-panel-coupon .nc-tbar-panel-header i { width: 20px; height: 20px; background-position: -100px -150px; margin-top: 11px }
+.nc-tbar-coupon-activity-list .coupon-activity-item{position: relative; height: 114px; padding-right: 28px; border:1px solid #f1f1f1; background: #fff; float: left; margin:10px 8px 0px 4px; width: 232px; }
+.nc-tbar-coupon-activity-list .coupon-activity-item:last-child{margin-bottom: 10px}
+.nc-tbar-coupon-activity-list .coupon-activity-item .v-type{padding:12px 6px 12px 14px;}
+.nc-tbar-coupon-activity-list .coupon-activity-item .v-type .v-price{overflow: hidden; display: block; color: #ff5656}
+.nc-tbar-coupon-activity-list .coupon-activity-item .v-type .v-price em{ float: left; font-family: verdana; font-size: 24px; }
+.nc-tbar-coupon-activity-list .coupon-activity-item .v-type .v-price strong{float: left; line-height: 40px; margin:0 10px 0 5px; color: #FB9999}
+.nc-tbar-coupon-activity-list .coupon-activity-item .v-type .v-price strong .pointer,
+.nc-tbar-coupon-activity-list .coupon-activity-item .v-type .v-price strong .decimal{display: none}
+.nc-tbar-coupon-activity-list .coupon-activity-item .v-type .v-price strong .integer{font-family: arial}
+.nc-tbar-coupon-activity-list .coupon-activity-item .v-type .v-price strong .yuan{ font-weight: 400; vertical-align: top; margin-right: 2px}
+.nc-tbar-coupon-activity-list .coupon-activity-item .v-type .v-price .txt{ float: left; line-height: 24px; margin-top:12px; }
+.nc-tbar-coupon-activity-list .coupon-activity-item .v-type .v-price .txt .m-level{color: #ff5656}
+.nc-tbar-coupon-activity-list .coupon-activity-item .v-type .v-price .txt span{ color: #666; display:inline-block; font-size: 13px; }
+.nc-tbar-coupon-activity-list .coupon-activity-item .v-type .v-range{line-height: 22px; color: #999}
+.nc-tbar-coupon-activity-list .coupon-activity-item .v-type .v-range .b-time{margin-top:4px; font-weight: 600}
+.nc-tbar-coupon-activity-list .coupon-activity-item .v-type .v-range .range-item p{ width: 200px; cursor: default; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; word-break: break-all; }
+.nc-tbar-coupon-activity-list .coupon-activity-item .v-type .v-range .range-item i{display: inline-block; width: 130px; height: 8px; background:#e4d6d6; overflow: hidden; position: relative}
+.nc-tbar-coupon-activity-list .coupon-activity-item .v-type .v-range .range-item i b{position: absolute; left: 0; top: 0; height: 8px; background: #ff5656}
+.nc-tbar-coupon-activity-list .coupon-activity-item .v-type .v-range .range-item span{color: #666}
+.nc-tbar-coupon-activity-list .coupon-activity-item .v-opbtns{position: absolute;  top: 0; right: 0; width: 21px; height: 96px; padding:18px 0px 0 11px; line-height:20px; font-size: 12px; color: #fff; background: #FB9999}
+.nc-tbar-coupon-activity-list .coupon-activity-item .v-opbtns a{ display: block; width: 100%; height: 100%; color: #fff }
+.nc-tbar-coupon-activity-list .coupon-activity-item .v-opbtns a .semi-circle{ display: block; position: absolute; left: 0;top: 0; width: 2px; height: 114px; background:url(../img/semi-circle.png) no-repeat; background-size: contain; }
+.nc-tbar-coupon-activity-list .coupon-activity-item .v-opbtns a:hover{color: #9c1a1e}
+.nc-tbar-coupon-activity-list .coupon-activity-item .v-state .btn-state{ width: 47px; height: 47px; overflow: hidden; bottom:10px; right: 42px; position: absolute; color: transparent; }
+.nc-tbar-coupon-activity-list .coupon-activity-item .v-state .btn-geted{ background: url(../img/quan-state.png) no-repeat; background-position: -56px -73px;}
+
+.platform .v-state .btn-geted{ background: url(../img/quan-state.png) no-repeat; background-position: -112px -73px !important}
+.platform .v-price strong{ color: #74d2d4 !important }
+.platform .v-opbtns{background: #74d2d4 !important}
+.platform .v-opbtns a:hover{color: #007f82 !important}
+.ps__rail-y{z-index: 9999}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
