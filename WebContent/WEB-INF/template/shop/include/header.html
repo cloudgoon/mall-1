@@ -1,220 +1,56 @@
-<script type="text/javascript">
-$().ready(function() {
-
-	var $window = $(window);
-	var $headerName = $("#headerName");
-	var $headerLogin = $("#headerLogin");
-	var $headerRegister = $("#headerRegister");
-	var $headerLogout = $("#headerLogout");
-	var $productSearchForm = $("#productSearchForm");
-	var $productSearchKeyword = $("#productSearchForm [name='keyword']");
-	var $headerCart = $("#headerCart");
-	var $headerCartQuantity = $("#headerCart a.cartButton em");
-	var $headerCartDetail = $("#headerCart div.detail");
-	var $headerCartItems = $("#headerCart div.items");
-	var $headerCartSummary = $("#headerCart div.summary");
-	var $broadsideNav = $("#broadsideNav");
-	var currentMemberUsername = getCookie("currentMemberUsername");
-	var defaultProductSearchKeyword = "${message("shop.header.keyword")}";
-	
-	if ($.trim(currentMemberUsername) != "") {
-		$headerName.text(currentMemberUsername).show();
-		$headerLogout.show();
-	} else {
-		$headerLogin.show();
-		$headerRegister.show();
-	}
-	
-	$productSearchKeyword.focus(function() {
-		if ($.trim($productSearchKeyword.val()) == defaultProductSearchKeyword) {
-			$productSearchKeyword.val("");
-		}
-	});
-	
-	$productSearchKeyword.blur(function() {
-		if ($.trim($productSearchKeyword.val()) == "") {
-			$productSearchKeyword.val(defaultProductSearchKeyword);
-		}
-	});
-	
-	$productSearchForm.submit(function() {
-		if ($.trim($productSearchKeyword.val()) == "" || $productSearchKeyword.val() == defaultProductSearchKeyword) {
-			return false;
-		}
-	});
-	
-	// 购物车信息
-	$window.on("cartInfoLoad", function(event, cartInfo) {
-		var skuQuantity = cartInfo != null && cartInfo.skuQuantity != null ? cartInfo.skuQuantity : 0;
-		var effectivePrice = cartInfo != null && cartInfo.effectivePrice != null ? cartInfo.effectivePrice : 0;
-		if ($headerCartQuantity.text() != skuQuantity && "opacity" in document.documentElement.style) {
-			$headerCartQuantity.fadeOut(function() {
-				$headerCartQuantity.text(skuQuantity).fadeIn();
-			});
-		} else {
-			$headerCartQuantity.text(skuQuantity);
-		}
-		var cartItems = cartInfo.items;
-		if(cartItems == null || cartItems.length <= 0){
-			$headerCartItems.html(
-				[@compress single_line = true]
-					'<table>
-						<tr>
-							<td>${message("shop.header.cartEmpty")}<\/td>
-						<\/tr>
-					<\/table>'
-				[/@compress]
-			);
-		} else {
-			var $headerCartTable = $headerCartItems.html('<table id="cartTable"><\/table>');
-			$.each(cartItems, function(i, cartItem) {
-				$('#cartTable').append(
-					[@compress single_line = true]
-						'<tr>
-							<td>
-								<a href="${base}' + cartItem.skuPath + '">
-									<img src="' + cartItem.skuThumbnail + '" \/>
-								<\/a>
-							<\/td>
-							<td>
-								<a href="${base}' + cartItem.skuPath + '">' + escapeHtml(abbreviate(cartItem.skuName, 20, "...")) + '<\/a>
-							<\/td>
-							<td>
-								<span>' + currency(cartItem.price, true, false) + '<\/span>&nbsp; &nbsp;<em>x' + cartItem.quantity + '<\/em>
-							<\/td>
-						<\/tr>'
-					[/@compress]
-				);
-			});
-		}
-		$headerCartSummary.html(message('[#noautoesc]${message("shop.header.totalQuantity")}[/#noautoesc]', skuQuantity) + '&nbsp;&nbsp;&nbsp;&nbsp;${message("shop.header.totalPrice")}: <em>' + currency(effectivePrice, true, true) + '<\/em><a href="${base}/cart/list">${message("shop.header.checkout")}<\/a>');
-	});
-	
-	// 购物车详情
-	$headerCart.hover(
-		function() {
-			if ($headerCartDetail.is(":hidden")) {
-				$headerCart.addClass("active");
-				$headerCartDetail.slideDown("fast");
-			}
-		},
-		function() {
-			if ($headerCartDetail.is(":visible")) {
-				$headerCart.removeClass("active");
-				$headerCartDetail.slideUp("fast");
-			}
-		}
-	);
-	
-	$broadsideNav.find("li").hover(
-		function() {
-			$(this).find("em").show();
-		},function(){
-			$(this).find("em").hide();
-		}
-	);
-
-});
-</script>
-<div class="header">
-	<div class="top">
-		<div class="topNav">
-			<ul class="left">
-				<li>
-					<span>${message("shop.header.welcome", setting.siteName)}</span>
-					<span id="headerName" class="headerName">&nbsp;</span>
-				</li>
-				<li id="headerLogin" class="headerLogin">
-					<a href="${base}/member/login">${message("shop.header.login")}</a>|
-				</li>
-				<li id="headerRegister" class="headerRegister">
-					<a href="${base}/member/register">${message("shop.header.register")}</a>
-				</li>
-				<li id="headerLogout" class="headerLogout">
-					<a href="${base}/member/logout">[${message("shop.header.logout")}]</a>
-				</li>
-			</ul>
-			<ul class="right">
-				[@navigation_list position = "top"]
-					[#list navigations as navigation]
-						<li>
-							<a href="${navigation.url}"[#if navigation.isBlankTarget] target="_blank"[/#if]>${navigation.name}</a>
-							[#if navigation_has_next]|[/#if]
-						</li>
-					[/#list]
-				[/@navigation_list]
-			</ul>
-		</div>
-	</div>
-	<div class="container">
-		<div class="row">
-			<div class="span3">
-				<a href="${base}/">
-					<img src="${setting.logo}" alt="${setting.siteName}" />
-				</a>
-			</div>
-			<div class="span6">
-				<div class="search">
-					<form id="productSearchForm" action="${base}/product/search" method="get">
-						[#if store??]
-							<input name="storeId" type="hidden" value="${store.id}" />
-						[#elseif storeProductCategory??]
-							<input name="storeId" type="hidden" value="${storeProductCategory.store.id}" />
-						[/#if]
-						<input name="keyword" class="keyword" value="${productKeyword!message("shop.header.keyword")}" autocomplete="off" x-webkit-speech="x-webkit-speech" x-webkit-grammar="builtin:search" maxlength="30" />
-						<button type="submit">&nbsp;</button>
-					</form>
+<header class="public-head-layout wrapper">
+	<h1 class="site-logo"><a href="http://java.bizpower.com/web/"><img src="http://uploadjava.bizpower.com/image/86/69/8669e1c56d027db0271e1a91a0596ef9.png" alt=""/></a></h1>
+	<div class="head-search-layout">
+		<div class="head-search-tab" id="searchTab"> <span><a href="javascript:;" class="selected" data-sign="goods">商品</a></span> <span><a href="javascript:;" class="" data-sign="store">店铺</a></span> <span><a href="javascript:;" class="" data-sign="distribution">推广</a></span> <span><a href="javascript:;" class="" data-sign="purchase">求购</a></span> </div>
+		<div class="head-search-bar" id="head-search-bar">
+			<form action="http://java.bizpower.com/web/search" method="get" class="search-form" id="headerSearchForm">
+				<input name="keyword" id="keyword" type="text" class="input-text" value="" maxlength="60" placeholder=" 请输入您要搜索的商品关键字"  autocomplete="off" />
+				<input type="submit" id="buttonSearch" value="搜 索" class="input-submit">
+			</form>
+			<!-- 搜索提示div 开始 -->
+			<div class="search-tip search-tip-fixed" id="search-tip">
+				<div class="search-history">
+					<div class="title">历史纪录<a href="javascript:void(0);" id="search-his-del">清除</a></div>
+					<ul id="search-his-list">
+					</ul>
 				</div>
-				<div class="hotSearch">
-					[#if setting.hotSearches?has_content]
-						${message("shop.header.hotSearch")}:
-						[#list setting.hotSearches as hotSearch]
-							<a href="${base}/product/search?keyword=${hotSearch?url}">${hotSearch}</a>
-						[/#list]
-					[/#if]
+				<div class="search-hot">
+					<div class="title">热门搜索...</div>
+					<ul>
+						<li><a data-hot-value="香水" hotSearch href="http://java.bizpower.com/web/search?&keyword=%E9%A6%99%E6%B0%B4">浪漫天使女士香水</a></li>
+						<li><a data-hot-value="汽车" hotSearch href="http://java.bizpower.com/web/search?&keyword=%E6%B1%BD%E8%BD%A6">汽车用品打折季</a></li>
+						<li><a data-hot-value="耳机" hotSearch href="http://java.bizpower.com/web/search?&keyword=%E8%80%B3%E6%9C%BA">无线游戏耳机</a></li>
+						<li><a data-hot-value="女装" hotSearch href="http://java.bizpower.com/web/search?&keyword=%E5%A5%B3%E8%A3%85">浪漫夏季 简约百搭</a></li>
+						<li><a data-hot-value="耐克" hotSearch href="http://java.bizpower.com/web/search?&keyword=%E8%80%90%E5%85%8B">春季踏青郊游必备</a></li>
+					</ul>
 				</div>
 			</div>
-			<div id="headerCart" class="headerCart">
-				<a class="cartButton" href="${base}/cart/list"><span>${message("shop.header.cart")}(<em></em>)</span></a>
-				<div class="detail">
-					<div class="title">${message("shop.header.cartItemTitle")}</div>
-					<div class="items"></div>
-					<div class="summary"></div>
-				</div>
-			</div>
+			<!-- 搜索提示div 结束 -->
 		</div>
-		<div class="row">
-			<div class="span12">
-				<dl class="mainNav">
-					<dt>
-						<a href="${base}/product_category">${message("shop.header.allProductCategory")}</a>
-					</dt>
-					[@navigation_list position = "middle"]
-						[#list navigations as navigation]
-							<dd[#if navigation.url == url] class="current"[/#if]>
-								<a href="${navigation.url}"[#if navigation.isBlankTarget] target="_blank"[/#if]>${navigation.name}</a>
-							</dd>
-						[/#list]
-					[/@navigation_list]
-				</dl>
-			</div>
-		</div>
-		<div id="broadsideNav" class="broadsideNav">
+		<div class="keyword">热门关键字：
 			<ul>
-				<li class="shoppingCart">
-					<a href="${base}/cart/list"><em>${message("shop.header.cart")}</em></a>
-				</li>
-				<li class="memberCenter">
-					<a href="${base}/member/index"><em>${message("shop.header.member")}</em></a>
-				</li>
-				<li class="myCoupons">
-					<a href="${base}/member/coupon_code/exchange"><em>${message("shop.header.couponCode")}</em></a>
-				</li>
-				<li class="collectCenter">
-					<a href="${base}/member/product_favorite/list"><em>${message("shop.header.productFavorite")}</em></a>
-				</li>
+				<li><a target="_blank" href="http://java.bizpower.com/web/search?&keyword=%E8%8B%B9%E6%9E%9C">苹果</a></li>
+				<li><a target="_blank" href="http://java.bizpower.com/web/search?&keyword=%E5%86%B0%E7%AE%B1">冰箱</a></li>
+				<li><a target="_blank" href="http://java.bizpower.com/web/search?&keyword=%E7%94%B7%E9%9E%8B">男鞋</a></li>
+				<li><a target="_blank" href="http://java.bizpower.com/web/search?&keyword=%E8%80%B3%E6%9C%BA">耳机</a></li>
+				<li><a target="_blank" href="http://java.bizpower.com/web/search?&keyword=%E5%A5%B6%E5%98%B4">奶嘴</a></li>
+				<li><a target="_blank" href="http://java.bizpower.com/web/search?&keyword=%E6%B0%B4%E6%9E%9C">水果</a></li>
 			</ul>
-			<div id="goTop" class="goTop"></div>
 		</div>
 	</div>
-</div>
+	<!-- 头部购物车_Star -->
+	<div id="topMyCart" class="my-cart">
+		<div class="my-cart-tit"><i class="my-cart-ico"></i><i data-red-point style="display: none;" class="my-cart-count"></i><a target="_blank" href="http://java.bizpower.com/web/cart/list" title="购物车">我的购物车</a></div>
+		<div class="my-cart-con">
+			<div class="spacer"></div>
+			<div class="sub-title" >
+				<h4>最新加入的商品</h4 >
+			</div >
+			<div class="incart-goods-box">
+				<div class="incart-goods" data-cart-goods-list> <img class="loading" src="http://staticjava.bizpower.com/img//cart_loading.gif"  alt=""/> </div >
+			</div >
+			<div class="checkout" data-goods-price></div>
+		</div >
+	</div>
+	<!-- 头部购物车_End -->
+</header>

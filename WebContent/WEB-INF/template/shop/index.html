@@ -1,294 +1,2680 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!DOCTYPE html>
+<html lang="zh-cn">
 <head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="author" content="IGOMALL Team" />
-<meta name="copyright" content="IGOMALL ++" />
-[@seo type = "index"]
-	<title>${seo.resolveTitle()}[#if showPowered] - Powered By IGOMALL[/#if]</title>
-	[#if seo.resolveKeywords()?has_content]
-		<meta name="keywords" content="${seo.resolveKeywords()}" />
-	[/#if]
-	[#if seo.resolveDescription()?has_content]
-		<meta name="description" content="${seo.resolveDescription()}" />
-	[/#if]
-[/@seo]
-<link href="${base}/favicon.ico" rel="icon" type="image/x-icon" />
-<link href="${base}/resources/shop/jslides/jslides.css" rel="stylesheet" type="text/css" />
-<link href="${base}/resources/shop/css/animate.css" rel="stylesheet" type="text/css" />
-<link href="${base}/resources/shop/css/common.css" rel="stylesheet" type="text/css" />
-<link href="${base}/resources/shop/css/index.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="${base}/resources/shop/js/jquery.js"></script>
-<script type="text/javascript" src="${base}/resources/shop/js/jquery.tools.js"></script>
-<script type="text/javascript" src="${base}/resources/shop/js/jquery.lazyload.js"></script>
-<script type="text/javascript" src="${base}/resources/shop/jslides/jslides.js"></script>
-<script type="text/javascript" src="${base}/resources/shop/js/common.js"></script>
-<style type="text/css">
-.header {
-	margin-bottom: 0px;
-}
-</style>
-<script type="text/javascript">
-$().ready(function() {
-
-	var $productCategoryMenuItem = $("#productCategoryMenu li");
-	var $newArticleTab = $("#newArticle ul.tab");
-	var $hotProductImage = $("div.hotProduct img");
-	
-	$productCategoryMenuItem.hover(
-		function() {
-			$(this).children("div.menu").show();
-		}, function() {
-			$(this).children("div.menu").hide();
-		}
-	);
-
-	$newArticleTab.tabs("ul.tabContent", {
-		tabs: "li",
-		event: "mouseover"
-	});
-	
-	$hotProductImage.lazyload({
-		threshold: 100,
-		effect: "fadeIn",
-		skip_invisible: false
-	});
-	
-});
-</script>
+    <meta charset="UTF-8">
+    [@seo type = "index"]
+    <title>${seo.resolveTitle()}[#if showPowered] - Powered By IGOMALL[/#if]</title>
+    [#if seo.resolveKeywords()?has_content]
+    <meta name="keywords" content="${seo.resolveKeywords()}" />
+    [/#if]
+    [#if seo.resolveDescription()?has_content]
+    <meta name="description" content="${seo.resolveDescription()}" />
+    [/#if]
+    [/@seo]
+    <meta name="author" content="IGOMALL Team" />
+    <meta name="copyright" content="IGOMALL ++" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,IE=EmulateIE8,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="generator" content="UG93ZXJlZCBCeSBTaG9wTkMubmV0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    [#include "/shop/include/css/base.html" /]
+    [#include "/shop/include/js/base.html" /]
 </head>
-[#assign current = "indexMember" /]
 <body>
-	[#include "/shop/include/header.html" /]
-	<div class="containerIndex index">
-		[@ad_position id = 1]
-			[#noautoesc]
-				${adPosition.resolveTemplate()}
-			[/#noautoesc]
-		[/@ad_position]
-	</div>
-	<div class="container index">
-		<div class="row">
-			<div class="span2">
-				[@product_category_root_list count = 6]
-					<div id="productCategoryMenu" class="productCategoryMenu">
-						<ul>
-							[#list productCategories as productCategory]
-								<li>
-									[@product_category_children_list productCategoryId = productCategory.id recursive = false count = 3]
-										<div class="item[#if !productCategory_has_next] last[/#if]">
-											<div>
-												[#list productCategories as productCategory]
-													<a href="${base}${productCategory.path}">
-														<strong>${productCategory.name}</strong>
-													</a>
-												[/#list]
-											</div>
-											<div>
-												[@brand_list productCategoryId = productCategory.id count = 4]
-													[#list brands as brand]
-														<a href="${base}${brand.path}">${brand.name}</a>
-													[/#list]
-												[/@brand_list]
-											</div>
-										</div>
-									[/@product_category_children_list]
-									[@product_category_children_list productCategoryId = productCategory.id recursive = false count = 8]
-										<div class="menu">
-											[#list productCategories as productCategory]
-												<dl class="clearfix[#if !productCategory_has_next] last[/#if]">
-													<dt>
-														<a href="${base}${productCategory.path}">${productCategory.name}</a>
-													</dt>
-													[@product_category_children_list productCategoryId = productCategory.id recursive = false]
-														[#list productCategories as productCategory]
-															<dd>
-																<a href="${base}${productCategory.path}">${productCategory.name}</a>[#if productCategory_has_next]|[/#if]
-															</dd>
-														[/#list]
-													[/@product_category_children_list]
-												</dl>
-											[/#list]
-											<div class="auxiliary">
-												[@brand_list productCategoryId = productCategory.id count = 8]
-													[#if brands?has_content]
-														<div>
-															<strong>${message("shop.index.recommendBrand")}</strong>
-															[#list brands as brand]
-																<a href="${base}${brand.path}">${brand.name}</a>
-															[/#list]
-														</div>
-													[/#if]
-												[/@brand_list]
-												[@promotion_list productCategoryId = productCategory.id hasEnded = false count = 4]
-													[#if promotions?has_content]
-														<div>
-															<strong>${message("shop.index.hotPromotion")}</strong>
-															[#list promotions as promotion]
-																[#if promotion.image?has_content]
-																	<a href="${base}${promotion.path}" title="${promotion.title}">
-																		<img src="${promotion.image}" alt="${promotion.title}" />
-																	</a>
-																[/#if]
-															[/#list]
-														</div>
-													[/#if]
-												[/@promotion_list]
-											</div>
-										</div>
-									[/@product_category_children_list]
-								</li>
-							[/#list]
-						</ul>
-					</div>
-				[/@product_category_root_list]
-			</div>
-		</div>
-		<div class="row">
-			<div class="span9">
-				[@ad_position id = 2]
-					[#noautoesc]
-						${adPosition.resolveTemplate()}
-					[/#noautoesc]
-				[/@ad_position]
-			</div>
-			<div class="span3">
-				[@article_category_root_list count = 2]
-					[#if articleCategories?has_content]
-						<div id="newArticle" class="newArticle">
-							<ul class="tab">
-								[#list articleCategories as articleCategory]
-									<li>
-										<a href="${base}${articleCategory.path}" target="_blank">${articleCategory.name}</a>
-									</li>
-								[/#list]
-							</ul>
-							[#list articleCategories as articleCategory]
-								[@article_list articleCategoryId = articleCategory.id count = 6]
-									<ul class="tabContent[#if articleCategory_index > 0] hidden[/#if]">
-										[#list articles as article]
-											<li>
-												<a href="${base}${article.path}" title="${article.title}" target="_blank">${abbreviate(article.title, 40)}</a>
-											</li>
-										[/#list]
-									</ul>
-								[/@article_list]
-							[/#list]
-						</div>
-					[/#if]
-				[/@article_category_root_list]
-			</div>
-		</div>
-		<div class="row">
-			<div class="span12">
-				[@ad_position id = 3]
-					[#noautoesc]
-						${adPosition.resolveTemplate()}
-					[/#noautoesc]
-				[/@ad_position]
-			</div>
-		</div>
-		[@product_category_root_list count = 3]
-			[@ad_position id = 4]
-				[#if adPosition??]
-					[#assign adIterator = adPosition.ads.iterator() /]
-				[/#if]
-			[/@ad_position]
-			[#list productCategories as productCategory]
-				[@product_list productCategoryId = productCategory.id productTagId = 1 count = 10]
-					<div class="row">
-						<div class="span12">
-							<div class="hotProduct">
-								[@product_category_children_list productCategoryId = productCategory.id recursive = false count = 8]
-									<dl class="title${productCategory_index + 1}">
-										<dt>
-											<a href="${base}${productCategory.path}">${productCategory.name}</a>
-										</dt>
-										[#list productCategories as productCategory]
-											<dd>
-												<a href="${base}${productCategory.path}">${productCategory.name}</a>
-											</dd>
-										[/#list]
-									</dl>
-								[/@product_category_children_list]
-								<div>
-									[#if adIterator?? && adIterator.hasNext()]
-										[#assign ad = adIterator.next() /]
-										[#if ad.type == "image" && ad.hasBegun() && !ad.hasEnded()]
-											[#if ad.url??]
-												<a href="${ad.url}">
-													<img src="${ad.path}" alt="${ad.title}" title="${ad.title}" />
-												</a>
-											[#else]
-												<img src="${ad.path}" alt="${ad.title}" title="${ad.title}" />
-											[/#if]
-										[/#if]
-									[/#if]
-								</div>
-								<ul>
-									[#list products as product]
-										[#if product_index < 5]
-											<li>
-												<a href="${base}${product.path}" title="${product.name}" target="_blank">
-													<div>
-														[#if product.caption?has_content]
-															<span title="${product.name}">${abbreviate(product.name, 24)}</span>
-															<em title="${product.caption}">${abbreviate(product.caption, 24)}</em>
-														[#else]
-															${abbreviate(product.name, 48)}
-														[/#if]
-													</div>
-													<strong>${currency(product.price, true)}</strong>
-													<img src="${base}/upload/image/blank.gif" data-original="${product.image!setting.defaultThumbnailProductImage}" />
-												</a>
-											</li>
-										[#else]
-											<li class="low">
-												<a href="${base}${product.path}" title="${product.name}" target="_blank">
-													<img src="${base}/upload/image/blank.gif" data-original="${product.image!setting.defaultThumbnailProductImage}" />
-													<span title="${product.name}">${abbreviate(product.name, 24)}</span>
-													<strong>${currency(product.price, true)}</strong>
-												</a>
-											</li>
-										[/#if]
-									[/#list]
-								</ul>
-							</div>
-						</div>
-					</div>
-				[/@product_list]
-			[/#list]
-		[/@product_category_root_list]
-		<div class="row">
-			<div class="span12">
-				[@ad_position id = 5]
-					[#noautoesc]
-						${adPosition.resolveTemplate()}
-					[/#noautoesc]
-				[/@ad_position]
-			</div>
-		</div>
-		<div class="row">
-			<div class="span12">
-				[@brand_list type = "image" count = 10]
-					[#if brands?has_content]
-						<div class="hotBrand">
-							<ul class="clearfix">
-								[#list brands as brand]
-									<li>
-										<a href="${base}${brand.path}" title="${brand.name}">
-											<img src="${brand.logo}" alt="${brand.name}" />
-										</a>
-									</li>
-								[/#list]
-							</ul>
-						</div>
-					[/#if]
-				[/@brand_list]
-			</div>
-		</div>
-	</div>
-	[#include "/shop/include/footer.html" /]
+
+[#include "/shop/include/public-top-layout.html" /]
+<div class="header-wrap" id="headerWrap">
+    [#include "/shop/include/header.html" /]
+</div>
+[#include "/shop/include/product_category.html" /]
+<div class="index-fixed-bar" id="indexFixedBar" style="display: none;"></div>
+
+[#include "/shop/include/nc-toolbar-wrap.html" /]
+<link href="http://publicjava.bizpower.com/toolkit/perfect-scrollbar/v120/perfect-scrollbar.min.css" rel="stylesheet"/>
+<script src="http://publicjava.bizpower.com/toolkit/perfect-scrollbar/v120/perfect-scrollbar.min.js"></script>
+<script src="http://staticjava.bizpower.com/js/common/toolbar.js"></script>
+
+<link href="http://staticjava.bizpower.com/css/web_index.css" rel="stylesheet"/>
+<div class="home-focus-layout" id="homeFocusLayout">
+    <div class="focus">
+        <ul id="homeTopBanner">
+
+            <li >
+                <a  href="javascript:;" >
+                    <img src="http://uploadjava.bizpower.com/image/b6/9e/b69e20006df89c7e3b4836431c3848f6.png" height="440" width="730"/>
+                </a>
+            </li>
+            <li >
+                <a  href="javascript:;" >
+                    <img src="http://uploadjava.bizpower.com/image/44/cd/44cde3c2ccd37cab02bd046b6970beb9.png" height="440" width="730"/>
+                </a>
+            </li>
+            <li >
+                <a  href="http://java.bizpower.com/web/advertorial/article/list" target="_blank">
+                    <img src="http://uploadjava.bizpower.com/image/49/eb/49eb459fbda20b6a7cb35ca946290d2f.png" height="440" width="730"/>
+                </a>
+            </li>
+            <li >
+                <a  href="http://java.bizpower.com/web/store/6" target="_blank">
+                    <img src="http://uploadjava.bizpower.com/image/ec/9c/ec9c3bc5f3d8d5b7a1faac4d7ffb3a87.png" height="440" width="730"/>
+                </a>
+            </li>
+            <li >
+                <a  href="http://java.bizpower.com/web/search?cat=1037" target="_blank">
+                    <img src="http://uploadjava.bizpower.com/image/36/fc/36fc98921f02045389e772ac3be4693d.png" height="440" width="730"/>
+                </a>
+            </li>
+        </ul >
+    </div>
+    <div class="right-bar">
+        <div class="title">
+            <h2>商城快讯</h2>
+        </div>
+        <div class="content-news">
+            <ul>
+                <li><a target="_blank" href="http://java.bizpower.com/web/article/info/33">【特惠】全场图书优惠促销火爆销售中</a></li>
+                <li><a target="_blank" href="http://java.bizpower.com/web/article/info/32">【公告】Bizpower商城火热上线</a></li>
+                <li><a target="_blank" href="#">【公告】管理功能说明</a></li>
+            </ul>
+        </div>
+        <div class="title">
+            <h2>商城服务</h2>
+        </div>
+        <div class="contnet-function">
+            <ul>
+                <li><a target="_blank" href="http://java.bizpower.com/seller/open"><i class="tb-01"></i>招商入驻</a></li>
+                <li><a target="_blank" href="http://java.bizpower.com/seller/"><i class="tb-02"></i>商家中心</a></li>
+                <li><a target="_blank" href="http://java.bizpower.com/chain/"><i class="tb-03"></i>门店管理</a></li>
+                <li><a href="javascript:;"><i class="tb-04"></i>正品保障</a></li>
+                <li><a href="javascript:;"><i class="tb-05"></i>闪电发货</a></li>
+                <li><a href="javascript:;"><i class="tb-06"></i>七天退换</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- 四图推荐 -->
+<!-- Copyright: Bizpower多用户商城系统 -->
+
+
+
+
+<!-- Copyright: 天津网城商动科技有限责任公司 -->
+<!-- 秒杀专区 -->
+<div class="home-seckill-layout">
+    <div class="seckill-box">
+        <div class="seckill-title">
+            <div class="title">
+                <h3></h3>
+                <div class="countdown">
+                    <span class="tip">距离下场</span>
+                    <span class="timer" id="seckillTimeDown"></span>
+
+                </div>
+
+            </div>
+            <a class="more" href="http://java.bizpower.com/web/seckill">更多抢购<i class="fa fa-chevron-circle-right  m-l-5"></i></a>
+        </div>
+        <div class="seckill-content">
+            <ul class="sk-ul" id="homeSeckill">
+                <li class="sk-items">
+                    <div class="sk-goods-info">
+                        <a href="http://java.bizpower.com/web/goods/858" target="_blank" class="sk-link">
+                            <img title="" alt="" src="http://uploadjava.bizpower.com/image/69/a8/69a80653444ead0f506e2c89e3f05b6f.jpg">
+                            <p class="sk-name">Apple iPhone XR (A2108) 移动联通电信4G手机 双卡双待</p>
+                        </a>
+                        <span class="sk-shadow"></span>
+                    </div>
+                    <p class="sk-price">
+                        <span class="price-new"><span class='yuan'>￥</span><span class='integer'>5000</span><span class='pointer'>.</span><span class='decimal'>00</span></span>
+                        <span class="price-original"><span class='yuan'>￥</span><span class='integer'>5699</span><span class='pointer'>.</span><span class='decimal'>00</span></span>
+                    </p>
+                </li>
+                <li class="sk-items">
+                    <div class="sk-goods-info">
+                        <a href="http://java.bizpower.com/web/goods/860" target="_blank" class="sk-link">
+                            <img title="" alt="" src="http://uploadjava.bizpower.com/image/9f/68/9f68c6eb1d7ac68b15ce3a6ec988d0ff.jpg">
+                            <p class="sk-name">A家家具 餐桌 餐桌椅组合 现代简约餐桌椅 钢化玻璃餐桌折叠伸缩圆餐桌椅组合</p>
+                        </a>
+                        <span class="sk-shadow"></span>
+                    </div>
+                    <p class="sk-price">
+                        <span class="price-new"><span class='yuan'>￥</span><span class='integer'>200</span><span class='pointer'>.</span><span class='decimal'>00</span></span>
+                        <span class="price-original"><span class='yuan'>￥</span><span class='integer'>2399</span><span class='pointer'>.</span><span class='decimal'>00</span></span>
+                    </p>
+                </li>
+                <li class="sk-items">
+                    <div class="sk-goods-info">
+                        <a href="http://java.bizpower.com/web/goods/864" target="_blank" class="sk-link">
+                            <img title="" alt="" src="http://uploadjava.bizpower.com/image/a8/08/a808dca4d764f69a8acac284a8338ea2.jpg">
+                            <p class="sk-name">铂金戒指情侣对戒</p>
+                        </a>
+                        <span class="sk-shadow"></span>
+                    </div>
+                    <p class="sk-price">
+                        <span class="price-new"><span class='yuan'>￥</span><span class='integer'>100</span><span class='pointer'>.</span><span class='decimal'>00</span></span>
+                        <span class="price-original"><span class='yuan'>￥</span><span class='integer'>1680</span><span class='pointer'>.</span><span class='decimal'>00</span></span>
+                    </p>
+                </li>
+                <li class="sk-items">
+                    <div class="sk-goods-info">
+                        <a href="http://java.bizpower.com/web/goods/863" target="_blank" class="sk-link">
+                            <img title="" alt="" src="http://uploadjava.bizpower.com/image/59/46/59465a3c406e94fb51ec1aaac46e1ccc.jpg">
+                            <p class="sk-name">周大福花月佳期系列婚嫁茉莉花足金黄金吊坠计价F165646</p>
+                        </a>
+                        <span class="sk-shadow"></span>
+                    </div>
+                    <p class="sk-price">
+                        <span class="price-new"><span class='yuan'>￥</span><span class='integer'>1200</span><span class='pointer'>.</span><span class='decimal'>00</span></span>
+                        <span class="price-original"><span class='yuan'>￥</span><span class='integer'>1288</span><span class='pointer'>.</span><span class='decimal'>00</span></span>
+                    </p>
+                </li>
+                <li class="sk-items">
+                    <div class="sk-goods-info">
+                        <a href="http://java.bizpower.com/web/goods/872" target="_blank" class="sk-link">
+                            <img title="" alt="" src="http://uploadjava.bizpower.com/image/e3/b0/e3b0f623526933f849910d45e75abe10.jpg">
+                            <p class="sk-name">福临门浓香压榨一级花生油5L</p>
+                        </a>
+                        <span class="sk-shadow"></span>
+                    </div>
+                    <p class="sk-price">
+                        <span class="price-new"><span class='yuan'>￥</span><span class='integer'>69</span><span class='pointer'>.</span><span class='decimal'>90</span></span>
+                        <span class="price-original"><span class='yuan'>￥</span><span class='integer'>99</span><span class='pointer'>.</span><span class='decimal'>90</span></span>
+                    </p>
+                </li>
+                <li class="sk-items">
+                    <div class="sk-goods-info">
+                        <a href="http://java.bizpower.com/web/goods/874" target="_blank" class="sk-link">
+                            <img title="" alt="" src="http://uploadjava.bizpower.com/image/71/15/7115e12d0160e492e9b5040ea73b1dc0.png">
+                            <p class="sk-name">德芙巧克力礼盒装星空棒棒糖果礼盒送女友创意七夕情人节生日礼物（B款--手提盒红色爱心）</p>
+                        </a>
+                        <span class="sk-shadow"></span>
+                    </div>
+                    <p class="sk-price">
+                        <span class="price-new"><span class='yuan'>￥</span><span class='integer'>100</span><span class='pointer'>.</span><span class='decimal'>00</span></span>
+                        <span class="price-original"><span class='yuan'>￥</span><span class='integer'>199</span><span class='pointer'>.</span><span class='decimal'>00</span></span>
+                    </p>
+                </li>
+                <li class="sk-items">
+                    <div class="sk-goods-info">
+                        <a href="http://java.bizpower.com/web/goods/875" target="_blank" class="sk-link">
+                            <img title="" alt="" src="http://uploadjava.bizpower.com/image/f4/a2/f4a2490c4022d7d33f2c94bbcfe773c2.jpg">
+                            <p class="sk-name">茗纳百川 茶叶 云南普洱茶 熟茶 散茶 特级 茗茶 05年宫廷芽尖 珍藏陈香金芽600克</p>
+                        </a>
+                        <span class="sk-shadow"></span>
+                    </div>
+                    <p class="sk-price">
+                        <span class="price-new"><span class='yuan'>￥</span><span class='integer'>350</span><span class='pointer'>.</span><span class='decimal'>00</span></span>
+                        <span class="price-original"><span class='yuan'>￥</span><span class='integer'>450</span><span class='pointer'>.</span><span class='decimal'>00</span></span>
+                    </p>
+                </li>
+                <li class="sk-items">
+                    <div class="sk-goods-info">
+                        <a href="http://java.bizpower.com/web/goods/877" target="_blank" class="sk-link">
+                            <img title="" alt="" src="http://uploadjava.bizpower.com/image/ed/6a/ed6a0a2b70977758067608a5ba828655.jpg">
+                            <p class="sk-name">CHANDO自然堂化妆品 女士护肤套装 水润保湿补水套装</p>
+                        </a>
+                        <span class="sk-shadow"></span>
+                    </div>
+                    <p class="sk-price">
+                        <span class="price-new"><span class='yuan'>￥</span><span class='integer'>90</span><span class='pointer'>.</span><span class='decimal'>00</span></span>
+                        <span class="price-original"><span class='yuan'>￥</span><span class='integer'>89</span><span class='pointer'>.</span><span class='decimal'>00</span></span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- 关联楼层 -->
+<ul id="nav" class="page-nav">
+</ul>
+
+<!-- Copyright: Bizpower多用户商城系统 -->
+
+<div id="floor01" class="home-standard-layout home-style-adv">
+    <div class="floor-banner">
+
+        <div class="floor-banner-main floor-adv-three">
+
+            <a href="http://java.bizpower.com/web/special/2" target="_blank" title="">
+                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/d7/d9/d7d910b57ba62173047d4e3fa8888fb0.jpg" height="100" width="396"/>
+            </a>
+
+
+            <a href="http://java.bizpower.com/web/theme/2" target="_blank" title="">
+                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/63/8e/638ebf02c1b332231d65dc35c43684e7.jpg" height="100" width="396"/>
+            </a>
+
+
+            <a href="http://java.bizpower.com/web/goods/893" target="_blank" title="">
+                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/3a/ef/3aefaea066f073fcb58681b7bcc5bded.jpg" height="100" width="396"/>
+            </a>
+
+        </div>
+
+    </div>
+</div>
+<!-- Copyright: www.Bizpower.com -->
+
+
+
+
+<div id="floor_2" class="home-standard-layout home-style-2" data-nc-floor-panel>
+    <div class="w floor floor-t7 com-floor clearfix">
+        <div class="floor-l left-floor">
+            <div class="title">
+                <div class="title-name"><span class="border" style="background:#33ae75"></span>
+                    <p class="name" style="color: #33ae75">热门手机</p>
+                </div>
+                <div class="keyword clearfix">
+                    <a href="http://java.bizpower.com/web/search?cat=1035" target="_blank" title="mlbItem.text!''">正品好店</a>
+                    <a href="http://java.bizpower.com/web/search?cat=1035" target="_blank" title="mlbItem.text!''">手机周边</a>
+                    <a href="http://java.bizpower.com/web/search?cat=1035" target="_blank" title="mlbItem.text!''">手机维修</a>
+                    <a href="http://java.bizpower.com/web/search?cat=1035" target="_blank" title="mlbItem.text!''">以旧换新</a>
+                </div>
+            </div>
+            <div class="content">
+                <div class="left-img">
+                    <img class="J-lazy" alt="抢1000元神券" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/ba/52/ba5248604e7b326e6514318b5e6a6a58.png">
+                    <div class="cover"></div>
+                    <p class="img-name">抢1000元神券</p>
+                    <p class="img-desc">iPhone XR下单低至5288</p>
+                    <a href="http://java.bizpower.com/web/goods/858" target="_blank"></a>
+                </div>
+                <ul class="img-list clearfix">
+
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/885" target="_blank" class="click-wrapper">
+                            <p class="img-name">三星A8s</p>
+                            <p class="img-desc" style="color: #33ae75">新品火热上市</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/885" target="_blank" >
+                            <img class="J-lazy" alt="三星A8s" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/42/d6/42d68c59338b0f33d86bd70e529c4887.jpg">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/867" target="_blank" class="click-wrapper">
+                            <p class="img-name">荣耀V20</p>
+                            <p class="img-desc" style="color: #33ae75">稀缺新品限量抢</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/867" target="_blank" >
+                            <img class="J-lazy" alt="荣耀V20" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/78/e9/78e9422e04c4e0f81ae060ad15c531a4.jpg">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/851" target="_blank" class="click-wrapper">
+                            <p class="img-name">Mate20pro</p>
+                            <p class="img-desc" style="color: #33ae75">购机享壕礼</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/851" target="_blank" >
+                            <img class="J-lazy" alt="Mate20pro" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/87/2a/872a9da58a6db2ad62d09c978e23c68e.jpg">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/870" target="_blank" class="click-wrapper">
+                            <p class="img-name">OPPO Find X</p>
+                            <p class="img-desc" style="color: #33ae75"> 全曲面隐藏摄像头</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/870" target="_blank" >
+                            <img class="J-lazy" alt="OPPO Find X" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/4d/81/4d8146d3b116919dacc57b0848e12bf1.jpg">
+                        </a>
+                    </li>
+                </ul>
+                <div class="bottom-list">
+                    <ul>
+
+                        <li class="first" style="display: list-item;">
+                            <a href="http://java.bizpower.com/web/goods/415" target="_blank">
+                                <p class="img-name">iPhone X</p>
+                                <p class="img-desc" style="color: #33ae75">Face ID</p>
+                            </a>
+                            <a href="http://java.bizpower.com/web/goods/415" target="_blank" class="img-wrapper">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/4c/44/4c44f401d966ef73cb48fa7b5357873c.jpg">
+                            </a>
+                        </li>
+                        <li class="" style="display: list-item;">
+                            <a href="http://java.bizpower.com/web/special/876" target="_blank">
+                                <p class="img-name">vivo NEX双屏</p>
+                                <p class="img-desc" style="color: #33ae75">双屏版新品</p>
+                            </a>
+                            <a href="http://java.bizpower.com/web/special/876" target="_blank" class="img-wrapper">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/0c/6e/0c6eaf6fa3c9016d59b180c66404220e.jpg">
+                            </a>
+                        </li>
+                        <li class="" style="display: list-item;">
+                            <a href="http://java.bizpower.com/web/goods/894" target="_blank">
+                                <p class="img-name">红米Note7</p>
+                                <p class="img-desc" style="color: #33ae75">限量预约订购</p>
+                            </a>
+                            <a href="http://java.bizpower.com/web/goods/894" target="_blank" class="img-wrapper">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/e7/49/e7490f428f3b43a6010bb83813f1b0fb.jpg">
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="brand-logo">
+                    <ul>
+
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=208" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/bb79577c30e83254ceffbd60815169de.jpg">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=360" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/e4/57/e4573dcb9d087745fdb4f75f95d05a14.jpg">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=101" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/163a10d1a518268fbb9091e5c1a6b81c.jpg">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=333" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/91/5d/915dda08fa4397409cbd75ba11330c93.jpg">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=386" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/6d/a6/6da6314ebe3df594a53544628f877575.jpg">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=373" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/91/a8/91a83104464964b72a6187c2f624a587.jpg">
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <!-- 结束楼层顶部标题切换项栏 -->
+        </div>
+        <div class="floor-l right-floor">
+            <!-- 开始楼层顶部标题及文字链接栏 -->
+            <div class="title">
+                <div class="title-name"><span class="border" style="background: #2eaba3"></span>
+                    <p class="name" style="color: #2eaba3;">电脑办公</p>
+                </div>
+                <div class="keyword clearfix">
+                    <a href="http://java.bizpower.com/web/search?cat=390" target="_blank" title="mrbItem.text!''">以旧换新</a>
+                    <a href="http://java.bizpower.com/web/search?cat=390" target="_blank" title="mrbItem.text!''">电竞馆</a>
+                    <a href="http://java.bizpower.com/web/search?cat=390" target="_blank" title="mrbItem.text!''">学生惠</a>
+                    <a href="http://java.bizpower.com/web/search?cat=390" target="_blank" title="mrbItem.text!''">女神馆</a>
+                    <a href="http://java.bizpower.com/web/search?cat=390" target="_blank" title="mrbItem.text!''">企业馆</a>
+                </div>
+            </div>
+            <div class="content">
+                <div class="left-img">
+                    <img class="J-lazy" alt="iPad限量2288" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/a5/77/a5777dac65b495102da94a24d3f53b0b.jpg">
+                    <div class="cover"></div>
+                    <p class="img-name">iPad限量2288</p>
+                    <p class="img-desc">以旧换新最低抵500</p>
+                    <a href="http://java.bizpower.com/web/goods/420" target="_blank"></a>
+                </div>
+                <ul class="img-list clearfix">
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/269" target="_blank" class="click-wrapper">
+                            <p class="img-name">MacBook Pro</p>
+                            <p class="img-desc" style="color: #33ae75">抢付赢特权 价保30天</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/269" target="_blank" >
+                            <img class="J-lazy" alt="MacBook Pro" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/ff/05/ff056c78a737b22834b67e7572522e68.jpg">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/101" target="_blank" class="click-wrapper">
+                            <p class="img-name">电脑喜迎新春</p>
+                            <p class="img-desc" style="color: #33ae75">领券最高立减1000元</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/101" target="_blank" >
+                            <img class="J-lazy" alt="电脑喜迎新春" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/30/56/3056a4c8590d90f4055f6f6c0058940b.jpg">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/98" target="_blank" class="click-wrapper">
+                            <p class="img-name">小米 Air</p>
+                            <p class="img-desc" style="color: #33ae75">全面屏轻薄本低至3499</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/98" target="_blank" >
+                            <img class="J-lazy" alt="小米 Air" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/ae/f6/aef65fb308dba0a1fd9275c61de4102e.jpg">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/57" target="_blank" class="click-wrapper">
+                            <p class="img-name">Huawei M2</p>
+                            <p class="img-desc" style="color: #33ae75">10.1英寸 支持门店自提</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/57" target="_blank" >
+                            <img class="J-lazy" alt="Huawei M2" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/b3/ab/b3abebb97948d4c4b05b56beca5792c4.jpg">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="bottom-list">
+                <ul>
+
+                    <li class="first" style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/search?keyword=%E6%98%BE%E7%A4%BA%E5%99%A8" target="_blank">
+                            <p class="img-name">游戏开工季</p>
+                            <p class="img-desc" style="color: #33ae75">大牌买就减</p>
+                        </a>
+                        <a href="http://java.bizpower.com/web/search?keyword=%E6%98%BE%E7%A4%BA%E5%99%A8" target="_blank" class="img-wrapper">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/99/ec/99ecdb144f12079e7b51437600e6c6bb.jpg">
+                        </a>
+                    </li>
+                    <li class="" style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/search?keyword=%E8%80%B3%E6%9C%BA" target="_blank">
+                            <p class="img-name">耳机外设</p>
+                            <p class="img-desc" style="color: #33ae75">听-身临其境</p>
+                        </a>
+                        <a href="http://java.bizpower.com/web/search?keyword=%E8%80%B3%E6%9C%BA" target="_blank" class="img-wrapper">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/c2/d5/c2d55fe6ea86e53fee4d86f3a14a6158.jpg">
+                        </a>
+                    </li>
+                    <li class="" style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/search?keyword=%E8%B7%AF%E7%94%B1%E5%99%A8" target="_blank">
+                            <p class="img-name">网络设备</p>
+                            <p class="img-desc" style="color: #33ae75">多频段穿墙王</p>
+                        </a>
+                        <a href="http://java.bizpower.com/web/search?keyword=%E8%B7%AF%E7%94%B1%E5%99%A8" target="_blank" class="img-wrapper">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/7d/e6/7de62d87d1b1e6f34f8d5fdfafac16a1.jpg">
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="brand-logo">
+                <ul>
+
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=220" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/d0f21ec215013c02d231cdf974730bb4.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=273" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/697f0fdca21cd15464d3521fb020a614.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=216" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/78f9c8d214e2234544fbd4449e30ed19.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=246" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/55085d85c9b70a9f305085e0a2af78ec.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=242" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/0932f4371c237e88a5c49163f3143835.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=243" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/cf19e75823bad3fcf04addb97fae03cd.jpg">
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- 结束楼层顶部标题切换项栏 -->
+        </div>
+    </div>
+</div>
+
+
+
+<div id="floor_3" class="home-standard-layout home-style-3" data-nc-floor-panel>
+    <div class="w floor floor-t8 com-floor floorOne clearfix" style="border-color: #5f6cb7">
+        <div class="title" style="background: #eff0f8">
+            <div class="title-name"><span class="border" style="background: #5f6cb7"></span>
+                <p class="name" style="color: #5f6cb7">家用电器</p>
+            </div>
+            <div class="keyword clearfix">
+                <a href="http://java.bizpower.com/web/search?keyword=%E5%86%B0%E7%AE%B1" target="_blank" title="mbItem.text!''">冰箱</a>
+                <a href="http://java.bizpower.com/web/search?keyword=%E6%B4%97%E8%A1%A3%E6%9C%BA" target="_blank" title="mbItem.text!''">洗衣机</a>
+                <a href="http://java.bizpower.com/web/search?keyword=%E7%83%AD%E6%B0%B4%E5%99%A8" target="_blank" title="mbItem.text!''">热水器</a>
+                <a href="http://java.bizpower.com/web/search?keyword=%E7%A9%BA%E8%B0%83" target="_blank" title="mbItem.text!''">空调</a>
+                <a href="http://java.bizpower.com/web/search?keyword=%E7%94%B5%E8%A7%86" target="_blank" title="mbItem.text!''">电视</a>
+                <a href="http://java.bizpower.com/web/search?keyword=%E7%87%83%E6%B0%94%E7%81%B6" target="_blank" title="mbItem.text!''">燃气灶</a>
+            </div>
+        </div>
+        <div class="content">
+            <div class="left-img">
+
+                <img class="J-lazy" alt="电器城频道" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/13/99/1399de95d8986a773b99812a848e4c03.jpg">
+                <div class="cover"></div>
+                <p class="img-name">电器城频道</p>
+                <p class="img-desc">30天包退 365天包换</p>
+                <a href="http://java.bizpower.com/web/search?keyword=%E5%86%B0%E7%AE%B1" target="_blank"></a>
+
+            </div>
+            <ul class="img-list clearfix">
+
+                <li style="display: list-item;">
+                    <a href="http://java.bizpower.com/web/search?keyword=%E7%94%B5%E8%A7%86" target="_blank" class="click-wrapper">
+                        <p class="img-name">电视家影</p>
+                        <p class="img-desc" style="color: #5f6cb7">爆款直降1000</p>
+                    </a>
+                    <a class="img-wrapper" href="http://java.bizpower.com/web/search?keyword=%E7%94%B5%E8%A7%86" target="_blank" >
+                        <img class="J-lazy" alt="电视家影" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/98/9b/989b3a96499a97726c3c1f9be33744b4.jpg">
+                    </a>
+                </li>
+                <li style="display: list-item;">
+                    <a href="http://java.bizpower.com/web/search?keyword=%E6%B5%B7%E5%B0%94" target="_blank" class="click-wrapper">
+                        <p class="img-name">海尔春节不打烊</p>
+                        <p class="img-desc" style="color: #5f6cb7">领券最高减300</p>
+                    </a>
+                    <a class="img-wrapper" href="http://java.bizpower.com/web/search?keyword=%E6%B5%B7%E5%B0%94" target="_blank" >
+                        <img class="J-lazy" alt="海尔春节不打烊" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/78/83/788373c3982f1c4c62254c9b3a0607f8.jpg">
+                    </a>
+                </li>
+                <li style="display: list-item;">
+                    <a href="http://java.bizpower.com/web/search?keyword=%E7%A9%BA%E8%B0%83" target="_blank" class="click-wrapper">
+                        <p class="img-name">空调优惠不停</p>
+                        <p class="img-desc" style="color: #5f6cb7">爆款空调0元装</p>
+                    </a>
+                    <a class="img-wrapper" href="http://java.bizpower.com/web/search?keyword=%E7%A9%BA%E8%B0%83" target="_blank" >
+                        <img class="J-lazy" alt="空调优惠不停" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/80/4e/804ef99dab45c08ec4f7fb56dbaea41e.jpg">
+                    </a>
+                </li>
+                <li style="display: list-item;">
+                    <a href="http://java.bizpower.com/web/search?keyword=%E7%83%AD%E6%B0%B4%E5%99%A8" target="_blank" class="click-wrapper">
+                        <p class="img-name">热水器专场</p>
+                        <p class="img-desc" style="color: #5f6cb7">50升热水器449元抢</p>
+                    </a>
+                    <a class="img-wrapper" href="http://java.bizpower.com/web/search?keyword=%E7%83%AD%E6%B0%B4%E5%99%A8" target="_blank" >
+                        <img class="J-lazy" alt="热水器专场" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/31/03/31036af33d65be9603ef5b855256c330.jpg">
+                    </a>
+                </li>
+
+            </ul>
+
+            <a href="http://java.bizpower.com/web/search?cat=321" target="_blank" class="middle-img">
+                <img class="J-lazy" alt="厨房卫浴电器" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/2b/dc/2bdc2695d112f12ca0104c0391ebae67.jpg">
+                <div class="cover"></div>
+                <p class="img-name" style="color: #5f6cb7">厨房卫浴电器</p>
+                <p class="img-desc" style="color: #5f6cb7">免费枪888元神券</p>
+            </a>
+
+            <ul class="img-list clearfix list-right">
+
+                <li style="display: list-item;">
+                    <a href="http://java.bizpower.com/web/goods/853" target="_blank" class="click-wrapper">
+                        <p class="img-name">海尔空调</p>
+                        <p class="img-desc" style="color: #5f6cb7">3P匹冷暖客厅挂机空调</p>
+                    </a>
+                    <a class="img-wrapper" href="http://java.bizpower.com/web/goods/853" target="_blank" >
+                        <img class="J-lazy" alt="海尔空调" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/d4/3b/d43b7cf1f857a10749fcb26d365c4795.jpg">
+                    </a>
+                </li>
+                <li style="display: list-item;">
+                    <a href="http://java.bizpower.com/web/goods/854" target="_blank" class="click-wrapper">
+                        <p class="img-name">美的惊喜红包</p>
+                        <p class="img-desc" style="color: #5f6cb7">咨询客再送美的电烤箱</p>
+                    </a>
+                    <a class="img-wrapper" href="http://java.bizpower.com/web/goods/854" target="_blank" >
+                        <img class="J-lazy" alt="美的惊喜红包" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/01/f9/01f9781cbb48cf98f04288858e441e6c.png">
+                    </a>
+                </li>
+                <li style="display: list-item;">
+                    <a href="http://java.bizpower.com/web/search?keyword=%E5%86%B0%E7%AE%B1" target="_blank" class="click-wrapper">
+                        <p class="img-name">够鲜味，够年味</p>
+                        <p class="img-desc" style="color: #5f6cb7">爆款直降晒单送好礼</p>
+                    </a>
+                    <a class="img-wrapper" href="http://java.bizpower.com/web/search?keyword=%E5%86%B0%E7%AE%B1" target="_blank" >
+                        <img class="J-lazy" alt="够鲜味，够年味" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/56/51/565108d0d6cfa548dfed6d1b4e9697ec.jpg">
+                    </a>
+                </li>
+                <li style="display: list-item;">
+                    <a href="http://java.bizpower.com/web/goods/315" target="_blank" class="click-wrapper">
+                        <p class="img-name">创维开门大吉</p>
+                        <p class="img-desc" style="color: #5f6cb7">下单最高减1000</p>
+                    </a>
+                    <a class="img-wrapper" href="http://java.bizpower.com/web/goods/315" target="_blank" >
+                        <img class="J-lazy" alt="创维开门大吉" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/27/ec/27ec6b500912bf25f4c5296c77ba1d75.jpg">
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+        <div class="brand-logo">
+            <ul>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=87" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/a85011311abf3c938d27c0dd43a52f7a.gif">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=90" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/4be7d5604a67c58640ebc306e8c6ddcd.jpg">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=84" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/fd327bb01b7e57fe3c28abe72197f111.gif">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=93" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/baed739a94c5174f83845c5d4f0b195e.jpg">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=103" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/db8dbb407f88baad5cf1e8ba47ba8fc3.jpg">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=107" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/186129880886f48f0c1c2d1d57507cf5.jpg">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=108" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/ce07fad46948526ed5b5740a19e9d940.jpg">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=112" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/165eda193967bb75684c0af441030c37.jpg">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=248" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/d850efa148e53f88adceb5d19f292110.jpg">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=272" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/d955c023662464d5412f542ead903c63.jpg">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=279" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/a779176305c00b89f18c2a9253dab2fb.jpg">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=105" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/07bfaef5cedd8a8935d0cd567081309b.jpg">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="floor04" class="home-standard-layout home-style-adv">
+    <div class="floor-banner">
+
+        <div class="floor-banner-main floor-adv-three">
+
+            <a href="http://java.bizpower.com/web/search?keyword=%E6%B2%B9%E7%83%9F%E6%9C%BA" target="_blank" title="">
+                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/78/8d/788d9b63a9835a2aa0165eb961113cd6.jpg" height="100" width="396"/>
+            </a>
+
+
+            <a href="http://java.bizpower.com/web/search?keyword=%E8%A5%BF%E9%97%A8%E5%AD%90" target="_blank" title="">
+                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/38/1a/381a219e94ffb0a36b035a84431452c9.jpg" height="100" width="396"/>
+            </a>
+
+
+            <a href="http://java.bizpower.com/web/search?keyword=%E7%A9%BA%E8%B0%83" target="_blank" title="">
+                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/73/74/7374e97f515e36a4019e33f7861982b6.jpg" height="100" width="396"/>
+            </a>
+
+        </div>
+
+    </div>
+</div>
+<!-- Copyright: www.Bizpower.com -->
+
+
+
+
+<div id="floor_5" class="home-standard-layout home-style-5" data-nc-floor-panel>
+    <div class="w floor floor-t7 com-floor clearfix">
+        <div class="floor-l left-floor">
+            <div class="title">
+                <div class="title-name"><span class="border" style="background:#3299cc"></span>
+                    <p class="name" style="color: #3299cc">智能数码</p>
+                </div>
+                <div class="keyword clearfix">
+                    <a href="http://java.bizpower.com/web/search?cat=259" target="_blank" title="mlbItem.text!''">相机频道</a>
+                    <a href="http://java.bizpower.com/web/search?keyword=%E6%99%BA%E8%83%BD" target="_blank" title="mlbItem.text!''">智能频道</a>
+                    <a href="http://java.bizpower.com/web/search?keyword=%E5%8D%95%E5%8F%8D%E7%9B%B8%E6%9C%BA" target="_blank" title="mlbItem.text!''">单反相机</a>
+                    <a href="http://java.bizpower.com/web/search?keyword=VR" target="_blank" title="mlbItem.text!''">虚拟显示</a>
+                </div>
+            </div>
+            <div class="content">
+                <div class="left-img">
+                    <img class="J-lazy" alt="智能专场" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/0b/21/0b21fb21dc43772087773882a84d18fc.jpg">
+                    <div class="cover"></div>
+                    <p class="img-name">智能专场</p>
+                    <p class="img-desc">下单送好礼</p>
+                    <a href="http://java.bizpower.com/web/channel/3" target="_blank"></a>
+                </div>
+                <ul class="img-list clearfix">
+
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/424" target="_blank" class="click-wrapper">
+                            <p class="img-name">虚拟现实体验</p>
+                            <p class="img-desc" style="color: #3299cc">PlayStation VR</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/424" target="_blank" >
+                            <img class="J-lazy" alt="虚拟现实体验" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/31/8e/318e5c2d04580adb00936067a473b06c.jpg">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/422" target="_blank" class="click-wrapper">
+                            <p class="img-name">品质新装备</p>
+                            <p class="img-desc" style="color: #3299cc">满100剪10</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/422" target="_blank" >
+                            <img class="J-lazy" alt="品质新装备" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/48/05/4805ff502a88c0a324b0bcadd3c167d6.jpg">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/search?keyword=360EYE" target="_blank" class="click-wrapper">
+                            <p class="img-name">智能扫地机器人</p>
+                            <p class="img-desc" style="color: #3299cc">戴森 360EYE</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/search?keyword=360EYE" target="_blank" >
+                            <img class="J-lazy" alt="智能扫地机器人" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/e4/63/e46335d3ab4abf4baaeb8c1a1de83e94.jpg">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/search?keyword=%E4%BD%B3%E8%83%BD%E5%8D%95%E5%8F%8D" target="_blank" class="click-wrapper">
+                            <p class="img-name">佳能钜惠</p>
+                            <p class="img-desc" style="color: #3299cc">单反+镜头套装</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/search?keyword=%E4%BD%B3%E8%83%BD%E5%8D%95%E5%8F%8D" target="_blank" >
+                            <img class="J-lazy" alt="佳能钜惠" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/b5/7f/b57ff25b169bc150c29b02b3bf7a9c0d.jpg">
+                        </a>
+                    </li>
+                </ul>
+                <div class="bottom-list">
+                    <ul>
+
+                        <li class="first" style="display: list-item;">
+                            <a href="http://java.bizpower.com/web/goods/425" target="_blank">
+                                <p class="img-name">徕卡相机</p>
+                                <p class="img-desc" style="color: #3299cc">Wifi传输</p>
+                            </a>
+                            <a href="http://java.bizpower.com/web/goods/425" target="_blank" class="img-wrapper">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/b2/ca/b2ca19913151b8d99ae102d3ac31ef29.jpg">
+                            </a>
+                        </li>
+                        <li class="" style="display: list-item;">
+                            <a href="http://java.bizpower.com/web/goods/432" target="_blank">
+                                <p class="img-name">Sony耳机</p>
+                                <p class="img-desc" style="color: #3299cc">无线主动降噪</p>
+                            </a>
+                            <a href="http://java.bizpower.com/web/goods/432" target="_blank" class="img-wrapper">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/e5/03/e503c150a0d0dd55f85c47f3af3787e9.jpg">
+                            </a>
+                        </li>
+                        <li class="" style="display: list-item;">
+                            <a href="http://java.bizpower.com/web/search?cat=260" target="_blank">
+                                <p class="img-name">3C配件</p>
+                                <p class="img-desc" style="color: #3299cc">24.9元起</p>
+                            </a>
+                            <a href="http://java.bizpower.com/web/search?cat=260" target="_blank" class="img-wrapper">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/fb/65/fb6576a63dfe8e016acee3a8483b7dda.jpg">
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="brand-logo">
+                    <ul>
+
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=77" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/824d0e0696b01969590d6334bc5ad58b.gif">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=412" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/e7/0c/e70c52ab0c08e22265cbee80ed8f6cb5.jpg">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=411" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/8e/75/8e754aca9983e697aa2fe032b8b703c0.jpg">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=413" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/bc/64/bc64e73f4801a8f467d267fbc1e42263.jpg">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=224" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/b1a226065d86ecb73ad7e6ec6e6ab6e9.jpg">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=275" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/21e7010950d77aa7abf18fe567e6a8de.jpg">
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <!-- 结束楼层顶部标题切换项栏 -->
+        </div>
+        <div class="floor-l right-floor">
+            <!-- 开始楼层顶部标题及文字链接栏 -->
+            <div class="title">
+                <div class="title-name"><span class="border" style="background: #558ccf"></span>
+                    <p class="name" style="color: #558ccf;">汽车用品</p>
+                </div>
+                <div class="keyword clearfix">
+                    <a href="http://java.bizpower.com/web/store/9" target="_blank" title="mrbItem.text!''">车载吸尘器</a>
+                    <a href="http://java.bizpower.com/web/store/9" target="_blank" title="mrbItem.text!''">安全座椅</a>
+                    <a href="http://java.bizpower.com/web/store/9" target="_blank" title="mrbItem.text!''">空气净化</a>
+                    <a href="http://java.bizpower.com/web/goods/395" target="_blank" title="mrbItem.text!''">洗车</a>
+                </div>
+            </div>
+            <div class="content">
+                <div class="left-img">
+                    <img class="J-lazy" alt="新春车品惠" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/13/58/13581c2f0bb6bacc74600b08c1aed25e.jpg">
+                    <div class="cover"></div>
+                    <p class="img-name">新春车品惠</p>
+                    <p class="img-desc">下单满199减20</p>
+                    <a href="http://java.bizpower.com/web/store/9" target="_blank"></a>
+                </div>
+                <ul class="img-list clearfix">
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/60" target="_blank" class="click-wrapper">
+                            <p class="img-name">ONDIS车膜</p>
+                            <p class="img-desc" style="color: #3299cc">金属哑光全车改色</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/60" target="_blank" >
+                            <img class="J-lazy" alt="ONDIS车膜" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/08/79/08791328d609ffb9559f6c3663be0dde.jpg">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/44" target="_blank" class="click-wrapper">
+                            <p class="img-name">欧洲安全标准</p>
+                            <p class="img-desc" style="color: #3299cc">适合9-12岁儿童</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/44" target="_blank" >
+                            <img class="J-lazy" alt="欧洲安全标准" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/22/8d/228d2a39c5a511b2472824a7010eac7c.jpg">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/83" target="_blank" class="click-wrapper">
+                            <p class="img-name">车载吸尘器</p>
+                            <p class="img-desc" style="color: #3299cc">大宗车品采购</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/83" target="_blank" >
+                            <img class="J-lazy" alt="车载吸尘器" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/c0/12/c012e457d8d22fa8ef93a719ebf3d26e.jpg">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/395" target="_blank" class="click-wrapper">
+                            <p class="img-name">车享家</p>
+                            <p class="img-desc" style="color: #3299cc">凭码兑换洗车服务</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/395" target="_blank" >
+                            <img class="J-lazy" alt="车享家" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/0b/8e/0b8eea329a76fc6d1aed4238383b1626.jpg">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="bottom-list">
+                <ul>
+
+                    <li class="first" style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/51" target="_blank">
+                            <p class="img-name">慢回弹腰靠</p>
+                            <p class="img-desc" style="color: #3299cc">定制商标</p>
+                        </a>
+                        <a href="http://java.bizpower.com/web/goods/51" target="_blank" class="img-wrapper">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/6c/57/6c57c1d7f47f26a733ad393d6be1fc9c.jpg">
+                        </a>
+                    </li>
+                    <li class="" style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/359" target="_blank">
+                            <p class="img-name">车载净化</p>
+                            <p class="img-desc" style="color: #3299cc">季后清仓</p>
+                        </a>
+                        <a href="http://java.bizpower.com/web/goods/359" target="_blank" class="img-wrapper">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/09/ab/09abad4e5218b041c75668af85507d42.jpg">
+                        </a>
+                    </li>
+                    <li class="" style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/3" target="_blank">
+                            <p class="img-name">行车记录仪</p>
+                            <p class="img-desc" style="color: #3299cc">批发价格</p>
+                        </a>
+                        <a href="http://java.bizpower.com/web/goods/3" target="_blank" class="img-wrapper">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/63/c5/63c52508d4c4881eeb97f91e781bb629.jpg">
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="brand-logo">
+                <ul>
+
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=421" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/a8/24/a8242a335b6a7a62085a71ce095a4e5d.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=422" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/c3/0b/c30b7d26dca7a282667bc371b28ba6fa.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=424" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/9a/5d/9a5dd9cb4e50f21157db36bd99e8de27.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=425" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/32/17/32177e5918a53954d5ae6f10db176c5f.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=423" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/f1/df/f1dfb14dee168a29e471b0b2642bc93e.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=139" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/0add32c8c682be242b36c299259a0d46.jpg">
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- 结束楼层顶部标题切换项栏 -->
+        </div>
+    </div>
+</div>
+
+
+
+
+<div id="floor_6" class="home-standard-layout home-style-6" data-nc-floor-panel>
+    <div class="w floor floor-t7 com-floor clearfix">
+        <div class="floor-l left-floor">
+            <div class="title">
+                <div class="title-name"><span class="border" style="background:#c96b2c"></span>
+                    <p class="name" style="color: #c96b2c">生活家电</p>
+                </div>
+                <div class="keyword clearfix">
+                    <a href="http://java.bizpower.com/web/channel/310" target="_blank" title="mlbItem.text!''">生活家电</a>
+                    <a href="http://java.bizpower.com/web/search?cat=310" target="_blank" title="mlbItem.text!''">厨房家电</a>
+                    <a href="http://java.bizpower.com/web/search?cat=310" target="_blank" title="mlbItem.text!''">进口家电</a>
+                </div>
+            </div>
+            <div class="content">
+                <div class="left-img">
+                    <img class="J-lazy" alt="进口白色家电" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/0e/fa/0efa895b75e2c862b0b223975a415ac0.jpg">
+                    <div class="cover"></div>
+                    <p class="img-name">进口白色家电</p>
+                    <p class="img-desc">满300减30 满500减60</p>
+                    <a href="http://java.bizpower.com/web/goods/384" target="_blank"></a>
+                </div>
+                <ul class="img-list clearfix">
+
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/search?keyword=%E7%A0%B4%E5%A3%81" target="_blank" class="click-wrapper">
+                            <p class="img-name">破壁料理机</p>
+                            <p class="img-desc" style="color: #c96b2c">搅拌榨汁冰沙多用途</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/search?keyword=%E7%A0%B4%E5%A3%81" target="_blank" >
+                            <img class="J-lazy" alt="破壁料理机" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/2f/01/2f01f336c65f57bfd168c30cfe46abfe.jpg">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/386" target="_blank" class="click-wrapper">
+                            <p class="img-name">新年新气象</p>
+                            <p class="img-desc" style="color: #c96b2c">家居主妇必备</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/386" target="_blank" >
+                            <img class="J-lazy" alt="新年新气象" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/8b/d9/8bd95b700d67c4a6212a5ee19b2abbf4.jpg">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/search?keyword=%E7%A9%BA%E6%B0%94%E5%87%80%E5%8C%96%E5%99%A8" target="_blank" class="click-wrapper">
+                            <p class="img-name">健康生活保障</p>
+                            <p class="img-desc" style="color: #c96b2c">去除甲醛防PM2.5</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/search?keyword=%E7%A9%BA%E6%B0%94%E5%87%80%E5%8C%96%E5%99%A8" target="_blank" >
+                            <img class="J-lazy" alt="健康生活保障" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/7c/15/7c1577993a4e00915543d5fbcfab4eab.jpg">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/search?keyword=%E7%94%B5%E9%A5%AD%E7%85%B2" target="_blank" class="click-wrapper">
+                            <p class="img-name">懂你的口味</p>
+                            <p class="img-desc" style="color: #c96b2c">满300减20抢券</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/search?keyword=%E7%94%B5%E9%A5%AD%E7%85%B2" target="_blank" >
+                            <img class="J-lazy" alt="懂你的口味" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/fa/ae/faaea498634a2f607628a8b55977a2f2.jpg">
+                        </a>
+                    </li>
+                </ul>
+                <div class="bottom-list">
+                    <ul>
+
+                        <li class="first" style="display: list-item;">
+                            <a href="http://java.bizpower.com/web/special/377" target="_blank">
+                                <p class="img-name">戴森吹风机</p>
+                                <p class="img-desc" style="color: #c96b2c">3099元起</p>
+                            </a>
+                            <a href="http://java.bizpower.com/web/special/377" target="_blank" class="img-wrapper">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/55/d1/55d1720e819c1deef55a7c88f04cf6ca.jpg">
+                            </a>
+                        </li>
+                        <li class="" style="display: list-item;">
+                            <a href="http://java.bizpower.com/web/goods/441" target="_blank">
+                                <p class="img-name">干湿两用</p>
+                                <p class="img-desc" style="color: #c96b2c">商家保税直邮</p>
+                            </a>
+                            <a href="http://java.bizpower.com/web/goods/441" target="_blank" class="img-wrapper">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/43/d9/43d969b5a54abb673a017b2d40974423.jpg">
+                            </a>
+                        </li>
+                        <li class="" style="display: list-item;">
+                            <a href="http://java.bizpower.com/web/goods/262" target="_blank">
+                                <p class="img-name">全身水洗</p>
+                                <p class="img-desc" style="color: #c96b2c">5向灵活刀头</p>
+                            </a>
+                            <a href="http://java.bizpower.com/web/goods/262" target="_blank" class="img-wrapper">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/a4/d1/a4d176b856234b07e18588f46f81a1be.jpg">
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="brand-logo">
+                    <ul>
+
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=65" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/49/6b/496b343be873262d98c84ad962e58be1.jpg">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=75" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/de/df/dedfb2dca9857bb81eff352cb09d3567.jpg">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=279" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/a779176305c00b89f18c2a9253dab2fb.jpg">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=38" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/e0/af/e0af7bedd965edaf264718c527e45bf5.jpg">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=71" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/e81972c88fe26204183d815fbc5bd24c.jpg">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=379" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/c6/84/c6843a320e6d2e85d604485f29af5213.jpg">
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <!-- 结束楼层顶部标题切换项栏 -->
+        </div>
+        <div class="floor-l right-floor">
+            <!-- 开始楼层顶部标题及文字链接栏 -->
+            <div class="title">
+                <div class="title-name"><span class="border" style="background: #b15641"></span>
+                    <p class="name" style="color: #b15641;">家装建材</p>
+                </div>
+                <div class="keyword clearfix">
+                    <a href="http://java.bizpower.com/web/search?cat=3" target="_blank" title="mrbItem.text!''">家装狂欢节</a>
+                    <a href="http://java.bizpower.com/web/search?cat=3" target="_blank" title="mrbItem.text!''">家具馆</a>
+                    <a href="http://java.bizpower.com/web/search?cat=3" target="_blank" title="mrbItem.text!''">卫浴馆</a>
+                    <a href="http://java.bizpower.com/web/search?cat=3" target="_blank" title="mrbItem.text!''">家装馆</a>
+                </div>
+            </div>
+            <div class="content">
+                <div class="left-img">
+                    <img class="J-lazy" alt="家装盛典" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/56/2b/562b23f3adace2fe494ede756edfedd7.jpg">
+                    <div class="cover"></div>
+                    <p class="img-name">家装盛典</p>
+                    <p class="img-desc">请选大牌汇聚</p>
+                    <a href="javascript:;" ></a>
+                </div>
+                <ul class="img-list clearfix">
+                    <li style="display: list-item;">
+                        <a href="javascript:;"  class="click-wrapper">
+                            <p class="img-name">A家家具</p>
+                            <p class="img-desc" style="color: #c96b2c">领券立减50</p>
+                        </a>
+                        <a class="img-wrapper" href="javascript:;"  >
+                            <img class="J-lazy" alt="A家家具" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/4b/16/4b16cd1025a2a73dc66ced3c7efc0258.png">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="javascript:;"  class="click-wrapper">
+                            <p class="img-name">卫浴馆</p>
+                            <p class="img-desc" style="color: #c96b2c">每100减20</p>
+                        </a>
+                        <a class="img-wrapper" href="javascript:;"  >
+                            <img class="J-lazy" alt="卫浴馆" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/7e/07/7e07e173a4d23dca5709c3010ccd2e90.png">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="javascript:;"  class="click-wrapper">
+                            <p class="img-name">九牧品牌日</p>
+                            <p class="img-desc" style="color: #c96b2c">好礼相赠</p>
+                        </a>
+                        <a class="img-wrapper" href="javascript:;"  >
+                            <img class="J-lazy" alt="九牧品牌日" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/e7/b8/e7b8b5d9f068ac47e68098f8399e3890.jpg">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="javascript:;"  class="click-wrapper">
+                            <p class="img-name">北欧风格</p>
+                            <p class="img-desc" style="color: #c96b2c">新品餐厅6件套</p>
+                        </a>
+                        <a class="img-wrapper" href="javascript:;"  >
+                            <img class="J-lazy" alt="北欧风格" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/18/5a/185aad7ba42bff88c959800a39885a50.jpg">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="bottom-list">
+                <ul>
+
+                    <li class="first" style="display: list-item;">
+                        <a href="javascript:;" >
+                            <p class="img-name">家具馆</p>
+                            <p class="img-desc" style="color: #c96b2c">爆款直降</p>
+                        </a>
+                        <a href="javascript:;"  class="img-wrapper">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/d1/58/d1584c64cc7b19f96cfbad20cab8f8b5.png">
+                        </a>
+                    </li>
+                    <li class="" style="display: list-item;">
+                        <a href="javascript:;" >
+                            <p class="img-name">卫浴馆</p>
+                            <p class="img-desc" style="color: #c96b2c">大牌抢先定</p>
+                        </a>
+                        <a href="javascript:;"  class="img-wrapper">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/74/2b/742bf664495ec1fe11389a86d1c6660a.png">
+                        </a>
+                    </li>
+                    <li class="" style="display: list-item;">
+                        <a href="javascript:;" >
+                            <p class="img-name">家装馆</p>
+                            <p class="img-desc" style="color: #c96b2c">极速物流</p>
+                        </a>
+                        <a href="javascript:;"  class="img-wrapper">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/86/42/8642c415619a7dc171560f752c4502ce.jpg">
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="brand-logo">
+                <ul>
+
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=414" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/1d/99/1d9947b243d678bae0139c3d59f91d26.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=415" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/84/82/8482e1b5efd16b935b01b8408093de9e.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=416" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/71/13/711302142e2d7e25a0ca603c53c6335c.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=417" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/d4/5d/d45df26fda06e0bdbaace77e238ae29c.png">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=418" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/6b/f5/6bf51f70057b7f4c86bfb846fd127599.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=419" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/4f/12/4f1283a4de1a575ddd86117cc5e6385a.jpg">
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- 结束楼层顶部标题切换项栏 -->
+        </div>
+    </div>
+</div>
+
+
+
+<div id="floor_7" class="home-standard-layout home-style-7" data-nc-floor-panel>
+    <div class="w floor floor-t8 com-floor floorOne clearfix" style="border-color: #e96f1e">
+        <div class="title" style="background: #fdf4ed">
+            <div class="title-name"><span class="border" style="background: #e96f1e"></span>
+                <p class="name" style="color: #e96f1e">食品生鲜</p>
+            </div>
+            <div class="keyword clearfix">
+                <a href="http://java.bizpower.com/web/search?keyword=%E9%9B%B6%E9%A3%9F" target="_blank" title="mbItem.text!''">休闲零食</a>
+                <a href="http://java.bizpower.com/web/search?keyword=%E6%B5%B7%E9%B2%9C" target="_blank" title="mbItem.text!''">精品生鲜</a>
+                <a href="http://java.bizpower.com/web/search?keyword=%E7%BA%A2%E9%85%92" target="_blank" title="mbItem.text!''">红酒</a>
+                <a href="http://java.bizpower.com/web/search?keyword=%E9%A5%AE%E6%96%99" target="_blank" title="mbItem.text!''">冲调品</a>
+            </div>
+        </div>
+        <div class="content">
+            <div class="left-img">
+
+                <img class="J-lazy" alt="品味经典" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/94/04/940420cdff5cfddaed2dff0988221aec.jpg">
+                <div class="cover"></div>
+                <p class="img-name">品味经典</p>
+                <p class="img-desc">部分商品8折优惠</p>
+                <a href="http://java.bizpower.com/web/goods/878" target="_blank"></a>
+
+            </div>
+            <ul class="img-list clearfix">
+
+                <li style="display: list-item;">
+                    <a href="http://java.bizpower.com/web/goods/872" target="_blank" class="click-wrapper">
+                        <p class="img-name">粮油干调</p>
+                        <p class="img-desc" style="color: #e96f1e">爆款直降</p>
+                    </a>
+                    <a class="img-wrapper" href="http://java.bizpower.com/web/goods/872" target="_blank" >
+                        <img class="J-lazy" alt="粮油干调" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/4e/ec/4eec79e3fb3201612f05ea966756c2ea.jpg">
+                    </a>
+                </li>
+                <li style="display: list-item;">
+                    <a href="http://java.bizpower.com/web/goods/874" target="_blank" class="click-wrapper">
+                        <p class="img-name">休闲零食</p>
+                        <p class="img-desc" style="color: #e96f1e">情人节特惠</p>
+                    </a>
+                    <a class="img-wrapper" href="http://java.bizpower.com/web/goods/874" target="_blank" >
+                        <img class="J-lazy" alt="休闲零食" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/a5/34/a534ae9ccf75ae57da1bab0f26828faf.png">
+                    </a>
+                </li>
+                <li style="display: list-item;">
+                    <a href="http://java.bizpower.com/web/goods/875" target="_blank" class="click-wrapper">
+                        <p class="img-name">中粮中茶</p>
+                        <p class="img-desc" style="color: #e96f1e">品质好茶</p>
+                    </a>
+                    <a class="img-wrapper" href="http://java.bizpower.com/web/goods/875" target="_blank" >
+                        <img class="J-lazy" alt="中粮中茶" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/21/15/211533ef455fc230d3036e470c02d371.jpg">
+                    </a>
+                </li>
+                <li style="display: list-item;">
+                    <a href="http://java.bizpower.com/web/goods/886" target="_blank" class="click-wrapper">
+                        <p class="img-name">水饮冲调</p>
+                        <p class="img-desc" style="color: #e96f1e">返场再让利</p>
+                    </a>
+                    <a class="img-wrapper" href="http://java.bizpower.com/web/goods/886" target="_blank" >
+                        <img class="J-lazy" alt="水饮冲调" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/a7/d5/a7d5d6026df57d6ded2f1f9be0d455d8.jpg">
+                    </a>
+                </li>
+
+            </ul>
+
+            <a href="http://java.bizpower.com/web/goods/881" target="_blank" class="middle-img">
+                <img class="J-lazy" alt="优选生鲜" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/f9/1c/f91c8cac09f64d51e4489033cd6be59f.jpg">
+                <div class="cover"></div>
+                <p class="img-name" style="color: #e96f1e">优选生鲜</p>
+                <p class="img-desc" style="color: #e96f1e">足不出户吃遍全球</p>
+            </a>
+
+            <ul class="img-list clearfix list-right">
+
+                <li style="display: list-item;">
+                    <a href="http://java.bizpower.com/web/goods/275" target="_blank" class="click-wrapper">
+                        <p class="img-name">精品生鲜</p>
+                        <p class="img-desc" style="color: #e96f1e">波士顿龙虾199起</p>
+                    </a>
+                    <a class="img-wrapper" href="http://java.bizpower.com/web/goods/275" target="_blank" >
+                        <img class="J-lazy" alt="精品生鲜" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/ee/a0/eea03484acf29fbe7514023ee4d7d705.png">
+                    </a>
+                </li>
+                <li style="display: list-item;">
+                    <a href="http://java.bizpower.com/web/goods/285" target="_blank" class="click-wrapper">
+                        <p class="img-name">时令水果</p>
+                        <p class="img-desc" style="color: #e96f1e">果味美 鲜到家</p>
+                    </a>
+                    <a class="img-wrapper" href="http://java.bizpower.com/web/goods/285" target="_blank" >
+                        <img class="J-lazy" alt="时令水果" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/13/bb/13bb5c3fcc4f31ae0486bbfe5feb1a61.png">
+                    </a>
+                </li>
+                <li style="display: list-item;">
+                    <a href="http://java.bizpower.com/web/goods/909" target="_blank" class="click-wrapper">
+                        <p class="img-name">肉禽蛋品</p>
+                        <p class="img-desc" style="color: #e96f1e">寻鲜美味 够鲜够味</p>
+                    </a>
+                    <a class="img-wrapper" href="http://java.bizpower.com/web/goods/909" target="_blank" >
+                        <img class="J-lazy" alt="肉禽蛋品" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/15/6b/156bc5df7456080c2ab516e80b124039.png">
+                    </a>
+                </li>
+                <li style="display: list-item;">
+                    <a href="http://java.bizpower.com/web/goods/883" target="_blank" class="click-wrapper">
+                        <p class="img-name">乳品冷饮</p>
+                        <p class="img-desc" style="color: #e96f1e">品质冷饮2件5折</p>
+                    </a>
+                    <a class="img-wrapper" href="http://java.bizpower.com/web/goods/883" target="_blank" >
+                        <img class="J-lazy" alt="乳品冷饮" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/64/df/64dfea18329fa716baaae064e9ca0fa6.jpg">
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+        <div class="brand-logo">
+            <ul>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=398" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/c9/b8/c9b8f949514abd598014ed707249f5ca.png">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=390" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/43/9f/439f01a204d542fb54d0ffe840615b80.png">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=396" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/b5/32/b53283f148971e453caa7863354a2161.png">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=395" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/b4/32/b432a2347f72f3bcbe3ac684bf6231f7.png">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=393" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/8c/81/8c8196d262474606cca003c6a09f168d.png">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=394" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/d2/87/d28728a6662152bee6c159d4cc6c1624.png">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=392" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/e4/ae/e4aecaf2f08a8ec91d2e38ce8e3c9f94.png">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=397" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/1a/af/1aaf4752295216cf1534a6a1721528ec.png">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=297" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/bad568f6ec829f9485d2dc757b0aafc8.jpg">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=284" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/5f/0b/5f0bd2fc313e634c3854b9b96efe1cd1.jpg">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=235" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/17a5fb63d2f6b3db1ac773e67f16d16f.jpg">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=166" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/52/d4/52d498ff0871c75fe7dd49cc902826f8.png">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div id="floor_8" class="home-standard-layout home-style-8" data-nc-floor-panel>
+    <div class="w floor floor-t7 com-floor clearfix">
+        <div class="floor-l left-floor">
+            <div class="title">
+                <div class="title-name"><span class="border" style="background:#9a6392"></span>
+                    <p class="name" style="color: #9a6392">服装鞋帽</p>
+                </div>
+                <div class="keyword clearfix">
+                    <a href="http://java.bizpower.com/web/search?keyword=%E5%A5%B3%E8%A3%85" target="_blank" title="mlbItem.text!''">时尚女装</a>
+                    <a href="http://java.bizpower.com/web/search?keyword=%E5%A4%A7%E8%A1%A3" target="_blank" title="mlbItem.text!''">休闲大衣</a>
+                    <a href="http://java.bizpower.com/web/search?keyword=%E9%9E%8B" target="_blank" title="mlbItem.text!''">原宿风潮</a>
+                    <a href="http://java.bizpower.com/web/search?keyword=%E7%94%B7%E8%A3%85" target="_blank" title="mlbItem.text!''">休闲装</a>
+                </div>
+            </div>
+            <div class="content">
+                <div class="left-img">
+                    <img class="J-lazy" alt="潮流服饰" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/55/2c/552cfc3ea89c2545129840bbd4b899de.jpg">
+                    <div class="cover"></div>
+                    <p class="img-name">潮流服饰</p>
+                    <p class="img-desc">满600减300</p>
+                    <a href="http://java.bizpower.com/web/channel/1" target="_blank"></a>
+                </div>
+                <ul class="img-list clearfix">
+
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/923" target="_blank" class="click-wrapper">
+                            <p class="img-name">太平鸟男装</p>
+                            <p class="img-desc" style="color: #9a6392">499减50/899减100</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/923" target="_blank" >
+                            <img class="J-lazy" alt="太平鸟男装" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/01/50/0150b6e74b733afd7ff862e8a8cd8ed0.png">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/922" target="_blank" class="click-wrapper">
+                            <p class="img-name">春款卫衣</p>
+                            <p class="img-desc" style="color: #9a6392">adidas满300减150</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/922" target="_blank" >
+                            <img class="J-lazy" alt="春款卫衣" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/43/68/4368a1d4dbeca47237f56a3308fbef1f.png">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/924" target="_blank" class="click-wrapper">
+                            <p class="img-name">NEW SEASON</p>
+                            <p class="img-desc" style="color: #9a6392">早春新品甜蜜</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/924" target="_blank" >
+                            <img class="J-lazy" alt="NEW SEASON" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/d3/07/d307b0fd597fe759c890e2cd0a408615.png">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/903" target="_blank" class="click-wrapper">
+                            <p class="img-name">男士商务</p>
+                            <p class="img-desc" style="color: #9a6392">西服上新8折</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/903" target="_blank" >
+                            <img class="J-lazy" alt="男士商务" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/21/37/21371beef8ae2db7d2ed5269322522e3.png">
+                        </a>
+                    </li>
+                </ul>
+                <div class="bottom-list">
+                    <ul>
+
+                        <li class="first" style="display: list-item;">
+                            <a href="http://java.bizpower.com/web/goods/920" target="_blank">
+                                <p class="img-name">新春焕新</p>
+                                <p class="img-desc" style="color: #9a6392">爆款1折起</p>
+                            </a>
+                            <a href="http://java.bizpower.com/web/goods/920" target="_blank" class="img-wrapper">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/35/9f/359fe153d21a1f8703b69508c47f3de6.png">
+                            </a>
+                        </li>
+                        <li class="" style="display: list-item;">
+                            <a href="http://java.bizpower.com/web/goods/921" target="_blank">
+                                <p class="img-name">魅力男鞋</p>
+                                <p class="img-desc" style="color: #9a6392">满千反百</p>
+                            </a>
+                            <a href="http://java.bizpower.com/web/goods/921" target="_blank" class="img-wrapper">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/19/c0/19c0c879befc933c20fa0b6a241a8354.png">
+                            </a>
+                        </li>
+                        <li class="" style="display: list-item;">
+                            <a href="http://java.bizpower.com/web/goods/91" target="_blank">
+                                <p class="img-name">大牌童鞋</p>
+                                <p class="img-desc" style="color: #9a6392">满99减30</p>
+                            </a>
+                            <a href="http://java.bizpower.com/web/goods/91" target="_blank" class="img-wrapper">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/ac/39/ac3928e2c003f5e3f0de22b509ef6a3f.png">
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="brand-logo">
+                    <ul>
+
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=121" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/2ad622d200e3565d79c0d8c346c86d21.jpg">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=410" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/7e/aa/7eaac9fd6830c0508173c0503afdad03.jpg">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=309" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/b918451fc8ff2dbc5eca139b12bbb877.jpg">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=147" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/a5787f7fbbf083bd1d5968592c34cc49.jpg">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=163" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/783875a6e35fff33b4f5c921a7b87b22.jpg">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=160" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/d56d1db74756dc9780697bd61c6cd548.jpg">
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <!-- 结束楼层顶部标题切换项栏 -->
+        </div>
+        <div class="floor-l right-floor">
+            <!-- 开始楼层顶部标题及文字链接栏 -->
+            <div class="title">
+                <div class="title-name"><span class="border" style="background: #e7658c"></span>
+                    <p class="name" style="color: #e7658c;">美妆个护</p>
+                </div>
+                <div class="keyword clearfix">
+                    <a href="http://java.bizpower.com/web/search?keyword=%E6%B4%81%E9%9D%A2" target="_blank" title="mrbItem.text!''">洗面奶</a>
+                    <a href="http://java.bizpower.com/web/search?keyword=%E5%8F%A3%E7%BA%A2" target="_blank" title="mrbItem.text!''">唇釉</a>
+                    <a href="http://java.bizpower.com/web/search?keyword=%E6%B4%97%E6%8A%A4" target="_blank" title="mrbItem.text!''">洗护套装</a>
+                    <a href="http://java.bizpower.com/web/search?keyword=%E9%9D%A2%E9%9C%9C" target="_blank" title="mrbItem.text!''">面霜</a>
+                </div>
+            </div>
+            <div class="content">
+                <div class="left-img">
+                    <img class="J-lazy" alt="魅力装扮" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/78/d1/78d1f39326997d4caed3f66cb7d0aaa6.jpg">
+                    <div class="cover"></div>
+                    <p class="img-name">魅力装扮</p>
+                    <p class="img-desc">领券300立减30</p>
+                    <a href="http://java.bizpower.com/web/store/19" target="_blank"></a>
+                </div>
+                <ul class="img-list clearfix">
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/910" target="_blank" class="click-wrapper">
+                            <p class="img-name">香水彩妆</p>
+                            <p class="img-desc" style="color: #9a6392">满199立减100</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/910" target="_blank" >
+                            <img class="J-lazy" alt="香水彩妆" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/2d/4b/2d4bb0a2232467bc1de1ba235865a651.png">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/355" target="_blank" class="click-wrapper">
+                            <p class="img-name">盛装美颜</p>
+                            <p class="img-desc" style="color: #9a6392">单品8折促销</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/355" target="_blank" >
+                            <img class="J-lazy" alt="盛装美颜" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/cc/bb/ccbbd3e8d91b91e31c564143a2955987.png">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/850" target="_blank" class="click-wrapper">
+                            <p class="img-name">洗护精选</p>
+                            <p class="img-desc" style="color: #9a6392">大牌上新 8.5折扣</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/850" target="_blank" >
+                            <img class="J-lazy" alt="洗护精选" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/8c/aa/8caa77aa2ddd0704961375564858c18d.png">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/877" target="_blank" class="click-wrapper">
+                            <p class="img-name">面部护理</p>
+                            <p class="img-desc" style="color: #9a6392">2件5折专区</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/877" target="_blank" >
+                            <img class="J-lazy" alt="面部护理" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/6e/00/6e00d7a892f8097b0c130eff7f813605.jpg">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="bottom-list">
+                <ul>
+
+                    <li class="first" style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/911" target="_blank">
+                            <p class="img-name">洁面护肤</p>
+                            <p class="img-desc" style="color: #9a6392">买二赠一</p>
+                        </a>
+                        <a href="http://java.bizpower.com/web/goods/911" target="_blank" class="img-wrapper">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/48/68/48681e560ebf19acdab1ac32ca2d6226.jpg">
+                        </a>
+                    </li>
+                    <li class="" style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/914" target="_blank">
+                            <p class="img-name">口腔护理</p>
+                            <p class="img-desc" style="color: #9a6392">套装组合</p>
+                        </a>
+                        <a href="http://java.bizpower.com/web/goods/914" target="_blank" class="img-wrapper">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/c7/9c/c79c191aa03f255280f3b20dbe5edf4b.jpg">
+                        </a>
+                    </li>
+                    <li class="" style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/915" target="_blank">
+                            <p class="img-name">男士洁面</p>
+                            <p class="img-desc" style="color: #9a6392">爆款低至2折</p>
+                        </a>
+                        <a href="http://java.bizpower.com/web/goods/915" target="_blank" class="img-wrapper">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/c7/0f/c70f4425de14c904d3bcbe7a07cc2cdc.jpg">
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="brand-logo">
+                <ul>
+
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=15" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/0b7ce98c3d1191c160edc9cb1cdf194c.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=36" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/1287be47c3d2b5e4b44b739271a15921.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=76" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/1fdba1d2ea323f173ac03ae107d94d39.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=70" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/c17a0b830849b16eb0b5914711ecf5a7.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=406" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/e1/fe/e1fe70fa44365503db948b8833bd4175.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=409" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/c3/10/c310aa71156195ba390726daa9f8cf2e.jpg">
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- 结束楼层顶部标题切换项栏 -->
+        </div>
+    </div>
+</div>
+
+
+
+
+<div id="floor_9" class="home-standard-layout home-style-9" data-nc-floor-panel>
+    <div class="w floor floor-t7 com-floor clearfix">
+        <div class="floor-l left-floor">
+            <div class="title">
+                <div class="title-name"><span class="border" style="background:#e87272"></span>
+                    <p class="name" style="color: #e87272">美妈萌娃</p>
+                </div>
+                <div class="keyword clearfix">
+                    <a href="http://java.bizpower.com/web/search?keyword=%E5%A5%B6%E7%B2%89" target="_blank" title="mlbItem.text!''">精装奶粉</a>
+                    <a href="http://java.bizpower.com/web/search?keyword=%E8%B4%9D%E4%BA%B2" target="_blank" title="mlbItem.text!''">贝亲洗护</a>
+                    <a href="http://java.bizpower.com/web/search?keyword=%E5%A9%B4%E5%84%BF%E8%BD%A6" target="_blank" title="mlbItem.text!''">车床座椅</a>
+                    <a href="http://java.bizpower.com/web/search?keyword=%E8%BE%85%E9%A3%9F" target="_blank" title="mlbItem.text!''">辅食必备</a>
+                </div>
+            </div>
+            <div class="content">
+                <div class="left-img">
+                    <img class="J-lazy" alt="母婴优选" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/44/8e/448e80e478a7d60d5a6593aba8534ebd.jpg">
+                    <div class="cover"></div>
+                    <p class="img-name">母婴优选</p>
+                    <p class="img-desc">每日爆款限量抢</p>
+                    <a href="http://java.bizpower.com/web/store/5" target="_blank"></a>
+                </div>
+                <ul class="img-list clearfix">
+
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/887" target="_blank" class="click-wrapper">
+                            <p class="img-name">精装奶粉</p>
+                            <p class="img-desc" style="color: #e87272">满799减200</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/887" target="_blank" >
+                            <img class="J-lazy" alt="精装奶粉" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/24/7a/247a8ebbf1ddf277e918751306d14a7d.png">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/20" target="_blank" class="click-wrapper">
+                            <p class="img-name">贝亲精选</p>
+                            <p class="img-desc" style="color: #e87272">大牌5折</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/20" target="_blank" >
+                            <img class="J-lazy" alt="贝亲精选" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/91/d3/91d379537037f2194de3884ccef49cef.jpg">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/925" target="_blank" class="click-wrapper">
+                            <p class="img-name">洗护用品</p>
+                            <p class="img-desc" style="color: #e87272">品牌8折优惠</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/925" target="_blank" >
+                            <img class="J-lazy" alt="洗护用品" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/37/a4/37a4eaff1409b9d4770fdf3b182d8bdc.png">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/926" target="_blank" class="click-wrapper">
+                            <p class="img-name">安全座椅</p>
+                            <p class="img-desc" style="color: #e87272">满799减100</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/926" target="_blank" >
+                            <img class="J-lazy" alt="安全座椅" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/2e/ee/2eeeb59927f963b6ce1d8d4e58304ff2.png">
+                        </a>
+                    </li>
+                </ul>
+                <div class="bottom-list">
+                    <ul>
+
+                        <li class="first" style="display: list-item;">
+                            <a href="http://java.bizpower.com/web/goods/893" target="_blank">
+                                <p class="img-name">婴儿推车</p>
+                                <p class="img-desc" style="color: #e87272">品牌直降90</p>
+                            </a>
+                            <a href="http://java.bizpower.com/web/goods/893" target="_blank" class="img-wrapper">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/a6/5b/a65bfbc6299c049b383bfece4ee3250e.jpg">
+                            </a>
+                        </li>
+                        <li class="" style="display: list-item;">
+                            <a href="http://java.bizpower.com/web/goods/888" target="_blank">
+                                <p class="img-name">尿裤精选</p>
+                                <p class="img-desc" style="color: #e87272">品质立减80</p>
+                            </a>
+                            <a href="http://java.bizpower.com/web/goods/888" target="_blank" class="img-wrapper">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/9e/1f/9e1f3d8e8399c86c913c3fe63473881b.jpg">
+                            </a>
+                        </li>
+                        <li class="" style="display: list-item;">
+                            <a href="http://java.bizpower.com/web/goods/889" target="_blank">
+                                <p class="img-name">孕妈必备</p>
+                                <p class="img-desc" style="color: #e87272">9.9元秒杀</p>
+                            </a>
+                            <a href="http://java.bizpower.com/web/goods/889" target="_blank" class="img-wrapper">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/a3/e6/a3e6b809e08215ce4b952f95c8b32711.jpg">
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="brand-logo">
+                    <ul>
+
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=16" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/e88124d6fbcbcb1066bc3c8157d229a3.jpg">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=141" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/a044cdbaff12489ba4879146a58a62b1.jpg">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=6" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/fdd1b34b0eccf247959f5e2b9e18e1f2.jpg">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=109" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/1c15964800b6e9ab598f6245810aed50.jpg">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=78" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/0ea947e7f33faf18fe06dfab7f7e4f02.jpg">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://java.bizpower.com/web/search?brand=125" target="_blank">
+                                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/4dfe39071c20f981e54005ea095d1fbf.jpg">
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <!-- 结束楼层顶部标题切换项栏 -->
+        </div>
+        <div class="floor-l right-floor">
+            <!-- 开始楼层顶部标题及文字链接栏 -->
+            <div class="title">
+                <div class="title-name"><span class="border" style="background: #b87b1b"></span>
+                    <p class="name" style="color: #b87b1b;">珠宝饰品</p>
+                </div>
+                <div class="keyword clearfix">
+                    <a href="http://java.bizpower.com/web/search?keyword=%E8%A1%A8" target="_blank" title="mrbItem.text!''">瑞士机械表</a>
+                    <a href="http://java.bizpower.com/web/search?keyword=%E9%BB%84%E9%87%91" target="_blank" title="mrbItem.text!''">千足金</a>
+                    <a href="http://java.bizpower.com/web/search?keyword=%E6%83%85%E4%BE%A3" target="_blank" title="mrbItem.text!''">情侣饰品</a>
+                    <a href="http://java.bizpower.com/web/search?keyword=%E7%BF%A1%E7%BF%A0" target="_blank" title="mrbItem.text!''">翡翠</a>
+                </div>
+            </div>
+            <div class="content">
+                <div class="left-img">
+                    <img class="J-lazy" alt="名品名饰" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/2d/34/2d34e02bc19aedb2bc82f135bb6d1262.png">
+                    <div class="cover"></div>
+                    <p class="img-name">名品名饰</p>
+                    <p class="img-desc">名品珠宝3折特惠</p>
+                    <a href="http://java.bizpower.com/web/goods/932" target="_blank"></a>
+                </div>
+                <ul class="img-list clearfix">
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/928" target="_blank" class="click-wrapper">
+                            <p class="img-name">情侣腕表</p>
+                            <p class="img-desc" style="color: #e87272">情人节8折</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/928" target="_blank" >
+                            <img class="J-lazy" alt="情侣腕表" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/19/a3/19a3d6ce0aedc8ea1eef0a74b360b4d6.png">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/929" target="_blank" class="click-wrapper">
+                            <p class="img-name">千足金</p>
+                            <p class="img-desc" style="color: #e87272">每克立减30</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/929" target="_blank" >
+                            <img class="J-lazy" alt="千足金" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/eb/b4/ebb4f8c1e5f944aacb0438698d81430c.png">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/931" target="_blank" class="click-wrapper">
+                            <p class="img-name">钻石世家</p>
+                            <p class="img-desc" style="color: #e87272">项链吊坠8折</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/931" target="_blank" >
+                            <img class="J-lazy" alt="钻石世家" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/ed/6e/ed6e1bffdf90b2d7a54987da726b9116.png">
+                        </a>
+                    </li>
+                    <li style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/930" target="_blank" class="click-wrapper">
+                            <p class="img-name">彩宝手链</p>
+                            <p class="img-desc" style="color: #e87272">满2000减300</p>
+                        </a>
+                        <a class="img-wrapper" href="http://java.bizpower.com/web/goods/930" target="_blank" >
+                            <img class="J-lazy" alt="彩宝手链" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/6b/a5/6ba5a965848b8da7ff158309cec039b3.png">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="bottom-list">
+                <ul>
+
+                    <li class="first" style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/22" target="_blank">
+                            <p class="img-name">浪琴专区</p>
+                            <p class="img-desc" style="color: #e87272">领券减200</p>
+                        </a>
+                        <a href="http://java.bizpower.com/web/goods/22" target="_blank" class="img-wrapper">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/23/18/2318c84f0985bbe247a7b6b854cd7723.jpg">
+                        </a>
+                    </li>
+                    <li class="" style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/927" target="_blank">
+                            <p class="img-name">钟灵翡翠</p>
+                            <p class="img-desc" style="color: #e87272">8折秒杀</p>
+                        </a>
+                        <a href="http://java.bizpower.com/web/goods/927" target="_blank" class="img-wrapper">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/d2/ac/d2acfaf7c46f86db85186d16dda28f08.jpg">
+                        </a>
+                    </li>
+                    <li class="" style="display: list-item;">
+                        <a href="http://java.bizpower.com/web/goods/892" target="_blank">
+                            <p class="img-name">enzo饰品</p>
+                            <p class="img-desc" style="color: #e87272">秒杀减80</p>
+                        </a>
+                        <a href="http://java.bizpower.com/web/goods/892" target="_blank" class="img-wrapper">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/78/33/78334a7fa805d28c47a3ca41453a284f.png">
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="brand-logo">
+                <ul>
+
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=173" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/96aa437c5996d18c74bfaf55cbd38b2b.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=251" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/c22e9ab82461f26e69561d64ea2740f8.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=224" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/b1a226065d86ecb73ad7e6ec6e6ab6e9.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=195" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/f882b9eb6d508403d96d0a7793a75c50.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=177" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/9c9ccf6527bfe13d13a9ebdc326a153c.jpg">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://java.bizpower.com/web/search?brand=186" target="_blank">
+                            <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/7e9c7147e3156d3789309e62f79a451c.jpg">
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- 结束楼层顶部标题切换项栏 -->
+        </div>
+    </div>
+</div>
+
+
+
+<div id="floor_10" class="home-standard-layout home-style-10" data-nc-floor-panel>
+    <div class="w floor floor-t8 com-floor floorOne clearfix" style="border-color: #76639a">
+        <div class="title" style="background: #fbf9ff">
+            <div class="title-name"><span class="border" style="background: #76639a"></span>
+                <p class="name" style="color: #76639a">旅行生活</p>
+            </div>
+            <div class="keyword clearfix">
+                <a href="http://java.bizpower.com/web/search?keyword=%E9%85%92%E5%BA%97" target="_blank" title="mbItem.text!''">高端酒店</a>
+                <a href="http://java.bizpower.com/web/search?keyword=%E5%93%88%E6%A0%B9%E8%BE%BE%E6%96%AF" target="_blank" title="mbItem.text!''">哈根达斯</a>
+                <a href="http://java.bizpower.com/web/search?keyword=%E5%B2%9B" target="_blank" title="mbItem.text!''">蜜月圣地</a>
+                <a href="http://java.bizpower.com/web/search?keyword=%E6%97%85%E8%A1%8C" target="_blank" title="mbItem.text!''">精品自由行</a>
+                <a href="http://java.bizpower.com/web/search?keyword=%E9%97%A8%E7%A5%A8" target="_blank" title="mbItem.text!''">景点门票</a>
+            </div>
+        </div>
+        <div class="content">
+            <div class="left-img">
+
+                <img class="J-lazy" alt="浪漫旅行" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/03/9d/039d9a86e3f43114be0949dd3b1f9b57.png">
+                <div class="cover"></div>
+                <p class="img-name">浪漫旅行</p>
+                <p class="img-desc">精品线路7折优惠</p>
+                <a href="http://java.bizpower.com/web/goods/933" target="_blank"></a>
+
+            </div>
+            <ul class="img-list clearfix">
+
+                <li style="display: list-item;">
+                    <a href="http://java.bizpower.com/web/goods/453" target="_blank" class="click-wrapper">
+                        <p class="img-name">海岛旅行</p>
+                        <p class="img-desc" style="color: #76639a">旅行出游8折优惠</p>
+                    </a>
+                    <a class="img-wrapper" href="http://java.bizpower.com/web/goods/453" target="_blank" >
+                        <img class="J-lazy" alt="海岛旅行" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/ef/d2/efd23cf42178ca1df2422af8dd533915.png">
+                    </a>
+                </li>
+                <li style="display: list-item;">
+                    <a href="http://java.bizpower.com/web/goods/412" target="_blank" class="click-wrapper">
+                        <p class="img-name">大牌酒店</p>
+                        <p class="img-desc" style="color: #76639a">立享5折</p>
+                    </a>
+                    <a class="img-wrapper" href="http://java.bizpower.com/web/goods/412" target="_blank" >
+                        <img class="J-lazy" alt="大牌酒店" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/34/e1/34e13cb34a43f5f26a812c5a7d7d3abd.png">
+                    </a>
+                </li>
+                <li style="display: list-item;">
+                    <a href="http://java.bizpower.com/web/goods/452" target="_blank" class="click-wrapper">
+                        <p class="img-name">雪乡圣地</p>
+                        <p class="img-desc" style="color: #76639a">自由滑雪3日行</p>
+                    </a>
+                    <a class="img-wrapper" href="http://java.bizpower.com/web/goods/452" target="_blank" >
+                        <img class="J-lazy" alt="雪乡圣地" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/1a/83/1a83e97beb31bc0b9deab6ef64a22a19.png">
+                    </a>
+                </li>
+                <li style="display: list-item;">
+                    <a href="http://java.bizpower.com/web/goods/449" target="_blank" class="click-wrapper">
+                        <p class="img-name">旅行机票</p>
+                        <p class="img-desc" style="color: #76639a">经典航线9折</p>
+                    </a>
+                    <a class="img-wrapper" href="http://java.bizpower.com/web/goods/449" target="_blank" >
+                        <img class="J-lazy" alt="旅行机票" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/0d/2c/0d2c0a388557dabc2b354b60ed78e250.png">
+                    </a>
+                </li>
+
+            </ul>
+
+            <a href="http://java.bizpower.com/web/goods/456" target="_blank" class="middle-img">
+                <img class="J-lazy" alt="品质生活" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/13/f0/13f02ce6fe00822a2d883b85fc49d0be.png">
+                <div class="cover"></div>
+                <p class="img-name" style="color: #76639a">品质生活</p>
+                <p class="img-desc" style="color: #76639a">吃喝玩乐8折优惠</p>
+            </a>
+
+            <ul class="img-list clearfix list-right">
+
+                <li style="display: list-item;">
+                    <a href="http://java.bizpower.com/web/goods/392" target="_blank" class="click-wrapper">
+                        <p class="img-name">佳节送礼</p>
+                        <p class="img-desc" style="color: #76639a">大闸蟹满300立减100</p>
+                    </a>
+                    <a class="img-wrapper" href="http://java.bizpower.com/web/goods/392" target="_blank" >
+                        <img class="J-lazy" alt="佳节送礼" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/44/41/44410f928db7e7079c63d9ef546224f0.png">
+                    </a>
+                </li>
+                <li style="display: list-item;">
+                    <a href="http://java.bizpower.com/web/goods/395" target="_blank" class="click-wrapper">
+                        <p class="img-name">预约车护</p>
+                        <p class="img-desc" style="color: #76639a">专业洗车10次送2次</p>
+                    </a>
+                    <a class="img-wrapper" href="http://java.bizpower.com/web/goods/395" target="_blank" >
+                        <img class="J-lazy" alt="预约车护" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/79/a3/79a36dae3a447c36c56ef1fdd5224d38.png">
+                    </a>
+                </li>
+                <li style="display: list-item;">
+                    <a href="http://java.bizpower.com/web/goods/400" target="_blank" class="click-wrapper">
+                        <p class="img-name">哈根达斯</p>
+                        <p class="img-desc" style="color: #76639a">甜蜜七夕八折享</p>
+                    </a>
+                    <a class="img-wrapper" href="http://java.bizpower.com/web/goods/400" target="_blank" >
+                        <img class="J-lazy" alt="哈根达斯" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/ab/ec/abec6c02db0fc380854c932b94555210.png">
+                    </a>
+                </li>
+                <li style="display: list-item;">
+                    <a href="http://java.bizpower.com/web/goods/410" target="_blank" class="click-wrapper">
+                        <p class="img-name">欢乐游艺</p>
+                        <p class="img-desc" style="color: #76639a">门票立减80</p>
+                    </a>
+                    <a class="img-wrapper" href="http://java.bizpower.com/web/goods/410" target="_blank" >
+                        <img class="J-lazy" alt="欢乐游艺" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/30/ed/30eddc54de6f66de66aef605025d9702.png">
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+        <div class="brand-logo">
+            <ul>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=2" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/brand/2ca19f736e658dafc28367c9d74f31d3.jpg">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=429" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/0f/74/0f747488d1283aff6c62c7b44afa163e.png">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=428" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/0a/a9/0aa9361f8fad43dc8b37679d1e118cdc.png">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=432" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/3a/e2/3ae23ff03f259d2de573092bb413c263.png">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=435" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/de/ad/dead8f029ee4b52cf06692bf349466b5.png">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=430" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/64/c2/64c2fc9393b8eccb5de9e66c08d1de96.png">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=433" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/e2/4d/e24d45e7f3570f4473126d1a23878fe9.png">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=427" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/e5/4a/e54ad41fff3fda7938ca22ded2ee09ad.png">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=426" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/f3/bc/f3bcd6eab5dfb810949be9e78f382d87.png">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=436" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/f3/e2/f3e20117b77a1f22c2600c299f1f5fcd.png">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=431" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/68/ce/68ce607be27274623a05f1279e334df2.png">
+                    </a>
+                </li>
+                <li>
+                    <a href="http://java.bizpower.com/web/search?brand=434" target="_blank">
+                        <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/3b/1a/3b1abce0abd432024ba36e297d025daa.png">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div><div id="floor_11" class="home-standard-layout home-style-11" data-nc-floor-panel>
+    <div class="w floor floor-t6 csstransitions clearfix">
+
+        <div class="bz-more-tit-inner">
+
+            <h3>热卖单品</h3>
+        </div>
+
+
+        <!-- 开始商品推荐内容 -->
+        <div class="bz-more-inner">
+            <ul class="bz-more-list clearfix">
+
+
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/926" target="_blank" title="innokids 儿童安全座椅isofix接口可躺0-4-12岁新生宝宝婴儿车载360度旋转汽车座椅">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/9d/d0/9dd0a31deab101afdb5142ba96d50bf7.jpg@240w_240h" alt="innokids 儿童安全座椅isofix接口可躺0-4-12岁新生宝宝婴儿车载360度旋转汽车座椅">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">innokids 儿童安全座椅isofix接口可躺0-4-12岁新生宝宝婴儿车载360度旋转汽车座椅</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>868</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/924" target="_blank" title="NBUSMK2018韩版女装秋装新款宽松牛仔开衫夹克短外套焕蓝色">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/64/b5/64b5fe6de85863cce26794b0a163e4bc.jpg@240w_240h" alt="NBUSMK2018韩版女装秋装新款宽松牛仔开衫夹克短外套焕蓝色">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">NBUSMK2018韩版女装秋装新款宽松牛仔开衫夹克短外套焕蓝色</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>428</span><span class='pointer'>.</span><span class='decimal'>40</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/923" target="_blank" title="太平鸟男装 秋冬新款黑色刺绣连帽卫衣男潮牌卫衣2018年帽衫男">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/2b/9c/2b9cace0c3dcf7f1a3613c65caa6e7b2.jpg@240w_240h" alt="太平鸟男装 秋冬新款黑色刺绣连帽卫衣男潮牌卫衣2018年帽衫男">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">太平鸟男装 秋冬新款黑色刺绣连帽卫衣男潮牌卫衣2018年帽衫男</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>359</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/922" target="_blank" title="阿迪达斯neo女装卫衣2018春季新款运动连帽针织休闲卫衣套头衫CV9227 Z">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/9f/0f/9f0ffe21657567c681e9a1fe4d57651a.jpg@240w_240h" alt="阿迪达斯neo女装卫衣2018春季新款运动连帽针织休闲卫衣套头衫CV9227 Z">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">阿迪达斯neo女装卫衣2018春季新款运动连帽针织休闲卫衣套头衫CV9227 Z</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>315</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/896" target="_blank" title="PEACEBIRD太平鸟男装夹克男秋季新款2018韩版飞行员夹克男棒球服男士外套男潮夹克男修身">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/7f/45/7f45c311f59ce0d8932a65de524545b4.jpg@240w_240h" alt="PEACEBIRD太平鸟男装夹克男秋季新款2018韩版飞行员夹克男棒球服男士外套男潮夹克男修身">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">PEACEBIRD太平鸟男装夹克男秋季新款2018韩版飞行员夹克男棒球服男士外套男潮夹克男修身</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>399</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/898" target="_blank" title="PEACEBIRD太平鸟男装冬季羊毛呢短款外套修身刺绣休闲棒球领夹克衫韩版茄克常规版型棒球服男">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/66/ec/66ec7d073b46ab7aa33116c92fda1804.jpg@240w_240h" alt="PEACEBIRD太平鸟男装冬季羊毛呢短款外套修身刺绣休闲棒球领夹克衫韩版茄克常规版型棒球服男">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">PEACEBIRD太平鸟男装冬季羊毛呢短款外套修身刺绣休闲棒球领夹克衫韩版茄克常规版型棒球服男</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>799</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/893" target="_blank" title="L-SUN小太阳豪华版高景观婴儿手推车0-3岁宝宝可坐可躺儿童双向推行折叠661-8HT 典雅紫">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/5c/b7/5cb7f128bc250321e94a97b0b36e0d0b.jpg@240w_240h" alt="L-SUN小太阳豪华版高景观婴儿手推车0-3岁宝宝可坐可躺儿童双向推行折叠661-8HT 典雅紫">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">L-SUN小太阳豪华版高景观婴儿手推车0-3岁宝宝可坐可躺儿童双向推行折叠661-8HT 典雅紫</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>539</span><span class='pointer'>.</span><span class='decimal'>10</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/885" target="_blank" title="SAMSUNG/三星 Galaxy A8s (SM-G8870)  黑瞳全视屏 4G手机双卡双待">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/c3/e4/c3e44f9fd17a2a73dffb8548db06c991.jpg@240w_240h" alt="SAMSUNG/三星 Galaxy A8s (SM-G8870)  黑瞳全视屏 4G手机双卡双待">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">SAMSUNG/三星 Galaxy A8s (SM-G8870)  黑瞳全视屏 4G手机双卡双待</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>2799</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/881" target="_blank" title="星农联合环球海鲜大礼包海鲜礼盒4688型12种4800g默认发礼券">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/72/92/72920ddc9d170e8efffc788738a6aa28.jpg@240w_240h" alt="星农联合环球海鲜大礼包海鲜礼盒4688型12种4800g默认发礼券">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">星农联合环球海鲜大礼包海鲜礼盒4688型12种4800g默认发礼券</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>549</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/876" target="_blank" title="vivo NEX双屏版新品手机 非凡双屏 突破未来 全网通4G手机 双卡双待">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/37/fe/37fe0ae9992bb4756042ceaed9ca7261.jpg@240w_240h" alt="vivo NEX双屏版新品手机 非凡双屏 突破未来 全网通4G手机 双卡双待">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">vivo NEX双屏版新品手机 非凡双屏 突破未来 全网通4G手机 双卡双待</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>4498</span><span class='pointer'>.</span><span class='decimal'>20</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/871" target="_blank" title="沐晨 电脑桌 实木电脑桌 台式家用卧室书桌简易日式办公桌简约现代学生写字台桌 1米单桌（双抽屉）">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/68/e5/68e5c4db20809d9302207d9d83384351.jpg@240w_240h" alt="沐晨 电脑桌 实木电脑桌 台式家用卧室书桌简易日式办公桌简约现代学生写字台桌 1米单桌（双抽屉）">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">沐晨 电脑桌 实木电脑桌 台式家用卧室书桌简易日式办公桌简约现代学生写字台桌 1米单桌（双抽屉）</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>809</span><span class='pointer'>.</span><span class='decimal'>10</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/866" target="_blank" title="沐良卫浴 浴室柜现代简约家装实木防水免漆浴室柜 黑白木纹款浴室洗脸盆洗手盆组合套装">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/43/2b/432b5879cca4fb35c6a4f78b9250f360.jpg@240w_240h" alt="沐良卫浴 浴室柜现代简约家装实木防水免漆浴室柜 黑白木纹款浴室洗脸盆洗手盆组合套装">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">沐良卫浴 浴室柜现代简约家装实木防水免漆浴室柜 黑白木纹款浴室洗脸盆洗手盆组合套装</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>1152</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/853" target="_blank" title="3P匹冷暖客厅挂机空调 壁挂式家用 Haier/海尔 KFR-72GW/05NHA12">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/d6/85/d685edfd344baa41cb07e5ca75ee2b64.jpg@240w_240h" alt="3P匹冷暖客厅挂机空调 壁挂式家用 Haier/海尔 KFR-72GW/05NHA12">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">3P匹冷暖客厅挂机空调 壁挂式家用 Haier/海尔 KFR-72GW/05NHA12</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>5199</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/851" target="_blank" title="华为（HUAWEI）mate20pro手机全网通（UD屏内指纹版）">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/b3/e5/b3e5257128afb961b91918458d390711.jpg@240w_240h" alt="华为（HUAWEI）mate20pro手机全网通（UD屏内指纹版）">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">华为（HUAWEI）mate20pro手机全网通（UD屏内指纹版）</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>3472</span><span class='pointer'>.</span><span class='decimal'>80</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/848" target="_blank" title="跑客Pro跑步机家用款全折叠超静音智能减震跑步机健身房器材 跑客Pro-灰色">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/a9/0f/a90f6fc8e380a0abd999564ea3b75939.png@240w_240h" alt="跑客Pro跑步机家用款全折叠超静音智能减震跑步机健身房器材 跑客Pro-灰色">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">跑客Pro跑步机家用款全折叠超静音智能减震跑步机健身房器材 跑客Pro-灰色</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>3299</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/445" target="_blank" title="飞利浦（PHILIPS） 空气净化器AC8612 家用商用有效除甲醛雾霾灵智感应除菌进口">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/f7/15/f715214f4e502286f74d471bd2347edd.jpg@240w_240h" alt="飞利浦（PHILIPS） 空气净化器AC8612 家用商用有效除甲醛雾霾灵智感应除菌进口">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">飞利浦（PHILIPS） 空气净化器AC8612 家用商用有效除甲醛雾霾灵智感应除菌进口</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>8999</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/443" target="_blank" title="戴森(Dyson) 360EYE智能扫地机器人 全景测绘定位 路径智能规划 自动回充 手机APP连控">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/fe/88/fe88fea6d35b2124cc13cb7de0eb3d87.jpg@240w_240h" alt="戴森(Dyson) 360EYE智能扫地机器人 全景测绘定位 路径智能规划 自动回充 手机APP连控">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">戴森(Dyson) 360EYE智能扫地机器人 全景测绘定位 路径智能规划 自动回充 手机APP连控</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>6488</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/441" target="_blank" title="【德国直邮】karcher德国凯驰集团除螨静音 干湿两用吸尘器">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/eb/3f/eb3feb1e55b2aa82e07bb0a9f1721e49.jpg@240w_240h" alt="【德国直邮】karcher德国凯驰集团除螨静音 干湿两用吸尘器">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">【德国直邮】karcher德国凯驰集团除螨静音 干湿两用吸尘器</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>1888</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/434" target="_blank" title="索尼/Sony 耳机 MDR-EX750BT 无线立体声耳机">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/0e/36/0e366ef02230548fbce5edca63e6e081.jpg@240w_240h" alt="索尼/Sony 耳机 MDR-EX750BT 无线立体声耳机">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">索尼/Sony 耳机 MDR-EX750BT 无线立体声耳机</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>999</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/431" target="_blank" title="森海塞尔 Momentum Wireless 2.0 蓝牙音箱无线 头戴式 大馒头2.0 版">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/67/b6/67b6b42efc94547d62f6f9813387fdda.jpg@240w_240h" alt="森海塞尔 Momentum Wireless 2.0 蓝牙音箱无线 头戴式 大馒头2.0 版">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">森海塞尔 Momentum Wireless 2.0 蓝牙音箱无线 头戴式 大馒头2.0 版</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>2399</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/425" target="_blank" title="徕卡（Leica） 数码相机 C（TYP112） WIFI无线传输">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/f6/0e/f60ee86ed3291a1009e659b045043e54.jpg@240w_240h" alt="徕卡（Leica） 数码相机 C（TYP112） WIFI无线传输">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">徕卡（Leica） 数码相机 C（TYP112） WIFI无线传输</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>4030</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/424" target="_blank" title="索尼（SONY）PlayStation VR眼镜 虚拟现实头戴设备">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/8d/17/8d171a6eee6187fb9aab0211e3bd1e2d.jpg@240w_240h" alt="索尼（SONY）PlayStation VR眼镜 虚拟现实头戴设备">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">索尼（SONY）PlayStation VR眼镜 虚拟现实头戴设备</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>3399</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/422" target="_blank" title="苹果 (Apple) Apple Watch Series 3手表铝金属表壳运动型GPS+蜂窝网络版">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/90/3a/903a05b2d2f97b28c48795740152324e.jpg@240w_240h" alt="苹果 (Apple) Apple Watch Series 3手表铝金属表壳运动型GPS+蜂窝网络版">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">苹果 (Apple) Apple Watch Series 3手表铝金属表壳运动型GPS+蜂窝网络版</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>3088</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/419" target="_blank" title="苹果(Apple) Apple MacBook Air 苹果笔记本电脑13.3英寸">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/db/49/db4987e49437afdaf8ab42ccc33299cb.jpg@240w_240h" alt="苹果(Apple) Apple MacBook Air 苹果笔记本电脑13.3英寸">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">苹果(Apple) Apple MacBook Air 苹果笔记本电脑13.3英寸</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>6088</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/418" target="_blank" title="三星（SAMSUNG）Galaxy S8+ 移动联通4G 双曲屏智能手机">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/ad/0d/ad0d927ac39192bd89a9e452177c289f.jpg@240w_240h" alt="三星（SAMSUNG）Galaxy S8+ 移动联通4G 双曲屏智能手机">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">三星（SAMSUNG）Galaxy S8+ 移动联通4G 双曲屏智能手机</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>4058</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/386" target="_blank" title="【演示商品】飞利浦欧洲荷兰直邮 五档蒸汽电熨斗">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/79/77/7977f4ab38f7e95ef71e840e40778279.jpg@240w_240h" alt="【演示商品】飞利浦欧洲荷兰直邮 五档蒸汽电熨斗">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">【演示商品】飞利浦欧洲荷兰直邮 五档蒸汽电熨斗</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>3500</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/377" target="_blank" title="【免税】戴森Dyson Supersonic吹风机便携式智能无扇电吹风机">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/cc/f2/ccf24c30fd718e28be16b4b7697e896c.jpg@240w_240h" alt="【免税】戴森Dyson Supersonic吹风机便携式智能无扇电吹风机">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">【免税】戴森Dyson Supersonic吹风机便携式智能无扇电吹风机</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>3099</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/372" target="_blank" title="瑞士宝梵哲（PVANZ）品牌手表男士机械表全自动商务防水原装进口手表 P1A6D1">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/1c/a9/1ca9e90745b7026023e62fb8cd6adab5.jpg@240w_240h" alt="瑞士宝梵哲（PVANZ）品牌手表男士机械表全自动商务防水原装进口手表 P1A6D1">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">瑞士宝梵哲（PVANZ）品牌手表男士机械表全自动商务防水原装进口手表 P1A6D1</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>2260</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/915" target="_blank" title="相宜本草洗面奶 控油祛痘洁面乳男女深层清洁面部保湿护肤品 控油祛痘洁面膏">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/ea/dc/eadc1c5f5266a879de5cf1b71e1ec59e.jpg@240w_240h" alt="相宜本草洗面奶 控油祛痘洁面乳男女深层清洁面部保湿护肤品 控油祛痘洁面膏">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">相宜本草洗面奶 控油祛痘洁面乳男女深层清洁面部保湿护肤品 控油祛痘洁面膏</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>29</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/914" target="_blank" title="Ding peng Dingpeng 丁硼儿童乳膏 预防酸化 龋齿 坚固幼齿 呵护儿童口腔">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/a6/0f/a60f1441398dfbd6f2189216c1b6f760.jpg@240w_240h" alt="Ding peng Dingpeng 丁硼儿童乳膏 预防酸化 龋齿 坚固幼齿 呵护儿童口腔">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">Ding peng Dingpeng 丁硼儿童乳膏 预防酸化 龋齿 坚固幼齿 呵护儿童口腔</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>29</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/911" target="_blank" title="自然堂喜马拉雅轻盈补水保湿滋养面膜贴">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/ea/e0/eae0471ac5170d05dad0bfb3b8639b73.jpg@240w_240h" alt="自然堂喜马拉雅轻盈补水保湿滋养面膜贴">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">自然堂喜马拉雅轻盈补水保湿滋养面膜贴</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>71</span><span class='pointer'>.</span><span class='decimal'>10</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/883" target="_blank" title="伊利安慕希高端畅饮希腊风味酸奶230g*10瓶整箱 芒果百香果味">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/4f/f1/4ff138d8b078bd7e67b7d1da94fecb93.jpg@240w_240h" alt="伊利安慕希高端畅饮希腊风味酸奶230g*10瓶整箱 芒果百香果味">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">伊利安慕希高端畅饮希腊风味酸奶230g*10瓶整箱 芒果百香果味</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>61</span><span class='pointer'>.</span><span class='decimal'>11</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/879" target="_blank" title="七度空间少女系列组合装72片（日用10片x5包+夜用5片x2包+夜用4片x2包+小汪日用4片）">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/df/f7/dff7dcb93df24e755a9540e07cb2b615.jpg@240w_240h" alt="七度空间少女系列组合装72片（日用10片x5包+夜用5片x2包+夜用4片x2包+小汪日用4片）">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">七度空间少女系列组合装72片（日用10片x5包+夜用5片x2包+夜用4片x2包+小汪日用4片）</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>54</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/872" target="_blank" title="福临门浓香压榨一级花生油5L">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/e3/b0/e3b0f623526933f849910d45e75abe10.jpg@240w_240h" alt="福临门浓香压榨一级花生油5L">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">福临门浓香压榨一级花生油5L</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>99</span><span class='pointer'>.</span><span class='decimal'>90</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/870" target="_blank" title="OPPO Find X 曲面全景屏手机 全网通 全隐藏式3D摄像头 双卡双待手机">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/d5/77/d577a7d9d72dfe36dc63ae3db7d9bbc7.jpg@240w_240h" alt="OPPO Find X 曲面全景屏手机 全网通 全隐藏式3D摄像头 双卡双待手机">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">OPPO Find X 曲面全景屏手机 全网通 全隐藏式3D摄像头 双卡双待手机</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>4999</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/868" target="_blank" title="箭牌卫浴套餐浴室柜组合马桶花洒浴室柜套装实木卫浴柜浴室洗漱台">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/eb/6c/eb6c57817f9aed860ee7d29362b59e98.jpg@240w_240h" alt="箭牌卫浴套餐浴室柜组合马桶花洒浴室柜套装实木卫浴柜浴室洗漱台">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">箭牌卫浴套餐浴室柜组合马桶花洒浴室柜套装实木卫浴柜浴室洗漱台</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>3399</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/867" target="_blank" title="【新品首发】华为/荣耀V20 胡歌同款手机全网通 4G全面屏手机 双卡双待">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/ab/66/ab6613a70e52dc85df4f762fd0d9e066.jpg@240w_240h" alt="【新品首发】华为/荣耀V20 胡歌同款手机全网通 4G全面屏手机 双卡双待">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">【新品首发】华为/荣耀V20 胡歌同款手机全网通 4G全面屏手机 双卡双待</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>3299</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/864" target="_blank" title="铂金戒指情侣对戒">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/a8/08/a808dca4d764f69a8acac284a8338ea2.jpg@240w_240h" alt="铂金戒指情侣对戒">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">铂金戒指情侣对戒</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>1680</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/854" target="_blank" title="Midea/美的 JSQ30-H6(T)燃气热水器天然气家用16升恒温14官方12升">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/c5/ca/c5ca495a739328ca7624dd422ff89acf.jpg@240w_240h" alt="Midea/美的 JSQ30-H6(T)燃气热水器天然气家用16升恒温14官方12升">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">Midea/美的 JSQ30-H6(T)燃气热水器天然气家用16升恒温14官方12升</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>2199</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="bz-more-goods">
+                    <a class="bz-more-goods-lk" href="http://java.bizpower.com/web/goods/889" target="_blank" title="十月妈咪(octmami)金银纤维防辐射服组合套装">
+                        <img class="bz-more-photo J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/f2/25/f225aa10ad72fa13f0abcf9aef4c6655.jpg@240w_240h" alt="十月妈咪(octmami)金银纤维防辐射服组合套装">
+                        <div class="bz-more-info">
+                            <p class="bz-more-info-name">十月妈咪(octmami)金银纤维防辐射服组合套装</p>
+                            <p class="bz-more-info-price"> <span class="bz-more-info-price-txt">
+                                  <span class='yuan'>￥</span><span class='integer'>399</span><span class='pointer'>.</span><span class='decimal'>00</span>
+                        </span> </p>
+                        </div>
+                    </a>
+                </li>
+
+
+            </ul>
+        </div>
+        <!-- 结束商品推荐内容 --><!-- Copyright: www.bizpower.com -->
+    </div>
+</div>
+
+<div id="floor012" class="home-standard-layout home-style-adv home-template-t1">
+    <div class="floor-banner">
+        <div class="floor-banner-main">
+            <a href="javascript:;" >
+                <img class="J-lazy" src="http://staticjava.bizpower.com/img/transparent.gif" data-original="http://uploadjava.bizpower.com/image/b7/64/b764731fc8a9cd595eeea49fac05d88c.png"/>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- Copyright: www.Bizpower.com -->
+<div class="hr16"></div>
+<!-- 首页弹出层广告 -->
+<!-- Copyright: Bizpower多用户商城系统 -->
+<!-- 首页弹出广告 -->
+<div class="popup-ad-panel" id="popupAdPanel" data-enable="1" data-enable-every-time="0">
+    <a target="_blank" href="http://java.bizpower.com/web/coupon/gifts/receive/1">
+        <img src="http://uploadjava.bizpower.com/image/1a/41/1a41e9e85a05b3c2da2768828bbe3312.png">
+    </a>
+    <span class="close" id="popupAdCloseBtn"></span>
+</div>
+<div class="dialog-overlay" id="popupAdDialog">
+    <div class="overlay"></div>
+</div>
+
+<link href="http://publicjava.bizpower.com/toolkit/bxslider/jquery.bxslider.css" rel="stylesheet"/>
+<script>
+    ncGlobal.seckillTime = "4135";
+    ncGlobal.seckillSliderSwitch = true
+</script>
+<script src="http://publicjava.bizpower.com/toolkit/bxslider/jquery.bxslider.js"></script>
+<script src="http://publicjava.bizpower.com/toolkit/jquery-lazyload/jquery.lazyload.min.js"></script>
+<script src="http://staticjava.bizpower.com/js/home/home_index.js"></script>
+
+[#include "/shop/include/cti.html" /]
+[#include "/shop/include/faq.html" /]
+[#include "/shop/include/footer.html" /]
 </body>
 </html>

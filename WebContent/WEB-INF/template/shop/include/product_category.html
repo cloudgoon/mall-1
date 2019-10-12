@@ -1,0 +1,69 @@
+<nav class="public-nav-layout " id="publicNavLayout">
+    <div class="wrapper">
+        <div class="all-category">
+            <div class="title">
+                <h3><a target="_blank" href="${base}/product_category">${message("shop.header.allProductCategory")}</a></h3>
+                <i class="arrow-down"></i>
+            </div><!-- Copyright: Bizpower多用户商城系统 -->
+            <div class="min-title"><a target="_blank" href="${base}/product_category">全部分类</a><span class="arrow-down"></span></div>
+            <div id="topCategoryMenu" class="category">
+                [@product_category_root_list]
+                <ul class="menu">
+                    [#list productCategories as productCategory]
+                    <li cat_menu_id="${productCategory.id}" class="cate-menu-item">
+                        [@product_category_children_list productCategoryId = productCategory.id recursive = false count = 3]
+                        <div class="cate-menu-box">
+                            [#list productCategories as productCategory]
+                            <a target="_blank" class="cate-menu-lk" href="${base}${productCategory.path}">${productCategory.name}</a><span class="cate-menu-line">/</span>
+                            [/#list]
+                        </div>
+                        [/@product_category_children_list]
+                        <div class="cate-part" cat_menu_id="${productCategory.id}">
+                            <div class="cate-part-col1">
+                                <div class="cate-channel">
+                                    <a class="cate-channel-lk" href="http://java.bizpower.com/web/channel/3" target="_blank">手机城<i class="fa fa-angle-right m-l-5 m-r-0" aria-hidden="true"></i></a>
+                                    <a class="cate-channel-lk" href="http://java.bizpower.com/web/store/6" target="_blank">华为<i class="fa fa-angle-right m-l-5 m-r-0" aria-hidden="true"></i></a>
+                                    <a class="cate-channel-lk" href="http://java.bizpower.com/web/search?cat=265" target="_blank">iPhone 7<i class="fa fa-angle-right m-l-5 m-r-0" aria-hidden="true"></i></a>
+                                    <a class="cate-channel-lk" href="http://java.bizpower.com/web/search?keyword=%E9%AD%94%E5%A3%B0" target="_blank">魔声<i class="fa fa-angle-right m-l-5 m-r-0" aria-hidden="true"></i></a>
+                                    <a class="cate-channel-lk" href="http://java.bizpower.com/web/goods/293" target="_blank">Razer/雷蛇<i class="fa fa-angle-right m-l-5 m-r-0" aria-hidden="true"></i></a>
+                                    <a class="cate-channel-lk" href="http://java.bizpower.com/web/goods/271" target="_blank">iPhone扩容<i class="fa fa-angle-right m-l-5 m-r-0" aria-hidden="true"></i></a>
+                                </div>
+                                [@product_category_children_list productCategoryId = productCategory.id recursive = false]
+                                <div class="cate-detail">
+                                    [#list productCategories as productCategory]
+                                    <dl class="cate-detail-item">
+                                        <dt class="cate-detail-tit">
+                                            <a target="_blank"  href="${base}${productCategory.path}">${productCategory.name}<i class="fa fa-angle-right m-l-5 m-r-0" aria-hidden="true"></i></a>
+                                        </dt>
+                                        [@product_category_children_list productCategoryId = productCategory.id recursive = false]
+                                        <dd class="cate-detail-con">
+                                            [#list productCategories as productCategory]
+                                            <a target="_blank"  href="${base}${productCategory.path}">${productCategory.name}</a>
+                                            [/#list]
+                                        </dd>
+                                        [/@product_category_children_list]
+                                    </dl>
+                                    [/#list]
+                                </div>
+                                [/@product_category_children_list]
+                            </div>
+                            <div class="sub-class-right">
+                                <div class="adv-promotions">
+                                    <a title="" href="http://java.bizpower.com/web/search?keyword=%E5%8D%95%E5%8F%8D" target="_blank"> <img src="http://uploadjava.bizpower.com/image/b5/f7/b5f7c59def0e09efd13d62089a769752.jpeg" > </a>  <a title="" href="http://java.bizpower.com/web/search?keyword=%E5%B9%B3%E6%9D%BF" target="_blank"> <img src="http://uploadjava.bizpower.com/image/8c/1f/8c1f19a67573e0e662a902691a6e4e8b.jpeg" > </a>  <a title="" href="http://java.bizpower.com/web/search?keyword=%E7%AC%94%E8%AE%B0%E6%9C%AC" target="_blank"> <img src="http://uploadjava.bizpower.com/image/6c/97/6c9745cdce15a1748ba61ab6d020f728.jpeg" > </a>  </div>
+                            </div>
+                        </div>
+                    </li>
+                    [/#list]
+                </ul>
+                [/@product_category_root_list]
+            </div>
+        </div>
+        [@navigation_list position = "middle"]
+        <ul class="site-menu">
+            [#list navigations as navigation]
+            <li><a href="${navigation.url}"[#if navigation.isBlankTarget] target="_blank"[/#if][#if navigation.url == url] class="current"[/#if]>${navigation.name}</a></li>
+            [/#list]
+        </ul>
+        [/@navigation_list]
+    </div>
+</nav>

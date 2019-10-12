@@ -1,56 +1,267 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+
+<style>
+	.nch-breadcrumb-layout{display: none;}
+</style>
+<!DOCTYPE html>
+<html lang="zh-cn">
 <head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<title>${message("shop.productCategory.title")}[#if showPowered] - Powered By IGOMALL[/#if]</title>
-<meta name="author" content="IGOMALL Team" />
-<meta name="copyright" content="IGOMALL ++" />
-<link href="${base}/resources/shop/css/animate.css" rel="stylesheet" type="text/css" />
-<link href="${base}/resources/shop/css/common.css" rel="stylesheet" type="text/css" />
-<link href="${base}/resources/shop/css/product.css" rel="stylesheet" type="text/css" />
-<link href="${base}/resources/shop/css/product_category.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="${base}/resources/shop/js/jquery.js"></script>
-<script type="text/javascript" src="${base}/resources/shop/js/common.js"></script>
+	<meta charset="UTF-8">
+	<meta name="keywords" content="Bizpower商城系统演示站 - Bizpower多用户商城系统"/>
+	<meta name="description" content="Bizpower商城系统演示站 - Bizpower多用户商城系统"/>
+	<meta name="author" content="Bizpower"/>
+	<meta name="copyright" content="Bizpower Inc. All Rights Reserved"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=EmulateIE8,chrome=1">
+	<meta name="keywords" content="Bizpower商城系统演示站">
+	<meta name="description" content="Bizpower商城系统演示站">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<meta name="generator" content="UG93ZXJlZCBCeSBTaG9wTkMubmV0"/>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="author" content="Bizpower-Developers"/>
+	<title>Bizpower商城系统演示站 - Powered by Bizpower</title>
+	[#include "/shop/include/css/base.html" /]
+	[#include "/shop/include/js/base.html" /]
 </head>
 <body>
+[#include "/shop/include/public-top-layout.html" /]
+<div class="header-wrap" id="headerWrap">
 	[#include "/shop/include/header.html" /]
-	<div class="container productCategory">
-		<div class="row">
-			<div class="span2">
-				[#include "/shop/include/hot_product_category.html" /]
-				[#include "/shop/include/hot_brand.html" /]
-				[#include "/shop/include/hot_product.html" /]
-				[#include "/shop/include/hot_promotion.html" /]
+</div>
+[#include "/shop/include/product_category.html" /]
+<div class="index-fixed-bar" id="indexFixedBar" style="display: none;"></div>
+<div class="nch-breadcrumb-layout">
+	<div class="nch-breadcrumb wrapper"><i class="fa fa-home"></i>
+		<span><a href="http://java.bizpower.com/web/">首页</a></span><span class="arrow">></span>
+		<span>全部商品分类</span>
+	</div>
+</div>
+<script src="http://staticjava.bizpower.com/js/common/header.js"></script>
+<link href="http://staticjava.bizpower.com/css/web_toolbar.css" rel="stylesheet" type="text/css">
+<div class="nc-toolbar-wrap" id="ncGlobalToolbar">
+	<div class="nc-toolbar">
+		<!-- S 弹出层区域 -->
+		<div class="nc-toolbar-panels">
+			<!-- S 会员信息展示区域 -->
+			<div data-nc-tbar-name="member" class="nc-toolbar-panel nc-tbar-panel-jdvip" style="visibility: visible; z-index: 2;">
+				<h3 class="nc-tbar-panel-header J-panel-header"> <span class="title"> <i></i> <em class="title">商城会员</em> </span> <span class="close-panel" data-nc-tbar-close></span> </h3>
+				<div class="nc-tbar-panel-main">  </div>
+				<div class="nc-tbar-panel-footer"></div>
 			</div>
-			<div class="span10">
-				<div class="breadcrumb">
-					<ul>
-						<li>
-							<a href="${base}/">${message("shop.breadcrumb.home")}</a>
-						</li>
-						<li>${message("shop.productCategory.title")}</li>
-					</ul>
+			<!-- E 会员信息展示区域 -->
+
+			<!-- S 购物车展示区域 -->
+			<div data-nc-tbar-name="cart" class="nc-toolbar-panel nc-tbar-panel-cart" style="visibility: visible; z-index: 2;">
+				<h3 class="nc-tbar-panel-header J-panel-header"> <a href="http://java.bizpower.com/web/cart/list" target="_blank" class="title" > <i></i> <em class="title">购物车</em> </a> <span class="close-panel"></span> </h3>
+				<div class="nc-tbar-panel-main">
+					<div class="nc-tbar-panel-content" style="height: 566px;">
+						<div>
+							<div class="nc-tbar-cart-list" id="tbarCartGoodsList">
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="list">
-					<table>
-						[#list rootProductCategories as rootProductCategory]
-							<tr[#if !rootProductCategory_has_next] class="last"[/#if]>
-								<th>
-									<a href="${base}${rootProductCategory.path}">${rootProductCategory.name}</a>
-								</th>
-								<td>
-									[#list rootProductCategory.children as productCategory]
-										<a href="${base}${productCategory.path}">${productCategory.name}</a>
-									[/#list]
-								</td>
-							</tr>
+				<div class="nc-tbar-panel-footer">
+					<div class="nc-tbar-checkout" data-goods-price>
+						<div class="jtc-number">共&nbsp;<strong id="tbarCartCount">0</strong>&nbsp;种商品</div>
+						<div class="jtc-sum"> 共计： <strong class="tbarCartotal" id="tbarCartotal"></strong> </div>
+						<a class="jtc-btn" href="http://java.bizpower.com/web/cart/list" target="_blank">去购物车结算</a> </div>
+				</div>
+			</div>
+			<!-- E 购物车展示区域 -->
+
+			<!-- S 关注 -->
+			<div data-nc-tbar-name="follow" class="nc-toolbar-panel nc-tbar-panel-follow">
+				<h3 class="nc-tbar-panel-header J-panel-header"> <a href="javascript:;" class="title" > <i></i> <em class="title">我的收藏</em> </a> <span class="close-panel"></span> </h3>
+				<div class="nc-tbar-panel-main">
+					<div class="follow-tabnav">
+						<ul>
+							<li class="ui-switchable-item curr" data-nc-index="goods"> <a>商品</a> <span></span> </li>
+							<li class="ui-switchable-item" data-nc-index="store" style="border-right:0;"> <a>店铺</a> </li>
+						</ul>
+					</div>
+					<div class="nc-tbar-panel-content">
+						<div class="follow-tabcontents" id="tbarFollowTab">
+							<div id="tbarFollowTabPanel" style="width:600px;position:relative">
+								<div class="follow-tab-content follow-product-list follow-tab-content-slected" id="followTabContent_goods">
+									<ul id="goodsFavListTbarFollow">
+									</ul>
+									<a href="http://java.bizpower.com/web/member/favorites/goods" class="follow-bottom-more" target="_blank">查看更多收藏商品 &gt;&gt;</a> </div>
+								<div class="follow-tab-content follow-shop-list" id="followTabContent_store">
+									<ul id="storeFavListTbarFollow">
+									</ul>
+									<a href="http://java.bizpower.com/web/member/favorites/store" class="follow-bottom-more" target="_blank">查看更多关注店铺 &gt;&gt;</a> </div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="nc-tbar-panel-footer J-panel-footer"></div>
+			</div>
+			<!-- E 关注 -->
+
+			<!-- S 足迹 -->
+			<div data-nc-tbar-name="history"  class="nc-toolbar-panel nc-tbar-panel-history">
+				<h3 class="nc-tbar-panel-header"> <a href="javascript:;" class="title"> <i></i> <em class="title">我的足迹</em> </a> <span class="close-panel"></span> </h3>
+				<div class="nc-tbar-panel-main">
+					<div class="nc-tbar-panel-content" id="histbarPanelContent" >
+						<div class="jt-history-wrap">
+							<ul id="hisListTbar">
+
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="tbar-panel-footer"></div>
+			</div>
+			<!-- E 足迹 -->
+
+			<!-- S 二维码展示区域 -->
+			<div class="nc-toolbar-panel nc-tbar-panel-qrcode"  data-nc-tbar-name="qrcode" >
+				<h3 class="nc-tbar-panel-header J-panel-header"> <i></i> <em class="title">二维码</em><span class="close-panel"></span> </h3>
+				<div class="nc-qrcode-container">
+					<div class="nc-tbar-qrcode-item">
+						<img src="http://uploadjava.bizpower.com/qr/app/url.gif">
+						<div class="nc-app-download">
+							<h1>扫描二维码<br/>下载手机客户端</h1>
+						</div>
+					</div>
+					<div class="nc-tbar-qrcode-item">
+						<img src="http://uploadjava.bizpower.com/image/33/f5/33f5b958de4d5f138753ac38fef84219.jpg">
+						<div class="nc-app-download">
+							<h1 style="color:green">关注商城微信号<br>访问微信商城演示</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- E 二维码展示区域 -->
+
+			<!-- S 优惠券展示区域 -->
+			<div data-nc-tbar-name="couponActivity" class="nc-toolbar-panel nc-tbar-panel-coupon" style="visibility: visible; z-index: 2;">
+				<h3 class="nc-tbar-panel-header J-panel-header">
+					<span class="title"><i></i><em class="title">优惠券</em></span>
+					<span class="close-panel" data-nc-tbar-close></span>
+				</h3>
+				<div class="nc-tbar-panel-main">
+					<div class="nc-tbar-panel-content">
+						<div><div class="nc-tbar-coupon-activity-list" id="tbarCouponActivityList"></div></div>
+					</div>
+				</div>
+				<div class="nc-tbar-panel-footer"></div>
+
+				<!-- S 优惠券活动项模板 -->
+				<script type="text/html" id="couponActivityItemModel">
+					<div class="coupon-activity-item <% if(searchCouponActivityVo.searchDataSource=='coupon') { %>platform<% } %>" id="couponActivityItem_<%- searchCouponActivityVo.searchSn %>" >
+						<div class="v-type">
+							<!-- 优惠券金额 -->
+							<div class="v-price"><strong class="number number-20 number-36"><%= Nc.priceFormatNew(searchCouponActivityVo.couponPrice) %></strong><div class="txt"><span><%- searchCouponActivityVo.limitAmountText %></span></div></div>
+							<div class="v-range">
+								<!-- 优惠券使用范围 -->
+								<div class="range-item"><p><%- searchCouponActivityVo.useGoodsRangeExplain %></p></div>
+								<!-- 优惠券使用平台类型 -->
+								<% if(searchCouponActivityVo.usableClientType!="all") { %>
+								<div class="range-item"><%- searchCouponActivityVo.usableClientTypeText %></div>
+								<% } %>
+							</div>
+						</div>
+						<div class="v-opbtns">
+							<a href="javascript:;" nc-type="receiveBlock" data-search-sn="<%- searchCouponActivityVo.searchSn %>" <% if(memberIsReceive==1) { %>style="display:none;"<% } %>><b class="semi-circle"></b>立即领取</a>
+							<a href="javascript:;" nc-type="toGoodsListBlock" data-search-data-source="<%- searchCouponActivityVo.searchDataSource %>" data-store-id="<%- searchCouponActivityVo.storeId %>" data-activity-id="<%- searchCouponActivityVo.activityId %>" <% if(memberIsReceive==0) { %>style="display:none;"<% } %>><b class="semi-circle"></b>立即使用</a>
+						</div>
+						<div class="v-state">
+							<div class="btn-state <% if(memberIsReceive==1) { %>btn-geted<% } %>" nc-type="stateBlock"></div>
+						</div>
+					</div>
+				</script>
+				<!-- E 优惠券活动项模板 -->
+				<!-- S 暂无优惠券活动模板 -->
+				<script type="text/html" id="couponActivityNoDataModel">
+					<div class="nc-tbar-tipbox2">
+						<div class="tip-inner">
+							<i class="i-face-fd"></i>
+							<div class="tip-text">暂无可领的优惠券~</div>
+						</div>
+					</div>
+				</script>
+				<!-- E 暂无优惠券活动模板 -->
+			</div>
+			<!-- E 优惠券展示区域 -->
+		</div>
+		<!-- E 弹出层区域 -->
+
+		<div class="nc-toolbar-header"></div>
+
+		<!-- S 悬浮小图展示区域 -->
+		<div class="nc-toolbar-tabs"> <!-- 会员 -->
+			<div data-nc-tag-type="member" class="nc-toolbar-tab nc-tbar-tab-user"> <i class="tab-tip"></i> <i class="tab-ico"></i> <em class="tab-text">商城会员</em> </div>
+			<!-- 购物车 -->
+			<div data-nc-tag-type="cart" class="nc-toolbar-tab nc-tbar-tab-cart" > <i class="tab-ico"></i> <em class="tab-text">购物车</em> <span class="tab-sub" style="display: none;" id="tbarCartNum"></span> </div>
+			<!-- 优惠券 -->
+			<div data-nc-tag-type="couponActivity" class="nc-toolbar-tab nc-tbar-tab-coupon" style="display: none;"> <i class="tab-ico"></i> <em class="tab-text">优惠券</em></div>
+			<!-- 关注 -->
+			<div data-nc-tag-type="follow" class="nc-toolbar-tab nc-tbar-tab-follow" > <i class="tab-ico"></i> <em class="tab-text">我的收藏</em> </div>
+			<!-- 足迹 -->
+			<div data-nc-tag-type="history" class="nc-toolbar-tab nc-tbar-tab-history" > <i class="tab-ico"></i> <em class="tab-text">我的足迹</em> </div>
+			<!-- 消息 -->
+			<div data-nc-tag-type="message" class="nc-toolbar-tab nc-tbar-tab-message"> <a href="javascript:;"> <i class="tab-ico"></i> <em class="tab-text">我的消息</em> </a> </div>
+			<!-- 二维码 -->
+			<div data-nc-tag-type="qrcode" class="nc-toolbar-tab nc-tbar-tab-qrCode"><i class="tab-ico"></i><em class="tab-text">二维码</em></div>
+		</div>
+		<!-- E 悬浮小图展示区域 -->
+
+		<div class="nc-toolbar-footer">
+			<div class=" nc-toolbar-tab nc-tbar-tab-top"> <a href="javascript:;" id="tbarGoTop"> <i class="tab-ico"></i> <em class="tab-text">顶部</em> </a> </div>
+		</div>
+
+		<div class="nc-toolbar-mini"></div>
+
+	</div>
+</div>
+
+<link href="http://publicjava.bizpower.com/toolkit/perfect-scrollbar/v120/perfect-scrollbar.min.css" rel="stylesheet"/>
+<script src="http://publicjava.bizpower.com/toolkit/perfect-scrollbar/v120/perfect-scrollbar.min.js"></script>
+<script src="http://staticjava.bizpower.com/js/common/toolbar.js"></script>
+
+<div class="nch-container wrapper">
+	[@product_category_root_list]
+	<div class="newCategory">
+		<div class="categoryLink">
+			<ul id="categoryUl">
+				[#list productCategories as productCategory]
+				<li>
+					<a href="#categoryAnchor${productCategory.id}">
+						<span>${productCategory.name}</span>
+					</a>
+				</li>
+				[/#list]
+			</ul>
+		</div>
+
+		<div class="categoryCon">
+			[#list productCategories as productCategory]
+			<div id="categoryAnchor1" class="items">
+				<h2><a href="${base}${productCategory.path}">${productCategory.name}</a></h2>
+				[@product_category_children_list productCategoryId = productCategory.id recursive = false]
+				[#list productCategories as productCategory]
+				<dl>
+					<dt><a href="${base}${productCategory.path}">${productCategory.name}</a></dt>
+					[@product_category_children_list productCategoryId = productCategory.id recursive = false]
+					<dd>
+						[#list productCategories as productCategory]
+						<a href="${base}${productCategory.path}" >${productCategory.name}</a>
 						[/#list]
-					</table>
-				</div>
+					</dd>
+					[/@product_category_children_list]
+				</dl>
+				[/#list]
+				[/@product_category_children_list]
 			</div>
+			[/#list]
 		</div>
 	</div>
-	[#include "/shop/include/footer.html" /]
+	[/@product_category_root_list]
+</div>
+<script type="application/javascript" src="http://staticjava.bizpower.com/js/home/category.js"></script>
+[#include "/shop/include/cti.html" /]
+[#include "/shop/include/faq.html" /]
+[#include "/shop/include/footer.html" /]
 </body>
 </html>
