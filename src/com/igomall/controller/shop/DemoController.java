@@ -3,6 +3,7 @@ package com.igomall.controller.shop;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +22,9 @@ public class DemoController extends BaseController {
 
     public static void parse(String url) throws Exception{
         Document document = Jsoup.parse(new URL(url),5000);
-        Element element = document.getElementsByClass("newCategory").first();
+        Element element = document.getElementsByClass("categoryCon").first();
+        Elements children = element.children();
+        Iterable<Element> iterable = children.iterator();
         //第一级
 
 
@@ -32,5 +35,9 @@ public class DemoController extends BaseController {
 
 
 
+    }
+
+    public static void main(String[] args) throws Exception {
+        parse("http://java.bizpower.com/web/category");
     }
 }
