@@ -48,7 +48,7 @@
   
   
   <properties>
-		<springframework.version>5.0.15.RELEASE</springframework.version>
+		<springframework.version>5.2.3.RELEASE</springframework.version>
 	</properties>
 	<dependencies>
 		<dependency>
